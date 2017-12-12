@@ -2,13 +2,13 @@
   "name": "poly_balloon",
   "version": "1.0.0",
   "scripts": {
-    "development": "npm run clean & node server/index.js & NODE_ENV=development webpack --watch",
+    "development": "npm run clean & node server/app.js & NODE_ENV=development webpack --watch",
     "start": "npm run serve",
     "serve": "forever .",
     "clean": "rimraf ./server/public/",
     "production": "npm run clean && NODE_ENV=production webpack -p"
   },
-  "main": "server/index.js",
+  "main": "server/app.js",
   "engines": {
     "node": "8.6.0"
   },
