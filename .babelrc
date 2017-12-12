@@ -1,0 +1,36 @@
+{
+
+  "presets": [
+    [
+      "env", {
+        "targets": {
+          "node": "current",
+          "browsers": ["last 2 versions", "ie >= 10"]
+        },
+        "modules": false,
+        "loose": true
+      }
+    ]
+  ],
+
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    "transform-object-rest-spread"
+  ],
+
+  "env": {
+
+    
+
+    
+
+    "production": {
+      "plugins": [
+        "lodash"
+      ]
+    }
+
+  }
+
+}

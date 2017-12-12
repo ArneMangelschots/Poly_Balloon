@@ -1,0 +1,5 @@
+/server/public/*
+/dist/*
+/src/js/tween.js
+/src/js/script.js
+/src/js/objects/

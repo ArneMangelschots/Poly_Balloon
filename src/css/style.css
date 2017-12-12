@@ -1,0 +1,27 @@
+@import 'reset';
+@import 'vars';
+
+html {
+  background-color: var(--bg-color);
+}
+
+body {
+  font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+  margin: 2rem;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, #82addb 0%,#ebb2b1 100%);
+}
+
+header {
+  margin: 2rem 0;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+.qr {
+  position: absolute;
+}

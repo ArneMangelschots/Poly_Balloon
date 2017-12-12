@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>paper-plane controller!</title>
+  </head>
+  <body>
+    press me to shoot a plane!
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+    {
+      let socket,
+          targetId;
+
+      let touchstartX = 0;
+      let touchstartY = 0;
+      let touchendX = 0;
+      let touchendY = 0;
+
+      const min = -90,
+            max = 90;
+
+      const init = () => {
+
+        targetId = getUrlParameter('id');
+        if(!targetId){
+          alert(`missing id`);
+          return;
+        }
+        socket = io.connect('/');
+
+        window.addEventListener('touchstart', e => {
+            touchstartX = e.changedTouches[0].screenX;
+            touchstartY = e.changedTouches[0].screenY;
+        }, false);
+
+        window.addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            touchendY = e.changedTouches[0].screenY;
+            handleGesture();
+        }, false);
+      };
+
+      const handleGesture = () => {
+          if (touchendX <= touchstartX) {
+            socket.emit('update', targetId, {
+              gestureX: `left`,
+              y: touchendY
+            });
+          }
+
+          if (touchendX >= touchstartX) {
+            socket.emit('update', targetId, {
+              gestureX: `right`
+            });
+          }
+      }
+
+      const getUrlParameter = name => {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        const results = regex.exec(location.search);
+        return results === null ? false : decodeURIComponent(results[1].replace(/\+/g, ' '));
+      };
+
+      init();
+      }
+    </script>
+  </body>
+</html>
