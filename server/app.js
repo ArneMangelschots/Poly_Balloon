@@ -58,7 +58,7 @@ let tls = false;
     io.on(`connection`, socket => {
       const sid = shortid.generate();
       const qr = qrcode(4, `L`);
-      qr.addData(`http://192.168.0.163:3000/controller.html?id=${sid}`);
+      qr.addData(`http://172.20.64.103:3000/controller.html?id=${sid}`);
       qr.make();
       const qrImg = qr.createImgTag();
 
