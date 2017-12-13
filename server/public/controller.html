@@ -2,10 +2,57 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
     <title>paper-plane controller!</title>
   <link href="/css/style.css" rel="stylesheet"></head>
+  <style media="screen">
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    video {
+      display: flex;
+    }
+
+    .no-mobile {
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0, .5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .warning {
+      font-size: 3rem;
+      display: flex;
+      color: white;
+      font-weight: bold;
+    }
+
+    .fs-button{
+      background: none;
+      box-shadow: none;
+      border: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .invisible {
+      display: none;
+    }
+  </style>
   <body>
-    press me to shoot a plane!
+    <div class="plane-controller">
+
+    </div>
+    <div class="invisible no-mobile" id="no-mobile">
+      <p class="warning">Please access the controller on a Smartphone!</p>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
     {
@@ -21,6 +68,15 @@
             max = 90;
 
       const init = () => {
+
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+          console.log(`Mobile device is true!`);
+        }else{
+          document.getElementById(`no-mobile`).classList.remove(`invisible`);
+          //return false;
+        }
+
+        foldPaperPlane();
 
         targetId = getUrlParameter('id');
         if(!targetId){
@@ -54,6 +110,10 @@
         }, false);
       };
 
+      const foldPaperPlane = () => {
+        const $planeGif = document.getElementById(`plane-gif`);
+        $planeGif.pause();
+      }
       const handleGesture = () => {
           if (touchendX <= touchstartX) {
             socket.emit('update', targetId, {
@@ -79,5 +139,5 @@
       init();
       }
     </script>
-  <script type="text/javascript" src="/js/main.845be1b220ff51271fff.js"></script></body>
+  <script type="text/javascript" src="/js/main.1f4e311d74d1e310fd85.js"></script></body>
 </html>

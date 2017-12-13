@@ -62,6 +62,69 @@ import IO from 'socket.io-client';
     setupWorld();
   };
 
+  const render = () => {
+    TWEEN.update();
+    //init WebGLRenderer
+    renderer.render(scene, camera);
+
+    checkBalloonDeath();
+    moveWorld();
+    checkPaperPlanes();
+
+    window.requestAnimationFrame(render);
+  };
+
+  const checkBalloonDeath = () => {
+    if(!balloon.alive){
+      gameOver();
+      return;
+    }else{
+      balloon.fall(speed);
+    }
+  };
+
+  const checkPaperPlanes = () => {
+    paperPlanes.forEach(paperPlane => {
+      if(checkCollision(paperPlane.body, balloon.body)){
+        balloon.hit();
+        balloon.gravityY += .1;
+        paperPlane.reset();
+      };
+      if(checkAlive(paperPlane)){
+        paperPlane.reset();
+      };
+      if(paperPlane.flying){
+        paperPlane.shoot();
+      }
+    });
+  };
+
+  const moveWorld = () => {
+    landscapes.forEach(landscape => {
+      landscape.move(speed, landscape.mover);
+      if(checkAlive(landscape)){
+        switch (landscapes.indexOf(landscape)) {
+          case 0:
+            landscape.reset(landscapes[2].body.max.x);
+            break;
+          case 1:
+            landscape.reset(landscapes[0].body.max.x);
+            break;
+          case 2:
+            landscape.reset(landscapes[1].body.max.x);
+            break;
+          default:
+        }
+      };
+    })
+    clouds.forEach(cloud => {
+      cloud.move(speed);
+      if(checkAlive(cloud)){
+        cloud.reset();
+      };
+    });
+  };
+
   const setupThree = () => {
     scene = new THREE.Scene();
 
@@ -146,21 +209,29 @@ import IO from 'socket.io-client';
   };
 
   const setupPaperPlanes = () => {
-    for (let i = 0;i < 5;i ++) {
-      const paperPlane = new PaperPlane(models.paperPlane.geometry, models.paperPlane.materials);
-      paperPlanes.push(paperPlane);
-      scene.add(paperPlane);
-    }
-    const counter = paperPlanes.length;
-    let index = 0;
-
+    //setup 1 plane in pool
+    const paperPlane = new PaperPlane(models.paperPlane.geometry, models.paperPlane.materials);
+    paperPlanes.push(paperPlane);
+    scene.add(paperPlane);
+    //on socket update shoot paperplane
     socket.on(`update`, data => {
       if(data.gestureX === `left`){
+        let paperPlaneToShoot = false;
+        //check if any not flying planes
+        const getAlivePlanes = paperPlanes.filter(pp => !pp.flying);
+        //every plane flying? create new and push in array
+        if(getAlivePlanes.length === 0){
+          const paperPlane = new PaperPlane(models.paperPlane.geometry, models.paperPlane.materials);
+          paperPlanes.push(paperPlane);
+          scene.add(paperPlane);
+          paperPlaneToShoot = paperPlane;
+        //some planes not flying use one from pool
+        }else{
+          paperPlaneToShoot = getAlivePlanes[0];
+        }
         const yPos = mapRange(data.y, 100, 600, 340, -80);
-        index = index % counter;
-        paperPlanes[index].position.y = yPos;
-        paperPlanes[index].flying = true;
-        index ++;
+        paperPlaneToShoot.position.y = yPos;
+        paperPlaneToShoot.flying = true;
       };
     });
   };
@@ -184,63 +255,12 @@ import IO from 'socket.io-client';
     scene.add( light );
   };
 
-  const render = () => {
-    TWEEN.update();
-    //init WebGLRenderer
-    renderer.render(scene, camera);
-
-    if(!balloon.alive){
-      gameOver();
-      return;
-    }
-    //moving scene!
-    landscapes.forEach(landscape => {
-      landscape.move(speed, landscape.mover);
-      if(checkAlive(landscape)){
-        switch (landscapes.indexOf(landscape)) {
-          case 0:
-            landscape.reset(landscapes[2].body.max.x);
-            break;
-          case 1:
-            landscape.reset(landscapes[0].body.max.x);
-            break;
-          case 2:
-            landscape.reset(landscapes[1].body.max.x);
-            break;
-          default:
-        }
-      };
-    })
-    clouds.forEach(cloud => {
-      cloud.move(speed);
-      if(checkAlive(cloud)){
-        cloud.reset();
-      };
-    });
-    paperPlanes.forEach(paperPlane => {
-      if(checkCollision(paperPlane.body, balloon.body)){
-        balloon.hit();
-        balloon.gravityY += .1;
-        paperPlane.reset();
-      };
-      if(checkAlive(paperPlane)){
-        paperPlane.reset();
-      };
-      if (paperPlane.flying) {
-        paperPlane.shoot();
-      }
-    });
-
-    balloon.fall(speed);
-    window.requestAnimationFrame(render);
-  };
-
   const startGame = () => {
     countDown();
     const balloonStart = balloon.flyToStart();
     balloonStart.onComplete(() => {
       balloon.wiggle();
-      speed = 2;
+      speed = 3;
       console.log(remoteSocketId);
       socket.emit(`update`, remoteSocketId, {
         message: `Game started!`
