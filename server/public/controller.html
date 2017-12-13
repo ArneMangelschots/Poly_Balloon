@@ -24,10 +24,23 @@
 
         targetId = getUrlParameter('id');
         if(!targetId){
-          alert(`missing id`);
           return;
         }
+
         socket = io.connect('/');
+
+
+        socket.on('sid', ({sid}) => {
+          console.log(sid);
+          socket.emit(`update`, targetId, {
+            message: `connection succesfull`,
+            remoteId: sid
+          });
+        });
+
+        socket.on(`update`, ({message}) => {
+          console.log(message);
+        });
 
         window.addEventListener('touchstart', e => {
             touchstartX = e.changedTouches[0].screenX;
@@ -66,5 +79,5 @@
       init();
       }
     </script>
-  <script type="text/javascript" src="/js/main.63b56697b6438d470e30.js"></script></body>
+  <script type="text/javascript" src="/js/main.845be1b220ff51271fff.js"></script></body>
 </html>

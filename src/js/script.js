@@ -34,7 +34,9 @@ import IO from 'socket.io-client';
     myPitch = 20000,
     pitchUp = false;
 
-  let socket;
+  let socket,
+      socketId,
+      remoteSocketId;
 
   const buflen = 1024,
     buf = new Float32Array(buflen);
@@ -239,6 +241,10 @@ import IO from 'socket.io-client';
     balloonStart.onComplete(() => {
       balloon.wiggle();
       speed = 2;
+      console.log(remoteSocketId);
+      socket.emit(`update`, remoteSocketId, {
+        message: `Game started!`
+      });
     });
   };
 
@@ -309,14 +315,20 @@ import IO from 'socket.io-client';
 
   const connectSocket = () => {
     socket = IO.connect(`/`);
-
     socket.on('sid', ({sid, qrImg}) => {
+      console.log(sid);
+      socketId = sid;
       const $qrContainer = document.getElementById('qr');
       if($qrContainer){
         $qrContainer.innerHTML = qrImg;
       }else{
         return;
       }
+    });
+
+    socket.on(`update`, ({message, remoteId}) => {
+      console.log(`${message} with ${remoteId}`);
+      remoteSocketId = remoteId
     });
   };
 
