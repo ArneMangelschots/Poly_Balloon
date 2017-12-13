@@ -43,30 +43,15 @@ import IO from 'socket.io-client';
 
   const init = () => {
 
-    socket = IO.connect(`/`);
-
-    socket.on('sid', ({sid, qrImg}) => {
-      const $qrContainer = document.getElementById('qr');
-      if($qrContainer){
-        $qrContainer.innerHTML = qrImg;
-      }else{
-        return;
-      }
-    });
-
+    connectSocket();
+    handleAudio();
     //load all models
     modelLoader.load()
     .then(m => {
       models = m;
       game();
     });
-
     //get audiostream
-    audioCtx = new AudioContext();
-    navigator.mediaDevices.getUserMedia({audio: true})
-    .then(stream => {
-      handleStream(stream);
-    });
   };
 
   const game = () => {
@@ -108,17 +93,16 @@ import IO from 'socket.io-client';
     setupClouds();
     setupPaperPlanes();
     render();
+    window.addEventListener(`keydown`, e => {
+      e.preventDefault();
+      if(e.keyCode === 32){
+        startGame();
+      }
+    });
   };
 
   const setupBalloon = () => {
     balloon = new Balloon(models.balloon.geometry, models.balloon.materials);
-    balloon.wiggle();
-    window.addEventListener(`keydown`, e => {
-      e.preventDefault();
-      if(e.keyCode === 32){
-        speed = 3;
-      }
-    });
     scene.add(balloon);
   };
 
@@ -249,10 +233,33 @@ import IO from 'socket.io-client';
     window.requestAnimationFrame(render);
   };
 
+  const startGame = () => {
+    countDown();
+    const balloonStart = balloon.flyToStart();
+    balloonStart.onComplete(() => {
+      balloon.wiggle();
+      speed = 2;
+    });
+  };
+
   const gameOver = () => {
     console.log(`gedaan mee spelen`);
     speed = 0;
-  }
+  };
+
+  const countDown = () => {
+    const $countDown = document.getElementById(`count-down`);
+    let teller = 3;
+    $countDown.innerHTML = teller;
+    const interval = setInterval(() => {
+      teller -= 1;
+      $countDown.innerHTML = teller;
+      if(teller === 0){
+        clearInterval(interval);
+        $countDown.classList.add(`invisible`);
+      }
+    }, 1000);
+  };
 
   const handleStream = stream => {
     // Create an AudioNode from the stream.
@@ -298,6 +305,27 @@ import IO from 'socket.io-client';
       })
     }
     window.requestAnimationFrame(updatePitch);
+  };
+
+  const connectSocket = () => {
+    socket = IO.connect(`/`);
+
+    socket.on('sid', ({sid, qrImg}) => {
+      const $qrContainer = document.getElementById('qr');
+      if($qrContainer){
+        $qrContainer.innerHTML = qrImg;
+      }else{
+        return;
+      }
+    });
+  };
+
+  const handleAudio = () => {
+    audioCtx = new AudioContext();
+    navigator.mediaDevices.getUserMedia({audio: true})
+    .then(stream => {
+      handleStream(stream);
+    });
   };
 
   const checkAlive = object => {

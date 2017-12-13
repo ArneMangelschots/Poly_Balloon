@@ -5,10 +5,9 @@ export default class Balloon extends THREE.Mesh {
 
   constructor(geometry, materials) {
     super(geometry, materials);
-    this.position.set(-400, 150, - 600);
+    this.position.set(-400, -175, - 600);
     this.scale.set(.29, .29, .29);
     this.rotation.order = `ZYX`;
-    this.rotation.x = 15 * (Math.PI / 180);
     this.castShadow = true;
     this.reveiveShadow = true;
     this.body = new THREE.Box3().setFromObject(this);
@@ -17,6 +16,7 @@ export default class Balloon extends THREE.Mesh {
   }
 
   wiggle = () => {
+    this.rotation.x = 15 * (Math.PI / 180);
     const start = {x: this.rotation.x};
     const target = {x: - 15 * (Math.PI / 180)};
     const tween = new TWEEN.Tween(start).to(target, 1000);
@@ -46,6 +46,20 @@ export default class Balloon extends THREE.Mesh {
       });
     return tween;
   }
+
+  flyToStart = () => {
+    const position = {y: this.position.y};
+    const target = {y: this.position.y + 350};
+    const tween = new TWEEN.Tween(position).to(target, 3000);
+    tween.easing(TWEEN.Easing.Cubic.Out);
+    tween.start();
+    tween.onUpdate(() => {
+      this.position.y = position.y;
+      this.updateMatrix();
+      this.body.setFromObject(this);
+    });
+    return tween;
+  };
 
   fall = speed => {
     this.position.y -= speed * this.gravityY;

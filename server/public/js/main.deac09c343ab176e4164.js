@@ -60,11 +60,365 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 24);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(1);
+module.exports = __webpack_require__(2);
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_mapRange__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_autoCorrelate__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_random__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__objects_modelLoader__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__objects_Balloon__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__objects_Landscape__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__objects_Cloud__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__objects_PaperPlane__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_socket_io_client__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_socket_io_client__);
+
+
+
+
+
+
+
+
+
+
+var THREE = __webpack_require__(6);
+var TWEEN = __webpack_require__(15);
+
+
+{
+  var SHADOW_MAP_WIDTH = 2048;
+  var SHADOW_MAP_HEIGHT = 1024;
+
+  var scene = false,
+      camera = false,
+      renderer = false,
+      frustum = void 0;
+
+  var models = false,
+      landscapes = [],
+      clouds = [],
+      balloon = false,
+      paperPlanes = [];
+
+  var speed = 0,
+      audioCtx = void 0,
+      analyser = void 0,
+      pitch = void 0,
+      myPitch = 20000,
+      pitchUp = false;
+
+  var socket = void 0;
+
+  var buflen = 1024,
+      buf = new Float32Array(buflen);
+
+  var init = function init() {
+
+    connectSocket();
+    handleAudio();
+    //load all models
+    __WEBPACK_IMPORTED_MODULE_3__objects_modelLoader__["a" /* default */].load().then(function (m) {
+      models = m;
+      game();
+    });
+    //get audiostream
+  };
+
+  var game = function game() {
+    setupThree();
+    setupLights();
+    setupWorld();
+  };
+
+  var setupThree = function setupThree() {
+    scene = new THREE.Scene();
+
+    camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 3000);
+    camera.position.z = 600;
+    camera.position.y = 90;
+    camera.position.x = 0;
+
+    camera.updateMatrix();
+    camera.updateMatrixWorld();
+
+    frustum = new THREE.Frustum();
+    var projScreenMatrix = new THREE.Matrix4();
+    projScreenMatrix.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
+
+    frustum.setFromMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
+
+    renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    var $gameElement = document.getElementById('game');
+    if ($gameElement) {
+      $gameElement.appendChild(renderer.domElement);
+    } else {
+      return;
+    }
+  };
+
+  var setupWorld = function setupWorld() {
+    setupBalloon();
+    setupLandscapes();
+    setupClouds();
+    setupPaperPlanes();
+    render();
+    window.addEventListener('keydown', function (e) {
+      e.preventDefault();
+      if (e.keyCode === 32) {
+        startGame();
+      }
+    });
+  };
+
+  var setupBalloon = function setupBalloon() {
+    balloon = new __WEBPACK_IMPORTED_MODULE_4__objects_Balloon__["a" /* default */](models.balloon.geometry, models.balloon.materials);
+    scene.add(balloon);
+  };
+
+  var setupLandscapes = function setupLandscapes() {
+    var landscape3 = new __WEBPACK_IMPORTED_MODULE_5__objects_Landscape__["a" /* default */](models.landscape3.geometry, models.landscape3.materials, -1450, -230, -1080);
+    landscape3.mover = 2150;
+    landscapes.push(landscape3);
+    scene.add(landscape3);
+    var landscape1 = new __WEBPACK_IMPORTED_MODULE_5__objects_Landscape__["a" /* default */](models.landscape1.geometry, models.landscape1.materials, 0, -230, -1000);
+    landscape1.mover = 2100;
+    landscapes.push(landscape1);
+    scene.add(landscape1);
+    var landscape2 = new __WEBPACK_IMPORTED_MODULE_5__objects_Landscape__["a" /* default */](models.landscape2.geometry, models.landscape2.materials, 1400, -230, -1000);
+    landscape2.mover = 2150;
+    landscapes.push(landscape2);
+    scene.add(landscape2);
+  };
+
+  var setupTreelines = function setupTreelines() {
+    var treelineX = -1200;
+    for (var i = 0; i < 3; i++) {
+      var treeline = new Treeline(models.treeline.geometry, models.treeline.materials, treelineX, 50, -600);
+      console.log(treeline);
+      treelines.push(treeline);
+      scene.add(treeline);
+      treelineX += 1300;
+    }
+  };
+
+  var setupClouds = function setupClouds() {
+    var cloudX = 950;
+    var cloudGeometrys = [models.cloud.geometry, models.cloud1.geometry, models.cloud2.geometry];
+    for (var i = 0; i < 4; i++) {
+      var cloud = new __WEBPACK_IMPORTED_MODULE_6__objects_Cloud__["a" /* default */](cloudGeometrys, models.cloud.materials, cloudX, Object(__WEBPACK_IMPORTED_MODULE_2__lib_random__["a" /* default */])(250, 400), Object(__WEBPACK_IMPORTED_MODULE_2__lib_random__["a" /* default */])(-800, -600), Object(__WEBPACK_IMPORTED_MODULE_2__lib_random__["a" /* default */])(.9, 1.1));
+      clouds.push(cloud);
+      scene.add(cloud);
+      cloudX += Object(__WEBPACK_IMPORTED_MODULE_2__lib_random__["a" /* default */])(50, 600);
+    }
+  };
+
+  var setupPaperPlanes = function setupPaperPlanes() {
+    for (var i = 0; i < 5; i++) {
+      var paperPlane = new __WEBPACK_IMPORTED_MODULE_7__objects_PaperPlane__["a" /* default */](models.paperPlane.geometry, models.paperPlane.materials);
+      paperPlanes.push(paperPlane);
+      scene.add(paperPlane);
+    }
+    var counter = paperPlanes.length;
+    var index = 0;
+
+    socket.on('update', function (data) {
+      if (data.gestureX === 'left') {
+        var yPos = Object(__WEBPACK_IMPORTED_MODULE_0__lib_mapRange__["a" /* default */])(data.y, 100, 600, 340, -80);
+        index = index % counter;
+        paperPlanes[index].position.y = yPos;
+        paperPlanes[index].flying = true;
+        index++;
+      };
+    });
+  };
+
+  var setupLights = function setupLights() {
+    var hemiLight = new THREE.HemisphereLight(0xA1D0BC, 0x269DAE, 1);
+    hemiLight.color.setHSL(0.2, .5, 0);
+    hemiLight.groundColor.setHSL(0.095, 1, 0.75);
+    hemiLight.position.set(0, 200, 0);
+    scene.add(hemiLight);
+    var directionalLight = new THREE.DirectionalLight(0xFDAC2A, .7);
+    scene.add(directionalLight);
+    var light = new THREE.SpotLight(0xffffff, 1, 0, Math.PI / 2);
+    light.position.set(600, 1300, -300);
+    light.target.position.set(0, 0, 0);
+    light.castShadow = true;
+    light.shadow = new THREE.LightShadow(new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 3000));
+    light.shadow.bias = 0.0001;
+    light.shadow.mapSize.width = window.innerWidth;
+    light.shadow.mapSize.height = window.innerHeight;
+    scene.add(light);
+  };
+
+  var render = function render() {
+    TWEEN.update();
+    //init WebGLRenderer
+    renderer.render(scene, camera);
+
+    if (!balloon.alive) {
+      gameOver();
+      return;
+    }
+    //moving scene!
+    landscapes.forEach(function (landscape) {
+      landscape.move(speed, landscape.mover);
+      if (checkAlive(landscape)) {
+        switch (landscapes.indexOf(landscape)) {
+          case 0:
+            landscape.reset(landscapes[2].body.max.x);
+            break;
+          case 1:
+            landscape.reset(landscapes[0].body.max.x);
+            break;
+          case 2:
+            landscape.reset(landscapes[1].body.max.x);
+            break;
+          default:
+        }
+      };
+    });
+    clouds.forEach(function (cloud) {
+      cloud.move(speed);
+      if (checkAlive(cloud)) {
+        cloud.reset();
+      };
+    });
+    paperPlanes.forEach(function (paperPlane) {
+      if (checkCollision(paperPlane.body, balloon.body)) {
+        balloon.hit();
+        balloon.gravityY += .1;
+        paperPlane.reset();
+      };
+      if (checkAlive(paperPlane)) {
+        paperPlane.reset();
+      };
+      if (paperPlane.flying) {
+        paperPlane.shoot();
+      }
+    });
+
+    balloon.fall(speed);
+    window.requestAnimationFrame(render);
+  };
+
+  var startGame = function startGame() {
+    balloon.flyToStart();
+  };
+
+  var gameOver = function gameOver() {
+    console.log('gedaan mee spelen');
+    speed = 0;
+  };
+
+  var handleStream = function handleStream(stream) {
+    // Create an AudioNode from the stream.
+    var mediaStreamSource = audioCtx.createMediaStreamSource(stream);
+    // Connect it to the destination.
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 2048;
+    mediaStreamSource.connect(analyser);
+    updatePitch();
+
+    window.addEventListener('click', callibrate);
+  };
+
+  var callibrate = function callibrate() {
+    balloon.hit();
+    var calibrationEntries = [];
+    var calibrator = setInterval(function () {
+      if (pitch !== -1) {
+        calibrationEntries.push(pitch);
+      }
+      if (calibrationEntries.length === 49) {
+        clearInterval(calibrator);
+        calibrationEntries.sort(function (a, b) {
+          return a - b;
+        });
+        myPitch = calibrationEntries[24];
+        console.log('done', myPitch);
+      }
+    }, 50);
+  };
+
+  var updatePitch = function updatePitch() {
+    var cycles = new Array();
+    analyser.getFloatTimeDomainData(buf);
+    var ac = Object(__WEBPACK_IMPORTED_MODULE_1__lib_autoCorrelate__["a" /* default */])(buf, audioCtx.sampleRate);
+    pitch = ac;
+    if (ac > myPitch - 80 && ac < myPitch + 80 && balloon && !pitchUp && speed > 0) {
+      console.log('joe');
+      var tween = balloon.flyUp();
+      pitchUp = true;
+      tween.onComplete(function () {
+        pitchUp = false;
+      });
+    }
+    window.requestAnimationFrame(updatePitch);
+  };
+
+  var connectSocket = function connectSocket() {
+    socket = __WEBPACK_IMPORTED_MODULE_8_socket_io_client___default.a.connect('/');
+
+    socket.on('sid', function (_ref) {
+      var sid = _ref.sid,
+          qrImg = _ref.qrImg;
+
+      var $qrContainer = document.getElementById('qr');
+      if ($qrContainer) {
+        $qrContainer.innerHTML = qrImg;
+      } else {
+        return;
+      }
+    });
+  };
+
+  var handleAudio = function handleAudio() {
+    audioCtx = new AudioContext();
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
+      handleStream(stream);
+    });
+  };
+
+  var checkAlive = function checkAlive(object) {
+    if (object.position.x < 0 && !frustum.intersectsObject(object)) {
+      return true;
+    }
+  };
+
+  var checkCollision = function checkCollision(bodyA, bodyB) {
+    return bodyA.intersectsBox(bodyB);
+  };
+
+  init();
+}
+
+/***/ }),
+/* 3 */,
+/* 4 */
 /***/ (function(module, exports) {
 
 var g;
@@ -91,7 +445,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 1 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -100,7 +454,7 @@ module.exports = g;
  * Expose `debug()` as the module.
  */
 
-exports = module.exports = __webpack_require__(36);
+exports = module.exports = __webpack_require__(37);
 exports.log = log;
 exports.formatArgs = formatArgs;
 exports.save = save;
@@ -280,10 +634,10 @@ function localstorage() {
   } catch (e) {}
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)))
 
 /***/ }),
-/* 2 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -45345,7 +45699,7 @@ function CanvasRenderer() {
 
 
 /***/ }),
-/* 3 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -45514,22 +45868,22 @@ Emitter.prototype.hasListeners = function(event){
 
 
 /***/ }),
-/* 4 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
  * Module dependencies.
  */
 
-var keys = __webpack_require__(45);
-var hasBinary = __webpack_require__(14);
-var sliceBuffer = __webpack_require__(46);
-var after = __webpack_require__(47);
-var utf8 = __webpack_require__(48);
+var keys = __webpack_require__(46);
+var hasBinary = __webpack_require__(18);
+var sliceBuffer = __webpack_require__(47);
+var after = __webpack_require__(48);
+var utf8 = __webpack_require__(49);
 
 var base64encoder;
 if (global && global.ArrayBuffer) {
-  base64encoder = __webpack_require__(50);
+  base64encoder = __webpack_require__(51);
 }
 
 /**
@@ -45587,7 +45941,7 @@ var err = { type: 'error', data: 'parser error' };
  * Create a blob api even for blob builder when vendor prefixes exist
  */
 
-var Blob = __webpack_require__(51);
+var Blob = __webpack_require__(52);
 
 /**
  * Encodes a packet.
@@ -46124,10 +46478,10 @@ exports.decodePayloadAsBinary = function (data, binaryType, callback) {
   });
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 5 */
+/* 9 */
 /***/ (function(module, exports) {
 
 /**
@@ -46170,7 +46524,7 @@ exports.decode = function(qs){
 
 
 /***/ }),
-/* 6 */
+/* 10 */
 /***/ (function(module, exports) {
 
 
@@ -46182,7 +46536,7 @@ module.exports = function(a, b){
 };
 
 /***/ }),
-/* 7 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -46190,11 +46544,11 @@ module.exports = function(a, b){
  * Module dependencies.
  */
 
-var debug = __webpack_require__(1)('socket.io-parser');
-var Emitter = __webpack_require__(3);
-var hasBin = __webpack_require__(14);
-var binary = __webpack_require__(39);
-var isBuf = __webpack_require__(15);
+var debug = __webpack_require__(5)('socket.io-parser');
+var Emitter = __webpack_require__(7);
+var hasBin = __webpack_require__(18);
+var binary = __webpack_require__(40);
+var isBuf = __webpack_require__(19);
 
 /**
  * Protocol version.
@@ -46588,12 +46942,12 @@ function error() {
 
 
 /***/ }),
-/* 8 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {// browser shim for xmlhttprequest module
 
-var hasCORS = __webpack_require__(43);
+var hasCORS = __webpack_require__(44);
 
 module.exports = function (opts) {
   var xdomain = opts.xdomain;
@@ -46629,18 +46983,18 @@ module.exports = function (opts) {
   }
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 9 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
  * Module dependencies.
  */
 
-var parser = __webpack_require__(4);
-var Emitter = __webpack_require__(3);
+var parser = __webpack_require__(8);
+var Emitter = __webpack_require__(7);
 
 /**
  * Module exports.
@@ -46795,7 +47149,7 @@ Transport.prototype.onClose = function () {
 
 
 /***/ }),
-/* 10 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46806,7 +47160,7 @@ var random = function random(min, max) {
 /* harmony default export */ __webpack_exports__["a"] = (random);
 
 /***/ }),
-/* 11 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -47693,10 +48047,10 @@ TWEEN.Interpolation = {
 
 })(this);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)))
 
 /***/ }),
-/* 12 */
+/* 16 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -47886,7 +48240,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 13 */
+/* 17 */
 /***/ (function(module, exports) {
 
 /**
@@ -47931,7 +48285,7 @@ module.exports = function parseuri(str) {
 
 
 /***/ }),
-/* 14 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/* global Blob File */
@@ -47940,7 +48294,7 @@ module.exports = function parseuri(str) {
  * Module requirements.
  */
 
-var isArray = __webpack_require__(38);
+var isArray = __webpack_require__(39);
 
 var toString = Object.prototype.toString;
 var withNativeBlob = typeof global.Blob === 'function' || toString.call(global.Blob) === '[object BlobConstructor]';
@@ -47997,10 +48351,10 @@ function hasBinary (obj) {
   return false;
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 15 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -48017,10 +48371,10 @@ function isBuf(obj) {
          (global.ArrayBuffer && obj instanceof ArrayBuffer);
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 16 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -48028,15 +48382,15 @@ function isBuf(obj) {
  * Module dependencies.
  */
 
-var eio = __webpack_require__(41);
-var Socket = __webpack_require__(21);
-var Emitter = __webpack_require__(3);
-var parser = __webpack_require__(7);
-var on = __webpack_require__(22);
-var bind = __webpack_require__(23);
-var debug = __webpack_require__(1)('socket.io-client:manager');
-var indexOf = __webpack_require__(20);
-var Backoff = __webpack_require__(56);
+var eio = __webpack_require__(42);
+var Socket = __webpack_require__(25);
+var Emitter = __webpack_require__(7);
+var parser = __webpack_require__(11);
+var on = __webpack_require__(26);
+var bind = __webpack_require__(27);
+var debug = __webpack_require__(5)('socket.io-client:manager');
+var indexOf = __webpack_require__(24);
+var Backoff = __webpack_require__(57);
 
 /**
  * IE6+ hasOwnProperty
@@ -48599,17 +48953,17 @@ Manager.prototype.onreconnect = function () {
 
 
 /***/ }),
-/* 17 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
  * Module dependencies
  */
 
-var XMLHttpRequest = __webpack_require__(8);
-var XHR = __webpack_require__(44);
-var JSONP = __webpack_require__(52);
-var websocket = __webpack_require__(53);
+var XMLHttpRequest = __webpack_require__(12);
+var XHR = __webpack_require__(45);
+var JSONP = __webpack_require__(53);
+var websocket = __webpack_require__(54);
 
 /**
  * Export transports.
@@ -48656,22 +49010,22 @@ function polling (opts) {
   }
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 18 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
  * Module dependencies.
  */
 
-var Transport = __webpack_require__(9);
-var parseqs = __webpack_require__(5);
-var parser = __webpack_require__(4);
-var inherit = __webpack_require__(6);
-var yeast = __webpack_require__(19);
-var debug = __webpack_require__(1)('engine.io-client:polling');
+var Transport = __webpack_require__(13);
+var parseqs = __webpack_require__(9);
+var parser = __webpack_require__(8);
+var inherit = __webpack_require__(10);
+var yeast = __webpack_require__(23);
+var debug = __webpack_require__(5)('engine.io-client:polling');
 
 /**
  * Module exports.
@@ -48684,7 +49038,7 @@ module.exports = Polling;
  */
 
 var hasXHR2 = (function () {
-  var XMLHttpRequest = __webpack_require__(8);
+  var XMLHttpRequest = __webpack_require__(12);
   var xhr = new XMLHttpRequest({ xdomain: false });
   return null != xhr.responseType;
 })();
@@ -48910,7 +49264,7 @@ Polling.prototype.uri = function () {
 
 
 /***/ }),
-/* 19 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48985,7 +49339,7 @@ module.exports = yeast;
 
 
 /***/ }),
-/* 20 */
+/* 24 */
 /***/ (function(module, exports) {
 
 
@@ -49000,7 +49354,7 @@ module.exports = function(arr, obj){
 };
 
 /***/ }),
-/* 21 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -49008,13 +49362,13 @@ module.exports = function(arr, obj){
  * Module dependencies.
  */
 
-var parser = __webpack_require__(7);
-var Emitter = __webpack_require__(3);
-var toArray = __webpack_require__(55);
-var on = __webpack_require__(22);
-var bind = __webpack_require__(23);
-var debug = __webpack_require__(1)('socket.io-client:socket');
-var parseqs = __webpack_require__(5);
+var parser = __webpack_require__(11);
+var Emitter = __webpack_require__(7);
+var toArray = __webpack_require__(56);
+var on = __webpack_require__(26);
+var bind = __webpack_require__(27);
+var debug = __webpack_require__(5)('socket.io-client:socket');
+var parseqs = __webpack_require__(9);
 
 /**
  * Module exports.
@@ -49424,7 +49778,7 @@ Socket.prototype.compress = function (compress) {
 
 
 /***/ }),
-/* 22 */
+/* 26 */
 /***/ (function(module, exports) {
 
 
@@ -49454,7 +49808,7 @@ function on (obj, ev, fn) {
 
 
 /***/ }),
-/* 23 */
+/* 27 */
 /***/ (function(module, exports) {
 
 /**
@@ -49483,351 +49837,7 @@ module.exports = function(obj, fn){
 
 
 /***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(25);
-module.exports = __webpack_require__(26);
-
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 26 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_mapRange__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_autoCorrelate__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_random__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__objects_modelLoader__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__objects_Balloon__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__objects_Landscape__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__objects_Cloud__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__objects_PaperPlane__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_socket_io_client__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_socket_io_client__);
-
-
-
-
-
-
-
-
-
-
-var THREE = __webpack_require__(2);
-var TWEEN = __webpack_require__(11);
-
-
-{
-  var SHADOW_MAP_WIDTH = 2048;
-  var SHADOW_MAP_HEIGHT = 1024;
-
-  var scene = false,
-      camera = false,
-      renderer = false,
-      frustum = void 0;
-
-  var models = false,
-      landscapes = [],
-      clouds = [],
-      balloon = false,
-      paperPlanes = [];
-
-  var speed = 0,
-      audioCtx = void 0,
-      analyser = void 0,
-      pitch = void 0,
-      myPitch = 20000,
-      pitchUp = false;
-
-  var socket = void 0;
-
-  var buflen = 1024,
-      buf = new Float32Array(buflen);
-
-  var init = function init() {
-
-    socket = __WEBPACK_IMPORTED_MODULE_8_socket_io_client___default.a.connect('/');
-
-    socket.on('sid', function (_ref) {
-      var sid = _ref.sid,
-          qrImg = _ref.qrImg;
-
-      var $qrContainer = document.getElementById('qr');
-      if ($qrContainer) {
-        $qrContainer.innerHTML = qrImg;
-      } else {
-        return;
-      }
-    });
-
-    //load all models
-    __WEBPACK_IMPORTED_MODULE_3__objects_modelLoader__["a" /* default */].load().then(function (m) {
-      models = m;
-      game();
-    });
-
-    //get audiostream
-    audioCtx = new AudioContext();
-    navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
-      handleStream(stream);
-    });
-  };
-
-  var game = function game() {
-    setupThree();
-    setupLights();
-    setupWorld();
-  };
-
-  var setupThree = function setupThree() {
-    scene = new THREE.Scene();
-
-    camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 3000);
-    camera.position.z = 600;
-    camera.position.y = 90;
-    camera.position.x = 0;
-
-    camera.updateMatrix();
-    camera.updateMatrixWorld();
-
-    frustum = new THREE.Frustum();
-    var projScreenMatrix = new THREE.Matrix4();
-    projScreenMatrix.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
-
-    frustum.setFromMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
-
-    renderer = new THREE.WebGLRenderer({ alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    var $gameElement = document.getElementById('game');
-    if ($gameElement) {
-      $gameElement.appendChild(renderer.domElement);
-    } else {
-      return;
-    }
-  };
-
-  var setupWorld = function setupWorld() {
-    setupBalloon();
-    setupLandscapes();
-    setupClouds();
-    setupPaperPlanes();
-    render();
-  };
-
-  var setupBalloon = function setupBalloon() {
-    balloon = new __WEBPACK_IMPORTED_MODULE_4__objects_Balloon__["a" /* default */](models.balloon.geometry, models.balloon.materials);
-    balloon.wiggle();
-    window.addEventListener('keydown', function (e) {
-      e.preventDefault();
-      if (e.keyCode === 32) {
-        speed = 3;
-      }
-    });
-    scene.add(balloon);
-  };
-
-  var setupLandscapes = function setupLandscapes() {
-    var landscape3 = new __WEBPACK_IMPORTED_MODULE_5__objects_Landscape__["a" /* default */](models.landscape3.geometry, models.landscape3.materials, -1450, -230, -1080);
-    landscape3.mover = 2150;
-    landscapes.push(landscape3);
-    scene.add(landscape3);
-    var landscape1 = new __WEBPACK_IMPORTED_MODULE_5__objects_Landscape__["a" /* default */](models.landscape1.geometry, models.landscape1.materials, 0, -230, -1000);
-    landscape1.mover = 2100;
-    landscapes.push(landscape1);
-    scene.add(landscape1);
-    var landscape2 = new __WEBPACK_IMPORTED_MODULE_5__objects_Landscape__["a" /* default */](models.landscape2.geometry, models.landscape2.materials, 1400, -230, -1000);
-    landscape2.mover = 2150;
-    landscapes.push(landscape2);
-    scene.add(landscape2);
-  };
-
-  var setupTreelines = function setupTreelines() {
-    var treelineX = -1200;
-    for (var i = 0; i < 3; i++) {
-      var treeline = new Treeline(models.treeline.geometry, models.treeline.materials, treelineX, 50, -600);
-      console.log(treeline);
-      treelines.push(treeline);
-      scene.add(treeline);
-      treelineX += 1300;
-    }
-  };
-
-  var setupClouds = function setupClouds() {
-    var cloudX = 950;
-    var cloudGeometrys = [models.cloud.geometry, models.cloud1.geometry, models.cloud2.geometry];
-    for (var i = 0; i < 4; i++) {
-      var cloud = new __WEBPACK_IMPORTED_MODULE_6__objects_Cloud__["a" /* default */](cloudGeometrys, models.cloud.materials, cloudX, Object(__WEBPACK_IMPORTED_MODULE_2__lib_random__["a" /* default */])(250, 400), Object(__WEBPACK_IMPORTED_MODULE_2__lib_random__["a" /* default */])(-800, -600), Object(__WEBPACK_IMPORTED_MODULE_2__lib_random__["a" /* default */])(.9, 1.1));
-      clouds.push(cloud);
-      scene.add(cloud);
-      cloudX += Object(__WEBPACK_IMPORTED_MODULE_2__lib_random__["a" /* default */])(50, 600);
-    }
-  };
-
-  var setupPaperPlanes = function setupPaperPlanes() {
-    for (var i = 0; i < 5; i++) {
-      var paperPlane = new __WEBPACK_IMPORTED_MODULE_7__objects_PaperPlane__["a" /* default */](models.paperPlane.geometry, models.paperPlane.materials);
-      paperPlanes.push(paperPlane);
-      scene.add(paperPlane);
-    }
-    var counter = paperPlanes.length;
-    var index = 0;
-
-    socket.on('update', function (data) {
-      if (data.gestureX === 'left') {
-        var yPos = Object(__WEBPACK_IMPORTED_MODULE_0__lib_mapRange__["a" /* default */])(data.y, 100, 600, 340, -80);
-        index = index % counter;
-        paperPlanes[index].position.y = yPos;
-        paperPlanes[index].flying = true;
-        index++;
-      };
-    });
-  };
-
-  var setupLights = function setupLights() {
-    var hemiLight = new THREE.HemisphereLight(0xA1D0BC, 0x269DAE, 1);
-    hemiLight.color.setHSL(0.2, .5, 0);
-    hemiLight.groundColor.setHSL(0.095, 1, 0.75);
-    hemiLight.position.set(0, 200, 0);
-    scene.add(hemiLight);
-    var directionalLight = new THREE.DirectionalLight(0xFDAC2A, .7);
-    scene.add(directionalLight);
-    var light = new THREE.SpotLight(0xffffff, 1, 0, Math.PI / 2);
-    light.position.set(600, 1300, -300);
-    light.target.position.set(0, 0, 0);
-    light.castShadow = true;
-    light.shadow = new THREE.LightShadow(new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 3000));
-    light.shadow.bias = 0.0001;
-    light.shadow.mapSize.width = window.innerWidth;
-    light.shadow.mapSize.height = window.innerHeight;
-    scene.add(light);
-  };
-
-  var render = function render() {
-    TWEEN.update();
-    //init WebGLRenderer
-    renderer.render(scene, camera);
-
-    if (!balloon.alive) {
-      gameOver();
-      return;
-    }
-    //moving scene!
-    landscapes.forEach(function (landscape) {
-      landscape.move(speed, landscape.mover);
-      if (checkAlive(landscape)) {
-        switch (landscapes.indexOf(landscape)) {
-          case 0:
-            landscape.reset(landscapes[2].body.max.x);
-            break;
-          case 1:
-            landscape.reset(landscapes[0].body.max.x);
-            break;
-          case 2:
-            landscape.reset(landscapes[1].body.max.x);
-            break;
-          default:
-        }
-      };
-    });
-    clouds.forEach(function (cloud) {
-      cloud.move(speed);
-      if (checkAlive(cloud)) {
-        cloud.reset();
-      };
-    });
-    paperPlanes.forEach(function (paperPlane) {
-      if (checkCollision(paperPlane.body, balloon.body)) {
-        balloon.hit();
-        balloon.gravityY += .1;
-        paperPlane.reset();
-      };
-      if (checkAlive(paperPlane)) {
-        paperPlane.reset();
-      };
-      if (paperPlane.flying) {
-        paperPlane.shoot();
-      }
-    });
-
-    balloon.fall(speed);
-    window.requestAnimationFrame(render);
-  };
-
-  var gameOver = function gameOver() {
-    console.log('gedaan mee spelen');
-    speed = 0;
-  };
-
-  var handleStream = function handleStream(stream) {
-    // Create an AudioNode from the stream.
-    var mediaStreamSource = audioCtx.createMediaStreamSource(stream);
-    // Connect it to the destination.
-    analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 2048;
-    mediaStreamSource.connect(analyser);
-    updatePitch();
-
-    window.addEventListener('click', callibrate);
-  };
-
-  var callibrate = function callibrate() {
-    balloon.hit();
-    var calibrationEntries = [];
-    var calibrator = setInterval(function () {
-      if (pitch !== -1) {
-        calibrationEntries.push(pitch);
-      }
-      if (calibrationEntries.length === 49) {
-        clearInterval(calibrator);
-        calibrationEntries.sort(function (a, b) {
-          return a - b;
-        });
-        myPitch = calibrationEntries[24];
-        console.log('done', myPitch);
-      }
-    }, 50);
-  };
-
-  var updatePitch = function updatePitch() {
-    var cycles = new Array();
-    analyser.getFloatTimeDomainData(buf);
-    var ac = Object(__WEBPACK_IMPORTED_MODULE_1__lib_autoCorrelate__["a" /* default */])(buf, audioCtx.sampleRate);
-    pitch = ac;
-    if (ac > myPitch - 80 && ac < myPitch + 80 && balloon && !pitchUp && speed > 0) {
-      console.log('joe');
-      var tween = balloon.flyUp();
-      pitchUp = true;
-      tween.onComplete(function () {
-        pitchUp = false;
-      });
-    }
-    window.requestAnimationFrame(updatePitch);
-  };
-
-  var checkAlive = function checkAlive(object) {
-    if (object.position.x < 0 && !frustum.intersectsObject(object)) {
-      return true;
-    }
-  };
-
-  var checkCollision = function checkCollision(bodyA, bodyB) {
-    return bodyA.intersectsBox(bodyB);
-  };
-
-  init();
-}
-
-/***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49838,7 +49848,7 @@ var mapRange = function mapRange(value, low1, high1, low2, high2) {
 /* harmony default export */ __webpack_exports__["a"] = (mapRange);
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49904,11 +49914,11 @@ var autoCorrelate = function autoCorrelate(buf, sampleRate) {
 /* harmony default export */ __webpack_exports__["a"] = (autoCorrelate);
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var THREE = __webpack_require__(2);
+var THREE = __webpack_require__(6);
 var loader = new THREE.JSONLoader();
 
 var req = void 0;
@@ -49948,7 +49958,7 @@ var req = void 0;
 });
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49959,8 +49969,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var THREE = __webpack_require__(2);
-var TWEEN = __webpack_require__(11);
+var THREE = __webpack_require__(6);
+var TWEEN = __webpack_require__(15);
 
 var Balloon = function (_THREE$Mesh) {
   _inherits(Balloon, _THREE$Mesh);
@@ -49971,6 +49981,7 @@ var Balloon = function (_THREE$Mesh) {
     var _this = _possibleConstructorReturn(this, _THREE$Mesh.call(this, geometry, materials));
 
     _this.wiggle = function () {
+      _this.rotation.x = 15 * (Math.PI / 180);
       var start = { x: _this.rotation.x };
       var target = { x: -15 * (Math.PI / 180) };
       var tween = new TWEEN.Tween(start).to(target, 1000);
@@ -49987,6 +49998,21 @@ var Balloon = function (_THREE$Mesh) {
     };
 
     _this.flyUp = function () {
+      var position = { x: _this.position.x, y: _this.position.y };
+      var target = { x: _this.position.x, y: _this.position.y + 80 };
+      var tween = new TWEEN.Tween(position).to(target, 500);
+      tween.easing(TWEEN.Easing.Exponential.Out);
+      tween.start();
+      tween.onUpdate(function () {
+        _this.alive ? 'nothing' : tween.stop();
+        _this.position.y = position.y;
+        _this.updateMatrix();
+        _this.body.setFromObject(_this);
+      });
+      return tween;
+    };
+
+    _this.flyToStart = function () {
       var position = { x: _this.position.x, y: _this.position.y };
       var target = { x: _this.position.x, y: _this.position.y + 80 };
       var tween = new TWEEN.Tween(position).to(target, 500);
@@ -50042,10 +50068,9 @@ var Balloon = function (_THREE$Mesh) {
       _this.alive = false;
     };
 
-    _this.position.set(-400, 150, -600);
+    _this.position.set(-400, -175, -600);
     _this.scale.set(.29, .29, .29);
     _this.rotation.order = 'ZYX';
-    _this.rotation.x = 15 * (Math.PI / 180);
     _this.castShadow = true;
     _this.reveiveShadow = true;
     _this.body = new THREE.Box3().setFromObject(_this);
@@ -50060,7 +50085,7 @@ var Balloon = function (_THREE$Mesh) {
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50071,7 +50096,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var THREE = __webpack_require__(2);
+var THREE = __webpack_require__(6);
 
 var Landscape = function (_THREE$Mesh) {
   _inherits(Landscape, _THREE$Mesh);
@@ -50106,12 +50131,12 @@ var Landscape = function (_THREE$Mesh) {
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Cloud; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_random__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_random__ = __webpack_require__(14);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -50119,7 +50144,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
-var THREE = __webpack_require__(2);
+var THREE = __webpack_require__(6);
 
 var Cloud = function (_THREE$Mesh) {
   _inherits(Cloud, _THREE$Mesh);
@@ -50154,7 +50179,7 @@ var Cloud = function (_THREE$Mesh) {
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50165,7 +50190,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var THREE = __webpack_require__(2);
+var THREE = __webpack_require__(6);
 
 var PaperPlane = function (_THREE$Mesh) {
   _inherits(PaperPlane, _THREE$Mesh);
@@ -50204,7 +50229,7 @@ var PaperPlane = function (_THREE$Mesh) {
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -50212,10 +50237,10 @@ var PaperPlane = function (_THREE$Mesh) {
  * Module dependencies.
  */
 
-var url = __webpack_require__(35);
-var parser = __webpack_require__(7);
-var Manager = __webpack_require__(16);
-var debug = __webpack_require__(1)('socket.io-client');
+var url = __webpack_require__(36);
+var parser = __webpack_require__(11);
+var Manager = __webpack_require__(20);
+var debug = __webpack_require__(5)('socket.io-client');
 
 /**
  * Module exports.
@@ -50299,12 +50324,12 @@ exports.connect = lookup;
  * @api public
  */
 
-exports.Manager = __webpack_require__(16);
-exports.Socket = __webpack_require__(21);
+exports.Manager = __webpack_require__(20);
+exports.Socket = __webpack_require__(25);
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -50312,8 +50337,8 @@ exports.Socket = __webpack_require__(21);
  * Module dependencies.
  */
 
-var parseuri = __webpack_require__(13);
-var debug = __webpack_require__(1)('socket.io-client:url');
+var parseuri = __webpack_require__(17);
+var debug = __webpack_require__(5)('socket.io-client:url');
 
 /**
  * Module exports.
@@ -50383,10 +50408,10 @@ function url (uri, loc) {
   return obj;
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -50402,7 +50427,7 @@ exports.coerce = coerce;
 exports.disable = disable;
 exports.enable = enable;
 exports.enabled = enabled;
-exports.humanize = __webpack_require__(37);
+exports.humanize = __webpack_require__(38);
 
 /**
  * The currently active debug mode names, and names to skip.
@@ -50594,7 +50619,7 @@ function coerce(val) {
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports) {
 
 /**
@@ -50752,7 +50777,7 @@ function plural(ms, n, name) {
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -50763,7 +50788,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*global Blob,File*/
@@ -50772,8 +50797,8 @@ module.exports = Array.isArray || function (arr) {
  * Module requirements
  */
 
-var isArray = __webpack_require__(40);
-var isBuf = __webpack_require__(15);
+var isArray = __webpack_require__(41);
+var isBuf = __webpack_require__(19);
 var toString = Object.prototype.toString;
 var withNativeBlob = typeof global.Blob === 'function' || toString.call(global.Blob) === '[object BlobConstructor]';
 var withNativeFile = typeof global.File === 'function' || toString.call(global.File) === '[object FileConstructor]';
@@ -50908,10 +50933,10 @@ exports.removeBlobs = function(data, callback) {
   }
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -50922,11 +50947,11 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-module.exports = __webpack_require__(42);
+module.exports = __webpack_require__(43);
 
 /**
  * Exports parser
@@ -50934,24 +50959,24 @@ module.exports = __webpack_require__(42);
  * @api public
  *
  */
-module.exports.parser = __webpack_require__(4);
+module.exports.parser = __webpack_require__(8);
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
  * Module dependencies.
  */
 
-var transports = __webpack_require__(17);
-var Emitter = __webpack_require__(3);
-var debug = __webpack_require__(1)('engine.io-client:socket');
-var index = __webpack_require__(20);
-var parser = __webpack_require__(4);
-var parseuri = __webpack_require__(13);
-var parseqs = __webpack_require__(5);
+var transports = __webpack_require__(21);
+var Emitter = __webpack_require__(7);
+var debug = __webpack_require__(5)('engine.io-client:socket');
+var index = __webpack_require__(24);
+var parser = __webpack_require__(8);
+var parseuri = __webpack_require__(17);
+var parseqs = __webpack_require__(9);
 
 /**
  * Module exports.
@@ -51084,9 +51109,9 @@ Socket.protocol = parser.protocol; // this is an int
  */
 
 Socket.Socket = Socket;
-Socket.Transport = __webpack_require__(9);
-Socket.transports = __webpack_require__(17);
-Socket.parser = __webpack_require__(4);
+Socket.Transport = __webpack_require__(13);
+Socket.transports = __webpack_require__(21);
+Socket.parser = __webpack_require__(8);
 
 /**
  * Creates transport of the given type.
@@ -51685,10 +51710,10 @@ Socket.prototype.filterUpgrades = function (upgrades) {
   return filteredUpgrades;
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports) {
 
 
@@ -51711,18 +51736,18 @@ try {
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
  * Module requirements.
  */
 
-var XMLHttpRequest = __webpack_require__(8);
-var Polling = __webpack_require__(18);
-var Emitter = __webpack_require__(3);
-var inherit = __webpack_require__(6);
-var debug = __webpack_require__(1)('engine.io-client:polling-xhr');
+var XMLHttpRequest = __webpack_require__(12);
+var Polling = __webpack_require__(22);
+var Emitter = __webpack_require__(7);
+var inherit = __webpack_require__(10);
+var debug = __webpack_require__(5)('engine.io-client:polling-xhr');
 
 /**
  * Module exports.
@@ -52128,10 +52153,10 @@ function unloadHandler () {
   }
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports) {
 
 
@@ -52156,7 +52181,7 @@ module.exports = Object.keys || function keys (obj){
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports) {
 
 /**
@@ -52191,7 +52216,7 @@ module.exports = function(arraybuffer, start, end) {
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports) {
 
 module.exports = after
@@ -52225,7 +52250,7 @@ function noop() {}
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/utf8js v2.1.2 by @mathias */
@@ -52483,10 +52508,10 @@ function noop() {}
 
 }(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(49)(module), __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(50)(module), __webpack_require__(4)))
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -52514,7 +52539,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports) {
 
 /*
@@ -52587,7 +52612,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -52687,10 +52712,10 @@ module.exports = (function() {
   }
 })();
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -52698,8 +52723,8 @@ module.exports = (function() {
  * Module requirements.
  */
 
-var Polling = __webpack_require__(18);
-var inherit = __webpack_require__(6);
+var Polling = __webpack_require__(22);
+var inherit = __webpack_require__(10);
 
 /**
  * Module exports.
@@ -52925,27 +52950,27 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
   }
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
  * Module dependencies.
  */
 
-var Transport = __webpack_require__(9);
-var parser = __webpack_require__(4);
-var parseqs = __webpack_require__(5);
-var inherit = __webpack_require__(6);
-var yeast = __webpack_require__(19);
-var debug = __webpack_require__(1)('engine.io-client:websocket');
+var Transport = __webpack_require__(13);
+var parser = __webpack_require__(8);
+var parseqs = __webpack_require__(9);
+var inherit = __webpack_require__(10);
+var yeast = __webpack_require__(23);
+var debug = __webpack_require__(5)('engine.io-client:websocket');
 var BrowserWebSocket = global.WebSocket || global.MozWebSocket;
 var NodeWebSocket;
 if (typeof window === 'undefined') {
   try {
-    NodeWebSocket = __webpack_require__(54);
+    NodeWebSocket = __webpack_require__(55);
   } catch (e) { }
 }
 
@@ -53218,16 +53243,16 @@ WS.prototype.check = function () {
   return !!WebSocket && !('__initialize' in WebSocket && this.name === WS.prototype.name);
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports) {
 
 module.exports = toArray
@@ -53246,7 +53271,7 @@ function toArray(list, index) {
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports) {
 
 
@@ -53338,4 +53363,4 @@ Backoff.prototype.setJitter = function(jitter){
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=main.48a0235b2a38b888ec74.js.map
+//# sourceMappingURL=main.deac09c343ab176e4164.js.map

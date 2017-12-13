@@ -81,8 +81,40 @@ h1 {
   font-size: 3rem;
 }
 
+.invisible {
+  display: none;
+}
+
 .qr {
   position: absolute;
+}
+
+.count-down {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 200px;
+  font-size: 20rem;
+  opacity: .6;
+  -webkit-animation: flash linear 1s infinit;
+          animation: flash linear 1s infinit;
+}
+
+@-webkit-keyframes flash {
+	0% { opacity: 1; }
+	50% { opacity: .1; }
+	100% { opacity: 1; }
+}
+
+@keyframes flash {
+	0% { opacity: 1; }
+	50% { opacity: .1; }
+	100% { opacity: 1; }
 }
 
 /*# sourceMappingURL=style.css.map*/
