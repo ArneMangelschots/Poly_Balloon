@@ -1,12 +1,15 @@
 import mapRange from './lib/mapRange';
 import autoCorrelate from './lib/autoCorrelate';
 import random from './lib/random';
+import getUrlParameter from './lib/getUrlParameter';
 
 import modelLoader from './objects/modelLoader';
 import Balloon from './objects/Balloon';
 import Landscape from './objects/Landscape';
 import Cloud from './objects/Cloud';
 import PaperPlane from './objects/PaperPlane';
+
+import controller from './controller';
 
 const THREE = require('three');
 const TWEEN = require('tween.js');
@@ -41,9 +44,11 @@ import IO from 'socket.io-client';
   const buflen = 1024,
     buf = new Float32Array(buflen);
 
-
-
   const init = () => {
+    if (getUrlParameter(`page`) === `controller`) {
+      controller();
+      return false;
+    }
 
     connectSocket();
     handleAudio();
