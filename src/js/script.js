@@ -19,10 +19,13 @@ import IO from 'socket.io-client';
   const SHADOW_MAP_WIDTH = 2048
   const SHADOW_MAP_HEIGHT = 1024;
 
+  const toLoad = [`landscape1`,`landscape2`, `landscape3`, `balloon`, `cloud`, `cloud1`, `cloud2`, `treeline`, `paperPlane`];
+
   let scene = false,
     camera = false,
     renderer = false,
-    frustum;
+    frustum = false,
+    sceneWidthModifier = false;
 
   let models = false,
     landscapes = [],
@@ -53,7 +56,7 @@ import IO from 'socket.io-client';
     connectSocket();
     handleAudio();
     //load all models
-    modelLoader.load()
+    modelLoader.loadJSON(toLoad)
     .then(m => {
       models = m;
       game();
@@ -147,6 +150,8 @@ import IO from 'socket.io-client';
 
     frustum.setFromMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
 
+    sceneWidthModifier = frustum.planes[0].constant;
+
     renderer = new THREE.WebGLRenderer({alpha: true});
     renderer.setSize(window.innerWidth, window.innerHeight);
     const $gameElement = document.getElementById(`game`);
@@ -172,7 +177,7 @@ import IO from 'socket.io-client';
   };
 
   const setupBalloon = () => {
-    balloon = new Balloon(models.balloon.geometry, models.balloon.materials);
+    balloon = new Balloon(models.balloon.geometry, models.balloon.materials, sceneWidthModifier);
     scene.add(balloon);
   };
 
@@ -215,7 +220,7 @@ import IO from 'socket.io-client';
 
   const setupPaperPlanes = () => {
     //setup 1 plane in pool
-    const paperPlane = new PaperPlane(models.paperPlane.geometry, models.paperPlane.materials);
+    const paperPlane = new PaperPlane(models.paperPlane.geometry, models.paperPlane.materials, sceneWidthModifier);
     paperPlanes.push(paperPlane);
     scene.add(paperPlane);
     //on socket update shoot paperplane
@@ -226,7 +231,7 @@ import IO from 'socket.io-client';
         const getAlivePlanes = paperPlanes.filter(pp => !pp.flying);
         //every plane flying? create new and push in array
         if(getAlivePlanes.length === 0){
-          const paperPlane = new PaperPlane(models.paperPlane.geometry, models.paperPlane.materials);
+          const paperPlane = new PaperPlane(models.paperPlane.geometry, models.paperPlane.materials, sceneWidthModifier);
           paperPlanes.push(paperPlane);
           scene.add(paperPlane);
           paperPlaneToShoot = paperPlane;
@@ -267,7 +272,7 @@ import IO from 'socket.io-client';
       balloon.wiggle();
       speed = 3;
       console.log(remoteSocketId);
-      socket.emit(`update`, remoteSocketId, {
+      socket.emit(`start`, remoteSocketId, {
         message: `Game started!`
       });
     });
@@ -341,7 +346,6 @@ import IO from 'socket.io-client';
   const connectSocket = () => {
     socket = IO.connect(`/`);
     socket.on('sid', ({sid, qrImg}) => {
-      console.log(sid);
       socketId = sid;
       const $qrContainer = document.getElementById('qr');
       if($qrContainer){
@@ -351,7 +355,7 @@ import IO from 'socket.io-client';
       }
     });
 
-    socket.on(`update`, ({message, remoteId}) => {
+    socket.on(`connected`, ({message, remoteId}) => {
       console.log(`${message} with ${remoteId}`);
       remoteSocketId = remoteId
     });

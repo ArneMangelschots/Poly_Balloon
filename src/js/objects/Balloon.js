@@ -3,9 +3,9 @@ const TWEEN = require('tween.js');
 
 export default class Balloon extends THREE.Mesh {
 
-  constructor(geometry, materials) {
+  constructor(geometry, materials, sceneWidthModifier) {
     super(geometry, materials);
-    this.position.set(-400, -175, - 600);
+    this.position.set(sceneWidthModifier * -1.4, -175, - 600);
     this.scale.set(.29, .29, .29);
     this.rotation.order = `ZYX`;
     this.castShadow = true;

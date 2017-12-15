@@ -5,8 +5,7 @@ let req;
 
 export default {
 
-  load: () => {
-    const toLoad = [`landscape1`,`landscape2`, `landscape3`, `balloon`, `cloud`, `cloud1`, `cloud2`, `treeline`, `paperPlane`];
+  loadJSON: (toLoad) => {
     let models = {};
     const loader = new THREE.JSONLoader();
     let req;
@@ -32,7 +31,37 @@ export default {
         if (Object.keys(models).length !== toLoad.length) {
           reject(`network error`);
         }
-      }, 30000);
+      }, 100000);
+    });
+
+  },
+
+  loadObject: (toLoad) => {
+    let models = {};
+    const loader = new THREE.ObjectLoader();
+    let req;
+
+    return new Promise((resolve, reject) => {
+      toLoad.forEach(m => {
+        loader.load(`./assets/models/${m}.json`, (s) => {
+          const scene = {
+            [m]: {
+              scene: s,
+            }
+          };
+          models = Object.assign(models, scene);
+        });
+      });
+      THREE.DefaultLoadingManager.onLoad = () => {
+        if (Object.keys(models).length === toLoad.length) {
+          resolve(models);
+        }
+      };
+      setTimeout(() => {
+        if (Object.keys(models).length !== toLoad.length) {
+          reject(`network error`);
+        }
+      }, 100000);
     });
 
   }

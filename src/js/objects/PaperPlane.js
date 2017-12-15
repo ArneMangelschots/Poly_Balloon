@@ -2,9 +2,9 @@ const THREE = require('three');
 
 export default class PaperPlane extends THREE.Mesh {
 
-  constructor(geometry, materials) {
+  constructor(geometry, materials, sceneWidthModifier) {
     super(geometry, materials);
-    this.position.set(800, 150, - 600);
+    this.position.set(sceneWidthModifier * 2.45, 150, - 600);
     this.scale.set(.4, .4, .4);
     this.rotation.y = - 90 * (Math.PI / 180);
     this.castShadow = true;
