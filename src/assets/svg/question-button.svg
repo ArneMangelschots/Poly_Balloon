@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="69px" height="78.6px" viewBox="0 0 109 118.6" style="enable-background:new 0 0 109 118.6;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#5895B7;}
+	.st1{opacity:0.8;}
+	.st2{fill:#C17620;}
+	.st3{fill:#F4C24A;}
+	.st4{fill:#2A6FBA;}
+	.st5{fill:#4ABAEF;}
+	.st6{fill:none;}
+	.st7{fill:#FFFFFF;}
+	.st8{font-family:'EditUndoBRK';}
+	.st9{font-size:79px;}
+</style>
+<g>
+	<rect x="-223" y="-259" class="st0" width="484" height="82"/>
+	<rect x="229" y="-185" class="st0" width="107" height="30"/>
+	<g class="st1">
+		<g>
+			<polygon class="st0" points="-207,-239 -207,-157 -303,-157 -303,-168 -291,-168 -291,-180 -279,-180 -279,-192 -267,-192
+				-267,-204 -279,-204 -279,-216 -291,-216 -291,-228 -303,-228 -303,-239 			"/>
+		</g>
+		<polygon class="st0" points="-221,-181 -207,-158 -207,-181 		"/>
+	</g>
+	<g>
+		<g>
+			<polygon class="st2" points="240,-247 240,-165 336,-165 336,-176 324,-176 324,-188 312,-188 312,-200 300,-200 300,-212
+				312,-212 312,-224 324,-224 324,-236 336,-236 336,-247 			"/>
+			<polygon class="st3" points="240,-258 240,-176 336,-176 336,-187 324,-187 324,-199 312,-199 312,-211 300,-211 300,-223
+				312,-223 312,-235 324,-235 324,-247 336,-247 336,-258 			"/>
+		</g>
+		<polygon class="st2" points="254,-189 240,-166 240,-189 		"/>
+		<g>
+			<g>
+				<polygon class="st2" points="-216,-247 -216,-165 -312,-165 -312,-176 -300,-176 -300,-188 -288,-188 -288,-200 -276,-200
+					-276,-212 -288,-212 -288,-224 -300,-224 -300,-236 -312,-236 -312,-247 				"/>
+				<polygon class="st3" points="-216,-258 -216,-176 -312,-176 -312,-187 -300,-187 -300,-199 -288,-199 -288,-211 -276,-211
+					-276,-223 -288,-223 -288,-235 -300,-235 -300,-247 -312,-247 -312,-258 				"/>
+			</g>
+			<polygon class="st2" points="-230,-189 -216,-166 -216,-189 			"/>
+		</g>
+		<g>
+			<rect x="-230" y="-271" class="st2" width="484" height="82"/>
+			<rect x="-230" y="-283" class="st3" width="484" height="82"/>
+		</g>
+	</g>
+	<rect x="-207.2" y="-257.8" class="st6" width="415.2" height="81.8"/>
+	<text transform="matrix(1 0 0 1 -168.0225 -223.209)" class="st7 st8" style="font-size:60px;">HOW TO PLAY</text>
+</g>
+<polygon class="st4" points="97,10 85,10 12,10 12,22 0,22 0,107 12,107 12,119 85,119 97,119 97,107 109,107 109,22 97,22 "/>
+<polygon class="st5" points="97,0 85,0 12,0 12,12 0,12 0,97 12,97 12,109 85,109 97,109 97,97 109,97 109,12 97,12 "/>
+<rect x="12" y="34.2" class="st6" width="89" height="81.8"/>
+<text transform="matrix(1 0 0 1 36.5918 79.7344)" class="st7 st8 st9">?</text>
+</svg>

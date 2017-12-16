@@ -4,9 +4,99 @@
   <meta charset="UTF-8">
   <title>Hello, experimentel_web</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <script type="text/javascript">
+  WebFontConfig = {
+    custom: {
+      families: [
+        'edituno'
+      ],
+      urls: ['./assets/fonts/fonts.css']
+    }
+  };
+
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
 </head>
 <body>
-  <div id="qr" class="qr"></div>
+  <div id="intro-polyballoon" class="intro-polyballoon">
+    <div class="how-title-box">
+      <div class="invisible-box"></div>
+      <header>
+        <img src="./assets/svg/how-title.svg" alt="how to play title">
+      </header>
+      <button class="question-button" type="button" name="info-button"></button>
+    </div>
+
+    <div class="players-section">
+      <div class="player-one">
+        <img src="./assets/svg/player-one.svg" class="player-title" alt="player-one">
+        <img class="player-image" src="./assets/svg/music-notes.svg" alt="music notes">
+        <div class="text-box">
+          <p>You are the balloon traveler who is going on world journey!
+            To keep your balloon going you have to whistle!</p>
+        </div>
+        <div class="todo-box invisible" id="calibration-init">
+
+          <div class="todo-text">
+            <p>To calibrate your whistle-tone you have to press the button underneath
+              and try to whistle a steady tone for 5 seconds!</p>
+          </div>
+          <div class="calibration-box">
+            <h1 class="green-info">calibration succesfully</h1>
+            <button class="calibration-button" id="calib" type="button" name="calibration-button"></button>
+            <div class="loading-bar">
+              <img class="white-loader" src="./assets/svg/white-loader.svg" alt="loading animation">
+            </div>
+          </div>
+
+        </div>
+        <div class="todo-box" id="calibration-test">
+
+          <!-- /////////// TEST BALLOON FASE /////////// -->
+          <div class="todo-text">
+            <p>Try to get the balloon up by blowing short whistles</p>
+          </div>
+          <div class="test-balloon-box">
+            <div class="test-balloon">
+              <img src="./assets/svg/balloon.svg" alt="test balloon" align="bottom">
+            </div>
+            <h1 class="grey-info">not working properly?</h1>
+            <button class="recalibration-button" type="button" name="recalibration-button"></button>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="play">
+        <img src="./assets/svg/vs.svg" alt="versus">
+        <button class="play-button" id="playbutton" type="button" name="play-button"></button>
+      </div>
+      <div class="player-two">
+        <img src="./assets/svg/player-two.svg"  class="player-title" alt="player-two">
+        <img class="player-image paperplane" src="./assets/svg/paper-plane.svg" alt="paperplane">
+        <div class="text-box">
+          <p>you are the paper plane-throwing tourist in the mountain! Throw paper planes at the balloon with your phone!</p>
+        </div>
+        <div class="todo-box">
+          <div class="todo-text">
+            <p>To calibrate your whistle-tone you have to press the button underneath
+              and try to whistle a steady tone for 5 seconds!</p>
+          </div>
+          <div class="qr-code-box">
+            <h1 class="purple-info">calibration succesfully</h1>
+            <div id="qr" class="qr"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div id="intro-polyballoon">
   <div id="game">
   </div>
   <div id="count-down" class="count-down">

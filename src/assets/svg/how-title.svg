@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="608px" height="88px" viewBox="0 0 648 128" style="enable-background:new 0 0 648 128;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#5895B7;}
+	.st1{opacity:0.8;}
+	.st2{fill:#C17620;}
+	.st3{fill:#F4C24A;}
+	.st4{fill:none;}
+	.st5{fill:#FFFFFF;}
+	.st6{font-family:'EditUndoBRK';}
+	.st7{font-size:60px;}
+	.st8{fill:#2A6FBA;}
+	.st9{fill:#4ABAEF;}
+</style>
+<g>
+	<rect x="89" y="24" class="st0" width="484" height="82"/>
+	<rect x="541" y="98" class="st0" width="107" height="30"/>
+	<g class="st1">
+		<g>
+			<polygon class="st0" points="105,44 105,126 9,126 9,115 21,115 21,103 33,103 33,91 45,91 45,79 33,79 33,67 21,67 21,55 9,55
+				9,44 			"/>
+		</g>
+		<polygon class="st0" points="91,102 105,125 105,102 		"/>
+	</g>
+	<g>
+		<g>
+			<polygon class="st2" points="552,36 552,118 648,118 648,107 636,107 636,95 624,95 624,83 612,83 612,71 624,71 624,59 636,59
+				636,47 648,47 648,36 			"/>
+			<polygon class="st3" points="552,25 552,107 648,107 648,96 636,96 636,84 624,84 624,72 612,72 612,60 624,60 624,48 636,48
+				636,36 648,36 648,25 			"/>
+		</g>
+		<polygon class="st2" points="566,94 552,117 552,94 		"/>
+		<g>
+			<g>
+				<polygon class="st2" points="96,36 96,118 0,118 0,107 12,107 12,95 24,95 24,83 36,83 36,71 24,71 24,59 12,59 12,47 0,47
+					0,36 				"/>
+				<polygon class="st3" points="96,25 96,107 0,107 0,96 12,96 12,84 24,84 24,72 36,72 36,60 24,60 24,48 12,48 12,36 0,36 0,25
+									"/>
+			</g>
+			<polygon class="st2" points="82,94 96,117 96,94 			"/>
+		</g>
+		<g>
+			<rect x="82" y="12" class="st2" width="484" height="82"/>
+			<rect x="82" class="st3" width="484" height="82"/>
+		</g>
+	</g>
+	<rect x="104.8" y="25.2" class="st4" width="415.2" height="81.8"/>
+	<text transform="matrix(1 0 0 1 143.9775 59.791)" class="st5 st6 st7">HOW TO PLAY</text>
+</g>
+<polygon class="st8" points="409,293 397,293 324,293 324,305 312,305 312,390 324,390 324,402 397,402 409,402 409,390 421,390
+	421,305 409,305 "/>
+<polygon class="st9" points="409,283 397,283 324,283 324,295 312,295 312,380 324,380 324,392 397,392 409,392 409,380 421,380
+	421,295 409,295 "/>
+<rect x="324" y="317.2" class="st4" width="89" height="81.8"/>
+<text transform="matrix(1 0 0 1 348.5918 362.7344)" class="st5 st6" style="font-size:79px;">?</text>
+</svg>

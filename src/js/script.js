@@ -36,7 +36,7 @@ import IO from 'socket.io-client';
   let speed = 0,
     audioCtx,
     analyser,
-    pitch,
+    pitch = false,
     myPitch = 20000,
     pitchUp = false;
 
@@ -138,7 +138,8 @@ import IO from 'socket.io-client';
 
     camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 3000);
     camera.position.z = 600;
-    camera.position.y = 90;
+    camera.position.y = 780;
+    //90 is game
     camera.position.x = 0;
 
     camera.updateMatrix();
@@ -168,12 +169,7 @@ import IO from 'socket.io-client';
     setupClouds();
     setupPaperPlanes();
     render();
-    window.addEventListener(`keydown`, e => {
-      e.preventDefault();
-      if(e.keyCode === 32){
-        startGame();
-      }
-    });
+    setupStartScreen();
   };
 
   const setupBalloon = () => {
@@ -266,9 +262,20 @@ import IO from 'socket.io-client';
   };
 
   const startGame = () => {
-    countDown();
+    const start = {y: camera.position.y};
+    const target = {y: 90};
+    const tween = new TWEEN.Tween(start).to(target, 1000);
+    tween.easing(TWEEN.Easing.Sinusoidal.InOut);
+    tween.start();
+    tween.onUpdate(() => {
+      camera.position.y = start.y;
+    });
+    tween.onComplete(() => {
+      countDown();
+    });
     const balloonStart = balloon.flyToStart();
     balloonStart.onComplete(() => {
+      console.log(`balloonstart`);
       balloon.wiggle();
       speed = 3;
       console.log(remoteSocketId);
@@ -287,14 +294,40 @@ import IO from 'socket.io-client';
     const $countDown = document.getElementById(`count-down`);
     let teller = 3;
     $countDown.innerHTML = teller;
-    const interval = setInterval(() => {
-      teller -= 1;
-      $countDown.innerHTML = teller;
-      if(teller === 0){
-        clearInterval(interval);
-        $countDown.classList.add(`invisible`);
-      }
-    }, 1000);
+      const interval = setInterval(() => {
+        teller -= 1;
+        $countDown.innerHTML = teller;
+        if(teller === 0){
+          clearInterval(interval);
+          $countDown.classList.add(`invisible`);
+        }
+      }, 1000);
+  };
+
+  const setupStartScreen = () => {
+    const $calibrationButton = document.getElementById(`calib`);
+    const $playbutton = document.getElementById(`playbutton`);
+
+    $calibrationButton.addEventListener(`click`,e => {
+      e.preventDefault();
+      calibrate();
+    })
+
+    $playbutton.addEventListener(`click`, e => {
+      startGame();
+    });
+  };
+
+  const calibrationTestScreen = () => {
+    const $calibrationTest = document.getElementById(`calibration-test`);
+    const $calibrationInit = document.getElementById(`calibration-init`);
+
+    if(myPitch > 0){
+      $calibrationInit.classList.add(`invisible`);
+      $calibrationTest.classList.remove(`invisible`);
+    }
+
+    //make balloon work
   };
 
   const handleStream = stream => {
@@ -305,11 +338,9 @@ import IO from 'socket.io-client';
     analyser.fftSize = 2048;
     mediaStreamSource.connect(analyser);
     updatePitch();
-
-    window.addEventListener(`click`, callibrate);
   };
 
-  const callibrate = () => {
+  const calibrate = () => {
     balloon.hit();
     const calibrationEntries = [];
     const calibrator = setInterval(() => {
@@ -322,7 +353,7 @@ import IO from 'socket.io-client';
           return a - b;
         });
         myPitch = calibrationEntries[24];
-        console.log(`done`, myPitch);
+        calibrationTestScreen();
       }
     }, 50);
   };
