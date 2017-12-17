@@ -219,6 +219,12 @@ button:focus {
     font-family: edituno;
     font-size: 120%;
     padding-bottom: .5rem;
+    opacity: 0;
+    transition: .3s;
+  }
+
+  & .fade-in {
+    opacity: 1;
   }
 
   & .loading-bar {
@@ -226,6 +232,15 @@ button:focus {
     background: url(../assets/svg/loading-bar.svg) no-repeat;
     width: 22.9rem;
     height: 3.9rem;
+    z-index: 10;
+  }
+
+  & .loading-fill {
+    display: block;
+    position: absolute;
+    margin-top: 4.5rem;
+    margin-left: 4rem;
+    z-index: 0;
   }
 }
 
@@ -244,10 +259,6 @@ button:focus {
   cursor: pointer;
 }
 
-.white-loader {
-  padding: 1rem 0 0 .5rem;
-}
-
 .test-balloon-box {
   display: flex;
   flex-flow: column nowrap;
@@ -255,7 +266,12 @@ button:focus {
   align-items: center;
 
   & .test-balloon {
-    margin-top: 7rem;
+    display: block;
+    height: 15rem;
+  }
+
+  & .mini-balloon {
+    margin-top: 8.5rem;
   }
 }
 

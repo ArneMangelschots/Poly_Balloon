@@ -42,33 +42,36 @@
           <p>You are the balloon traveler who is going on world journey!
             To keep your balloon going you have to whistle!</p>
         </div>
-        <div class="todo-box invisible" id="calibration-init">
+        <div class="todo-box" id="calibration-init">
 
           <div class="todo-text">
             <p>To calibrate your whistle-tone you have to press the button underneath
               and try to whistle a steady tone for 5 seconds!</p>
           </div>
           <div class="calibration-box">
-            <h1 class="green-info">calibration succesfully</h1>
+            <h1 class="green-info" id="succes">calibration succesfully</h1>
             <button class="calibration-button" id="calib" type="button" name="calibration-button"></button>
-            <div class="loading-bar">
-              <img class="white-loader" src="/assets/svg/white-loader.svg" alt="loading animation">
+            <div class="loading-bar"></div>
+            <div class="loading-fill">
+              <svg width="300" height="20" viewBox="0 0 300 20" xmlns="http://www.w3.org/2000/svg">
+                <rect id="loading-filler" width="10px" height="20" style="fill: white;"/>
+              </svg>
             </div>
           </div>
 
         </div>
-        <div class="todo-box" id="calibration-test">
+        <div class="todo-box invisible" id="calibration-test">
 
           <!-- /////////// TEST BALLOON FASE /////////// -->
           <div class="todo-text">
-            <p>Try to get the balloon up by blowing short whistles</p>
+            <p>Try to make the balloon jump up by blowing short whistles</p>
           </div>
           <div class="test-balloon-box">
             <div class="test-balloon">
-              <img src="/assets/svg/balloon.svg" alt="test balloon" align="bottom">
+              <img src="/assets/svg/balloon.svg" class="mini-balloon" id="mini-balloon" alt="test balloon" align="bottom">
             </div>
             <h1 class="grey-info">not working properly?</h1>
-            <button class="recalibration-button" type="button" name="recalibration-button"></button>
+            <button class="recalibration-button" id="recal-button" type="button" name="recalibration-button"></button>
           </div>
 
         </div>
@@ -101,5 +104,5 @@
   </div>
   <div id="count-down" class="count-down">
   </div>
-<script type="text/javascript" src="/js/main.91472a465e920eac06e7.js"></script></body>
+<script type="text/javascript" src="/js/main.5b254e42813a0141c729.js"></script></body>
 </html>

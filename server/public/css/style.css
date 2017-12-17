@@ -374,6 +374,12 @@ button:focus {
   font-size: 120%;
   padding-bottom: 5px;
   padding-bottom: .5rem;
+  opacity: 0;
+  transition: .3s;
+}
+
+.calibration-box .fade-in {
+  opacity: 1;
 }
 
 .calibration-box .loading-bar {
@@ -384,6 +390,17 @@ button:focus {
   width: 22.9rem;
   height: 39px;
   height: 3.9rem;
+  z-index: 10;
+}
+
+.calibration-box .loading-fill {
+  display: block;
+  position: absolute;
+  margin-top: 45px;
+  margin-top: 4.5rem;
+  margin-left: 40px;
+  margin-left: 4rem;
+  z-index: 0;
 }
 
 .calibration-button {
@@ -405,11 +422,6 @@ button:focus {
   cursor: pointer;
 }
 
-.white-loader {
-  padding: 10px 0 0 5px;
-  padding: 1rem 0 0 .5rem;
-}
-
 .test-balloon-box {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -427,8 +439,14 @@ button:focus {
 }
 
 .test-balloon-box .test-balloon {
-  margin-top: 70px;
-  margin-top: 7rem;
+  display: block;
+  height: 150px;
+  height: 15rem;
+}
+
+.test-balloon-box .mini-balloon {
+  margin-top: 85px;
+  margin-top: 8.5rem;
 }
 
 .grey-info {

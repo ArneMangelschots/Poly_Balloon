@@ -310,6 +310,7 @@ import IO from 'socket.io-client';
 
     $calibrationButton.addEventListener(`click`,e => {
       e.preventDefault();
+      e.currentTarget.setAttribute(`disabled`, true);
       calibrate();
     })
 
@@ -321,13 +322,41 @@ import IO from 'socket.io-client';
   const calibrationTestScreen = () => {
     const $calibrationTest = document.getElementById(`calibration-test`);
     const $calibrationInit = document.getElementById(`calibration-init`);
+    const $recalibrate = document.getElementById(`recal-button`);
 
     if(myPitch > 0){
       $calibrationInit.classList.add(`invisible`);
       $calibrationTest.classList.remove(`invisible`);
     }
 
+    $recalibrate.addEventListener(`click`, e => {
+      e.preventDefault();
+      resetCalibration();
+    });
+
     //make balloon work
+    balloonTest();
+  };
+
+  const balloonTest = () => {
+    const $miniBalloon = document.getElementById(`mini-balloon`);
+    if (pitch > myPitch - 80 && pitch < myPitch + 80 && !pitchUp) {
+      const top = {top: 85};
+      const target = {top: 0};
+      const tween = new TWEEN.Tween(top).to(target, 400);
+      tween.easing(TWEEN.Easing.Cubic.InOut);
+      tween.repeat(1);
+      tween.yoyo(true);
+      tween.start();
+      tween.onUpdate(() => {
+        $miniBalloon.style.marginTop = `${top.top}px`
+      });
+      pitchUp = true;
+      tween.onComplete(() => {
+        pitchUp = false;
+      })
+    }
+    window.requestAnimationFrame(balloonTest);
   };
 
   const handleStream = stream => {
@@ -340,12 +369,31 @@ import IO from 'socket.io-client';
     updatePitch();
   };
 
+  const resetCalibration = () => {
+    myPitch = 20000;
+
+    const $loadingFiller = document.getElementById(`loading-filler`);
+    $loadingFiller.setAttribute(`width`, `10px`)
+
+    const $calibrationTest = document.getElementById(`calibration-test`);
+    const $calibrationInit = document.getElementById(`calibration-init`);
+
+    $calibrationTest.classList.add(`invisible`);
+    $calibrationInit.classList.remove(`invisible`);
+
+    document.getElementById(`calib`).removeAttribute(`disabled`);
+    document.getElementById(`succes`).classList.remove(`fade-in`);
+  };
+
   const calibrate = () => {
-    balloon.hit();
+    const $loadingFiller = document.getElementById(`loading-filler`);
+    const $succes = document.getElementById(`succes`);
     const calibrationEntries = [];
     const calibrator = setInterval(() => {
       if(pitch !== -1){
         calibrationEntries.push(pitch);
+        const width = parseInt($loadingFiller.getAttribute(`width`));
+        $loadingFiller.setAttribute(`width`, `${width+4.9}px`)
       }
       if(calibrationEntries.length === 49){
         clearInterval(calibrator);
@@ -353,7 +401,10 @@ import IO from 'socket.io-client';
           return a - b;
         });
         myPitch = calibrationEntries[24];
-        calibrationTestScreen();
+        $succes.classList.add(`fade-in`);
+        setTimeout(() => {
+          calibrationTestScreen();
+        }, 2000)
       }
     }, 50);
   };
@@ -363,8 +414,7 @@ import IO from 'socket.io-client';
     analyser.getFloatTimeDomainData(buf);
     const ac = autoCorrelate(buf, audioCtx.sampleRate);
     pitch = ac;
-    if (ac > myPitch - 80 && ac < myPitch + 80 && balloon && !pitchUp && speed > 0) {
-      console.log(`joe`);
+    if (pitch > myPitch - 80 && pitch < myPitch + 80 && balloon && !pitchUp && speed > 0) {
       const tween = balloon.flyUp();
       pitchUp = true;
       tween.onComplete(() => {
