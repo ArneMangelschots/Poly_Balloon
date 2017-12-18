@@ -123,7 +123,7 @@ button:focus {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  max-width:100%;
+  max-width: 100%;
   max-height: 100%;
 }
 
@@ -519,6 +519,144 @@ button:focus {
 
 .invisible {
   display: none;
+}
+
+.game-frame {
+  background: url(/assets/svg/frame.svg) no-repeat;
+  height: 100vh;
+  width: 100vw;
+}
+
+.interface {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.interface-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  position: relative;
+  right: 100px;
+  right: 10rem;
+  width: 111vw;
+  -webkit-transform: scale(.9);
+          transform: scale(.9);
+}
+
+.damage-box {
+  background: url(/assets/svg/dmg-box.svg) no-repeat;
+  width: 457px;
+  width: 45.7rem;
+  height: 107px;
+  height: 10.7rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  bottom: 15px;
+  bottom: 1.5rem;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center
+}
+
+.damage-box h1 {
+  font-family: edituno;
+  text-transform: uppercase;
+  color: white;
+  font-size: 40px;
+  font-size: 4rem;
+}
+
+.damage-meter {
+  background: url(/assets/svg/dmg-meter.svg) no-repeat;
+  width: 283px;
+  width: 28.3rem;
+  height: 18px;
+  height: 1.8rem
+}
+
+.damage-meter .damage-loader {
+  background: url(/assets/svg/dmg-loader.svg) no-repeat;
+  height: 18px;
+  height: 1.8rem;
+  width: 67px;
+  width: 6.7rem;
+}
+
+.distance-box {
+  background: url(/assets/svg/distance.svg) no-repeat;
+  height: 107px;
+  height: 10.7rem;
+  width: 345px;
+  width: 34.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  margin-top: 5px;
+  margin-top: .5rem;
+  -webkit-transform: scale(.9);
+          transform: scale(.9);
+  position: relative;
+  bottom: 5px;
+  bottom: .5rem;
+  right: 150px;
+  right: 15rem
+
+}
+
+.distance-box h1 {
+  margin-top: 20px;
+  margin-top: 2rem;
+  font-family: edituno;
+  color: white;
+  padding: 0 10px;
+  padding: 0 1rem;
+  font-size: 40px;
+  font-size: 4rem;
+}
+
+.pause-box {
+  background: url(/assets/svg/pause-box.svg) no-repeat;
+  width: 110px;
+  width: 11rem;
+  height: 98px;
+  height: 9.8rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 /*# sourceMappingURL=style.css.map*/

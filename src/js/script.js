@@ -270,6 +270,7 @@ import IO from 'socket.io-client';
 
   const startGame = () => {
     document.getElementById(`intro-polyballoon`).classList.add(`invisible`);
+    document.getElementById(`interface`).classList.remove(`invisible`);
     const start = {y: camera.position.y};
     const target = {y: 90};
     const tween = new TWEEN.Tween(start).to(target, 1000);
