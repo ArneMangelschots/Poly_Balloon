@@ -54,7 +54,7 @@ button:focus {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  max-width:100%;
+  max-width: 100%;
   max-height: 100%;
 }
 
@@ -314,6 +314,7 @@ button:focus {
 }
 
 .qr {
+
   & img {
     width: 12rem;
     height: 12rem;
@@ -323,4 +324,92 @@ button:focus {
 
 .invisible {
   display: none;
+}
+
+.game-frame {
+  background: url(../assets/svg/frame.svg) no-repeat;
+  height: 100vh;
+  width: 100vw;
+}
+
+.interface {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.interface-box {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  right: 10rem;
+  width: 111vw;
+  transform: scale(.9);
+}
+
+.damage-box {
+  background: url(../assets/svg/dmg-box.svg) no-repeat;
+  width: 45.7rem;
+  height: 10.7rem;
+  display: flex;
+  position: relative;
+  bottom: 1.5rem;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+
+  & h1 {
+    font-family: edituno;
+    text-transform: uppercase;
+    color: white;
+    font-size: 4rem;
+  }
+}
+
+.damage-meter {
+  background: url(../assets/svg/dmg-meter.svg) no-repeat;
+  width: 28.3rem;
+  height: 1.8rem;
+
+  & .damage-loader {
+    background: url(../assets/svg/dmg-loader.svg) no-repeat;
+    height: 1.8rem;
+    width: 6.7rem;
+  }
+}
+
+.distance-box {
+  background: url(../assets/svg/distance.svg) no-repeat;
+  height: 10.7rem;
+  width: 34.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  margin-top: .5rem;
+  transform: scale(.9);
+  position: relative;
+  bottom: .5rem;
+  right: 15rem;
+
+  & h1 {
+    margin-top: 2rem;
+    font-family: edituno;
+    color: white;
+    padding: 0 1rem;
+    font-size: 4rem;
+  }
+
+}
+
+.pause-box {
+  background: url(../assets/svg/pause-box.svg) no-repeat;
+  width: 11rem;
+  height: 9.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
