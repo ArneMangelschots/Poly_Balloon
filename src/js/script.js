@@ -212,6 +212,13 @@ import IO from 'socket.io-client';
       scene.add(cloud);
       cloudX += random(50, 600);
     }
+    let cloudX2 = 950;
+    for (let i = 0;i < 4;i ++) {
+      const cloud = new Cloud(cloudGeometrys, models.cloud.materials, cloudX2, random(600, 1100), random(- 800, - 600), random(.9, 1.1));
+      clouds.push(cloud);
+      scene.add(cloud);
+      cloudX2 += random(50, 600);
+    }
   };
 
   const setupPaperPlanes = () => {
@@ -262,6 +269,7 @@ import IO from 'socket.io-client';
   };
 
   const startGame = () => {
+    document.getElementById(`intro-polyballoon`).classList.add(`invisible`);
     const start = {y: camera.position.y};
     const target = {y: 90};
     const tween = new TWEEN.Tween(start).to(target, 1000);
@@ -334,7 +342,6 @@ import IO from 'socket.io-client';
       resetCalibration();
     });
 
-    //make balloon work
     balloonTest();
   };
 
@@ -437,7 +444,8 @@ import IO from 'socket.io-client';
     });
 
     socket.on(`connected`, ({message, remoteId}) => {
-      console.log(`${message} with ${remoteId}`);
+      console.log(message);
+      document.getElementById(`connected-info`).classList.add(`fade-in`);
       remoteSocketId = remoteId
     });
   };

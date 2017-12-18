@@ -12,14 +12,17 @@ export default class Cloud extends THREE.Mesh {
     this.castShadow = true;
     this.receiveShadow = true;
     this.speeder = speeder;
+    this.yPos = y;
+    this.xPos = x;
+    this.zPos = z;
   }
 
   move(speed, frustum) {
-    this.position.x -= speed * this.speeder;
+    this.position.x -= speed + 1 * this.speeder;
   }
 
   reset() {
-    this.position.set(random(950, 1200), random(250, 400), random(- 1000, - 800));
+    this.position.set(this.xPos, this.yPos, this.zPos);
     this.speeder = random(.9, 1.1);
   }
 

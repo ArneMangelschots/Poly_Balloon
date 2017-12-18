@@ -23,10 +23,6 @@ h1 {
   font-size: 3rem;
 }
 
-.qr {
-  position: absolute;
-}
-
 .count-down {
   margin: 0;
   position: absolute;
@@ -122,7 +118,8 @@ button:focus {
   flex-flow: column nowrap;
   justify-content: baseline;
   align-items: center;
-  padding-top: 1rem;
+  padding-top: .5rem;
+  margin-top: 2rem;
 
   & img {
     transform: scale(.9);
@@ -181,7 +178,7 @@ button:focus {
 
 .player-image {
   width: 60%;
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 
 .paperplane {
@@ -302,13 +299,25 @@ button:focus {
   justify-content: center;
   align-items: center;
   flex-flow: column nowrap;
-  padding-top: 3rem;
 
   & .purple-info {
     color: #704ca2;
     font-family: edituno;
     font-size: 2.3rem;
-    padding-bottom: 2rem;
+    padding: 1rem;
+    opacity: 0;
+  }
+
+  & .fade-in {
+    opacity: 1;
+  }
+}
+
+.qr {
+  & img {
+    width: 12rem;
+    height: 12rem;
+    filter: contrast(80);
   }
 }
 

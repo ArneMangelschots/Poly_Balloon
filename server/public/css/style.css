@@ -82,10 +82,6 @@ h1 {
   font-size: 3rem;
 }
 
-.qr {
-  position: absolute;
-}
-
 .count-down {
   margin: 0;
   position: absolute;
@@ -223,8 +219,10 @@ button:focus {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding-top: 10px;
-  padding-top: 1rem
+  padding-top: 5px;
+  padding-top: .5rem;
+  margin-top: 20px;
+  margin-top: 2rem
 }
 
 .player-one img, .player-two img {
@@ -312,8 +310,8 @@ button:focus {
 
 .player-image {
   width: 60%;
-  margin-top: 30px;
-  margin-top: 3rem;
+  margin-top: 10px;
+  margin-top: 1rem;
 }
 
 .paperplane {
@@ -489,9 +487,7 @@ button:focus {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-flow: column nowrap;
-          flex-flow: column nowrap;
-  padding-top: 30px;
-  padding-top: 3rem
+          flex-flow: column nowrap
 }
 
 .qr-code-box .purple-info {
@@ -499,8 +495,26 @@ button:focus {
   font-family: edituno;
   font-size: 23px;
   font-size: 2.3rem;
-  padding-bottom: 20px;
-  padding-bottom: 2rem;
+  padding: 10px;
+  padding: 1rem;
+  opacity: 0;
+}
+
+.qr-code-box .fade-in {
+  opacity: 1;
+}
+
+.qr {
+}
+
+.qr img {
+  width: 120px;
+  width: 12rem;
+  height: 120px;
+  height: 12rem;
+  filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="80" intercept="-39.5" /><feFuncG type="linear" slope="80" intercept="-39.5" /><feFuncB type="linear" slope="80" intercept="-39.5" /></feComponentTransfer></filter></svg>#filter');
+  -webkit-filter: contrast(80);
+          filter: contrast(80);
 }
 
 .invisible {
