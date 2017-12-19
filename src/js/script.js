@@ -443,7 +443,7 @@ import IO from 'socket.io-client';
   };
 
   const connectSocket = () => {
-    socket = IO.connect(`/`);
+    socket = IO.connect(`/`, {transports: ['websocket']});
     socket.on('sid', ({sid, qrImg}) => {
       socketId = sid;
       const $qrContainer = document.getElementById('qr');
@@ -457,7 +457,7 @@ import IO from 'socket.io-client';
     socket.on(`connected`, ({message, remoteId}) => {
       console.log(message);
       document.getElementById(`connected-info`).classList.add(`fade-in`);
-      remoteSocketId = remoteId
+      remoteSocketId = remoteId;
     });
   };
 
