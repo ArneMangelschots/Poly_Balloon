@@ -42,7 +42,9 @@ import IO from 'socket.io-client';
     pitch = false,
     myPitch = 20000,
     pitchUp = false,
-    lastShotPlane = false;
+    lastShotPlane = false,
+    score = 0,
+    counter = 0;
 
   let socket,
       socketId,
@@ -82,7 +84,7 @@ import IO from 'socket.io-client';
     checkBalloonDeath();
     moveWorld();
     checkPaperPlanes();
-
+    displayScore();
     window.requestAnimationFrame(render);
   };
 
@@ -115,6 +117,10 @@ import IO from 'socket.io-client';
         paperPlane.shoot();
       }
     });
+  };
+
+  const displayScore = () => {
+    document.getElementById(`score`).innerHTML = score;
   };
 
   const moveWorld = () => {
@@ -303,13 +309,27 @@ import IO from 'socket.io-client';
       socket.emit(`start`, remoteSocketId, {
         message: `Game started!`
       });
+      toggleScoreCounting();
     });
+  };
+
+  const toggleScoreCounting = () => {
+    if(speed > 0){
+    counter = setInterval(() => {
+        score += 1;
+      }, 1000);
+    }else if(speed === 0 && counter){
+      clearInterval(counter);
+    }
   };
 
   const gameOver = () => {
     document.getElementById(`game-over`).classList.remove(`invisible`);
     console.log(`gedaan mee spelen`);
     speed = 0;
+    toggleScoreCounting();
+
+    document.getElementById(`endscore`).innerHTML = `${score} KM`;
 
     const $backbutton = document.getElementById(`back-button`);
     const $trybutton = document.getElementById(`try-button`);
@@ -324,7 +344,6 @@ import IO from 'socket.io-client';
       setupIntro();
       console.log('terug naar menu');
       document.getElementById(`game-over`).classList.add(`invisible`);
-
     });
 
   };
@@ -345,15 +364,12 @@ import IO from 'socket.io-client';
 
 
   const setupStartScreen = () => {
-    document.addEventListener(`keydown`, e => {
-      document.getElementById(`intro-polyballoon`).classList.remove(`invisible`);
-      setupIntro();
-
-
-    });
+    window.addEventListener(`keydown`, setupIntro);
   };
 
   const setupIntro = () => {
+    window.removeEventListener(`keydown`, setupIntro, false);
+    document.getElementById(`intro-polyballoon`).classList.remove(`invisible`);
     document.getElementById(`startscreen`).classList.add(`invisible`);
     const $calibrationButton = document.getElementById(`calib`);
     const $playbutton = document.getElementById(`playbutton`);
@@ -478,7 +494,7 @@ import IO from 'socket.io-client';
       if(pitch !== -1){
         calibrationEntries.push(pitch);
         const width = parseInt($loadingFiller.getAttribute(`width`));
-        $loadingFiller.setAttribute(`width`, `${width+4.9}px`)
+        $loadingFiller.setAttribute(`width`, `${width+4.5}px`)
       }
       if(calibrationEntries.length === 49){
         clearInterval(calibrator);

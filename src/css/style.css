@@ -111,7 +111,7 @@ button:focus {
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10vh;
+  margin-top: 2vw;
 
   & .invisible-box {
     width: 6.9rem;
@@ -459,16 +459,9 @@ button:focus {
   }
 }
 
-.damage-meter {
-  background: url(../assets/svg/dmg-meter.svg) no-repeat;
-  width: 24rem;
-  height: 1.3rem;
-
-  & .damage-loader {
-    background: url(../assets/svg/dmg-loader.svg) no-repeat;
-    height: 1.3rem;
-    width: 4.8rem;
-  }
+.dmg-meter, .dmg-loader {
+  position: absolute;
+  width: 20rem;
 }
 
 .distance-box {
@@ -509,9 +502,8 @@ button:focus {
   justify-content: center;
 
   & .game-over-box {
-    background: url(../assets/svg/game-over-box.svg) no-repeat;
-    width: 77.8rem;
-    height: 50.9rem;
+    width: 60rem;
+    padding: 4rem;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -521,9 +513,7 @@ button:focus {
 }
 
 .score-box {
-  background: url(../assets/svg/score-box.svg) no-repeat;
-  width: 63.5rem;
-  height: 32.2rem;
+  width: 50rem;
 }
 
 .total-score {
@@ -563,7 +553,7 @@ button:focus {
 .score-description {
   text-align: center;
   color: #91afac;
-  font-size: 3.5rem;
+  font-size: 2.8rem;
   font-family: edituno;
   margin-top: 2rem;
 }
@@ -573,32 +563,62 @@ button:focus {
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  width: 64rem;
   margin-top: 5vh;
 
   & .back-button {
     background: url(../assets/svg/back-button.svg) no-repeat;
-    width: 28rem;
-    height: 6rem;
+    background-size: cover;
+    width: 14rem;
+    height: 5rem;
     border: none;
     cursor: pointer;
   }
 
   & .back-button:hover {
     background: url(../assets/svg/back-button-hover.svg) no-repeat;
+    background-size: cover;
   }
 
   & .try-button {
     background: url(../assets/svg/try-button.svg) no-repeat;
-    width: 28rem;
-    height: 6rem;
+    background-size: cover;
+    width: 18rem;
+    height: 5rem;
     border: none;
     cursor: pointer;
   }
 
   & .try-button:hover {
     background: url(../assets/svg/try-button-hover.svg) no-repeat;
+    background-size: cover;
   }
+}
+
+.lightGrayPixelBg {
+  background-color: #deefee;
+  box-shadow:
+    0 -20px 0 -10px #deefee,
+    0 -40px 0 -20px #deefee,
+    0 20px 0 -10px #deefee,
+    0 40px 0 -20px #deefee,
+    0 10px 0 0 #97c9c8,
+    0 30px 0 -10px #97c9c8,
+    0 50px 0 -20px #97c9c8,
+    0 20px 0 0 #5b96b5,
+    0 40px 0 -10px #5b96b5,
+    0 60px 0 -20px #5b96b5;
+}
+
+.darkGrayPixelBg {
+  background-color: #c7e0de;
+  box-shadow:
+    0 15px 0 -7.5px #c7e0de,
+    0 30px 0 -15px #c7e0de,
+    0 -15px 0 -7.5px #c7e0de,
+    0 -30px 0 -15px #c7e0de,
+    0 -7.5px 0 0 #a8c6c3,
+    0 -22px 0 -7.5px #a8c6c3,
+    0 -37px 0 -15px #a8c6c3;
 }
 
 .invisible {

@@ -225,7 +225,7 @@ button:focus {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-top: 10vh
+  margin-top: 2vw
 }
 
 .how-title-box .invisible-box {
@@ -709,7 +709,7 @@ button:focus {
 }
 
 .damage-box {
-  background: url(/assets/svg/dmg-box.svg) no-repeat;
+  background: url(data:image/svg+xml;base64,PCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluICAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiCgkgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6YT0iaHR0cDovL25zLmFkb2JlLmNvbS9BZG9iZVNWR1ZpZXdlckV4dGVuc2lvbnMvMy4wLyIKCSB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjM5Ny40cHgiIGhlaWdodD0iOTIuMXB4IiB2aWV3Qm94PSIwIDAgMzk3LjQgOTIuMSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzk3LjQgOTIuMTsiCgkgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe29wYWNpdHk6MC4zODtmaWxsOiMyRDNEM0U7ZW5hYmxlLWJhY2tncm91bmQ6bmV3ICAgIDt9Cgkuc3Qxe2ZpbGw6IzVCMjYxNjt9Cjwvc3R5bGU+CjxkZWZzPgo8L2RlZnM+Cjxwb2x5Z29uIGNsYXNzPSJzdDAiIHBvaW50cz0iMzg3LjYsMTcuNSAzODcuNiw4LjcgMzc3LjcsOC43IDIwLjksOC43IDIwLjksOTIuMSAzNzcsOTIuMSAzNzcsODMuNSAzNzcuNyw4My41IDM4Ny42LDgzLjUKCTM4Ny42LDc2LjUgMzg3LjYsNzQuNyAzOTcuNCw3NC43IDM5Ny40LDY3LjggMzk3LjQsMTcuNSAiLz4KPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIzODcuMSw4LjggMzg3LjEsMCAzNzcuMiwwIDkuOSwwIDkuOSw3IDkuOSw4LjggMCw4LjggMCw1OS4xIDkuOCw1OS4xIDkuOCw2NiA5LjksNjYgOS45LDc0LjgKCTIwLjQsNzQuOCAyMC40LDgzLjUgMzc2LjUsODMuNSAzNzYuNSw3NC44IDM3Ny4yLDc0LjggMzg3LjEsNzQuOCAzODcuMSw2Ny44IDM4Ny4xLDY2IDM5Nyw2NiAzOTcsNTkuMSAzOTcsOC44ICIvPgo8L3N2Zz4K) no-repeat;
   width: 397px;
   width: 39.7rem;
   height: 100px;
@@ -741,20 +741,10 @@ button:focus {
   padding-left: 3rem;
 }
 
-.damage-meter {
-  background: url(/assets/svg/dmg-meter.svg) no-repeat;
-  width: 240px;
-  width: 24rem;
-  height: 13px;
-  height: 1.3rem
-}
-
-.damage-meter .damage-loader {
-  background: url(/assets/svg/dmg-loader.svg) no-repeat;
-  height: 13px;
-  height: 1.3rem;
-  width: 48px;
-  width: 4.8rem;
+.dmg-meter, .dmg-loader {
+  position: absolute;
+  width: 200px;
+  width: 20rem;
 }
 
 .distance-box {
@@ -825,11 +815,10 @@ button:focus {
 }
 
 .game-over .game-over-box {
-  background: url(/assets/svg/game-over-box.svg) no-repeat;
-  width: 778px;
-  width: 77.8rem;
-  height: 509px;
-  height: 50.9rem;
+  width: 600px;
+  width: 60rem;
+  padding: 40px;
+  padding: 4rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -846,11 +835,8 @@ button:focus {
 }
 
 .score-box {
-  background: url(/assets/svg/score-box.svg) no-repeat;
-  width: 635px;
-  width: 63.5rem;
-  height: 322px;
-  height: 32.2rem;
+  width: 500px;
+  width: 50rem;
 }
 
 .total-score {
@@ -912,8 +898,8 @@ button:focus {
 .score-description {
   text-align: center;
   color: #91afac;
-  font-size: 35px;
-  font-size: 3.5rem;
+  font-size: 28px;
+  font-size: 2.8rem;
   font-family: edituno;
   margin-top: 20px;
   margin-top: 2rem;
@@ -933,37 +919,66 @@ button:focus {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 640px;
-  width: 64rem;
   margin-top: 5vh
 }
 
 .buttons-box .back-button {
   background: url(/assets/svg/back-button.svg) no-repeat;
-  width: 280px;
-  width: 28rem;
-  height: 60px;
-  height: 6rem;
+  background-size: cover;
+  width: 140px;
+  width: 14rem;
+  height: 50px;
+  height: 5rem;
   border: none;
   cursor: pointer;
 }
 
 .buttons-box .back-button:hover {
   background: url(/assets/svg/back-button-hover.svg) no-repeat;
+  background-size: cover;
 }
 
 .buttons-box .try-button {
   background: url(/assets/svg/try-button.svg) no-repeat;
-  width: 280px;
-  width: 28rem;
-  height: 60px;
-  height: 6rem;
+  background-size: cover;
+  width: 180px;
+  width: 18rem;
+  height: 50px;
+  height: 5rem;
   border: none;
   cursor: pointer;
 }
 
 .buttons-box .try-button:hover {
   background: url(/assets/svg/try-button-hover.svg) no-repeat;
+  background-size: cover;
+}
+
+.lightGrayPixelBg {
+  background-color: #deefee;
+  box-shadow:
+    0 -20px 0 -10px #deefee,
+    0 -40px 0 -20px #deefee,
+    0 20px 0 -10px #deefee,
+    0 40px 0 -20px #deefee,
+    0 10px 0 0 #97c9c8,
+    0 30px 0 -10px #97c9c8,
+    0 50px 0 -20px #97c9c8,
+    0 20px 0 0 #5b96b5,
+    0 40px 0 -10px #5b96b5,
+    0 60px 0 -20px #5b96b5;
+}
+
+.darkGrayPixelBg {
+  background-color: #c7e0de;
+  box-shadow:
+    0 15px 0 -7.5px #c7e0de,
+    0 30px 0 -15px #c7e0de,
+    0 -15px 0 -7.5px #c7e0de,
+    0 -30px 0 -15px #c7e0de,
+    0 -7.5px 0 0 #a8c6c3,
+    0 -22px 0 -7.5px #a8c6c3,
+    0 -37px 0 -15px #a8c6c3;
 }
 
 .invisible {
