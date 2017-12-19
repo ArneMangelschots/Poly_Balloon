@@ -1,1 +1,73 @@
-<!DOCTYPE html> <html> <head> <meta charset=utf-8> <meta name=mobile-web-app-capable content=yes> <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"> <title>paper-plane controller!</title> <link href="/css/style.css" rel="stylesheet"></head> <style media=screen>body{align-items:center;justify-content:center;position:absolute;top:0;left:0;width:100%;height:100%;margin:0;background-color:#000;overflow:hidden}video{display:flex}.no-mobile{width:100vw;height:90vh;background-color:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center}.warning{font-size:3rem;display:flex;color:#fff;font-weight:700}.plane-controller{position:absolute;top:0;left:0;height:100%;width:100%;overflow:hidden}.debugger{width:4rem;display:flex;align-self:center}.invisible{display:none}</style> <body> <div class=plane-controller id=plane-controller> <div class=debugger id=debugger> </div> </div> <div class="invisible no-mobile" id=no-mobile> <p class=warning>Please access the controller on a Smartphone!</p> </div> <script src=/socket.io/socket.io.js></script> <script type="text/javascript" src="/js/main.9008a1b9d073f042e1da.js"></script></body> </html> 
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>paper-plane controller!</title>
+  <link href="/css/style.css" rel="stylesheet"></head>
+  <style media="screen">
+    body {
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      margin: 0px;
+      background-color: black;
+      overflow: hidden;
+    }
+
+    video {
+      display: flex;
+    }
+
+    .no-mobile {
+      width: 100vw;
+      height: 90vh;
+      background-color: rgba(0,0,0, .5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .warning {
+      font-size: 3rem;
+      display: flex;
+      color: white;
+      font-weight: bold;
+    }
+
+    .plane-controller {
+      position: absolute;
+    	top: 0px;
+    	left: 0px;
+    	height: 100%;
+    	width: 100%;
+    	overflow: hidden;
+    }
+
+    .debugger {
+      width: 4rem;
+      display: flex;
+      align-self: center;
+    }
+
+    .invisible {
+      display: none;
+    }
+  </style>
+  <body>
+    <div class="plane-controller" id="plane-controller">
+      <div class="debugger" id="debugger">
+
+      </div>
+    </div>
+    <div class="invisible no-mobile" id="no-mobile">
+      <p class="warning">Please access the controller on a Smartphone!</p>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="/js/main.48d3ae318b89fddde0a9.js"></script></body>
+</html>

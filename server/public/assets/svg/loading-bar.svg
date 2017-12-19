@@ -1,1 +1,34 @@
-<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 229.4 39.8"><style>.st0{fill:#5895b7}.st1{opacity:.8}.st2{fill:#c17620}.st3{fill:#f4c24a}.st4{fill:none}.st5{enable-background:new}.st6{fill:#fff}.st7{fill:#2a6fba}.st8{fill:#4abaef}.st9{fill:#95c9c8}.st10{fill:#ddefee}.st11{fill:#1b8e6f}.st12{fill:#3cea8a}.st13{opacity:.4;fill:#666;enable-background:new}.st14{fill:#7149a4}.st15{fill:#bd86e0}.st16{opacity:.4;fill:#666;stroke:#666;stroke-width:4;stroke-linejoin:bevel;stroke-miterlimit:10;enable-background:new}.st17{fill:#f2f2f2}.st18{fill:#e6e6e6}.st19{fill:none;stroke:#000;stroke-width:4;stroke-linejoin:bevel;stroke-miterlimit:10}.st20{fill:#c6e0de}.st21{fill:#a7c6c3}</style><path class="st11" d="M223.7 1.3V0H5.7v1.3H0V34h5.7v5.8h218V34h5.7V1.3h-5.7zm1.2 20.2h-5.1v5.1h-5.1v.1h-200v-.1H9.6v-5.1H4.5v-7.7h5.1V8.7h205.1v.1h5.1v5.1h5.1v7.6z"/><path class="st12" d="M5.7-.3H0V28h5.7v5.8h218V28h5.7V-.3h-5.7m1.2 21.8h-5.1v5.1h-5.1v.1h-200v-.1H9.6v-5.1H4.5v-7.7h5.1V8.7h205.1v.1h5.1v5.1h5.1v7.6z"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 229.4 39.8" style="enable-background:new 0 0 229.4 39.8;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#5895B7;}
+	.st1{opacity:0.8;}
+	.st2{fill:#C17620;}
+	.st3{fill:#F4C24A;}
+	.st4{fill:none;}
+	.st5{enable-background:new    ;}
+	.st6{fill:#FFFFFF;}
+	.st7{fill:#2A6FBA;}
+	.st8{fill:#4ABAEF;}
+	.st9{fill:#95C9C8;}
+	.st10{fill:#DDEFEE;}
+	.st11{fill:#1B8E6F;}
+	.st12{fill:#3CEA8A;}
+	.st13{opacity:0.4;fill:#666666;enable-background:new    ;}
+	.st14{fill:#7149A4;}
+	.st15{fill:#BD86E0;}
+
+		.st16{opacity:0.4;fill:#666666;stroke:#666666;stroke-width:4;stroke-linejoin:bevel;stroke-miterlimit:10;enable-background:new    ;}
+	.st17{fill:#F2F2F2;}
+	.st18{fill:#E6E6E6;}
+	.st19{fill:none;stroke:#000000;stroke-width:4;stroke-linejoin:bevel;stroke-miterlimit:10;}
+	.st20{fill:#C6E0DE;}
+	.st21{fill:#A7C6C3;}
+</style>
+<path class="st11" d="M223.7,1.3V0H218H5.7v1.3H0V34h5.7v5.8H218h5.7V34h5.7V1.3H223.7z M224.9,21.5h-5.1v5.1h-5.1v0.1H158h-30.5
+	h-25.6H78H14.7v-0.1H9.6v-5.1H4.5v-7.7h5.1V8.7h5.1H78h23.9h25.6H158h56.7v0.1h5.1v5.1h5.1V21.5z"/>
+<path class="st12" d="M5.7-0.3H0V28h5.7v5.8H218h5.7V28h5.7V-0.3h-5.7 M224.9,21.5h-5.1v5.1h-5.1v0.1H158h-30.5h-25.6H78H14.7v-0.1
+	H9.6v-5.1H4.5v-7.7h5.1V8.7h5.1H78h23.9h25.6H158h56.7v0.1h5.1v5.1h5.1V21.5z"/>
+</svg>

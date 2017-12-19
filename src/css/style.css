@@ -150,6 +150,19 @@ button:focus {
   animation-iteration-count: infinite; */
 }
 
+.waiting {
+  text-align: center;
+  font-family: edituno, sans-serif;
+  color: #21252b;
+  font-size: 2rem;
+  line-height: 2.8rem;
+  margin-top: 2rem;
+
+  & img {
+    width: 21rem;
+  }
+}
+
 .player-one, .player-two {
   /* background: url(../assets/svg/bg-players.svg) no-repeat; */
   background-color: #deefee;
@@ -370,7 +383,7 @@ button:focus {
   & img {
     width: 12rem;
     height: 12rem;
-    /* filter: contrast(80); */
+    filter: contrast(80);
   }
 }
 

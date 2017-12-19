@@ -33,6 +33,9 @@ import IO from 'socket.io-client';
     balloon = false,
     paperPlanes = [];
 
+  let p1ready = false,
+    p2ready = false;
+
   let speed = 0,
     audioCtx,
     analyser,
@@ -352,7 +355,7 @@ import IO from 'socket.io-client';
     const $calibrationTest = document.getElementById(`calibration-test`);
     const $calibrationInit = document.getElementById(`calibration-init`);
     const $recalibrate = document.getElementById(`recal-button`);
-
+    const $readyToGo = document.getElementById(`ready-p1`);
     if(myPitch > 0){
       $calibrationInit.classList.add(`invisible`);
       $calibrationTest.classList.remove(`invisible`);
@@ -364,6 +367,52 @@ import IO from 'socket.io-client';
     });
 
     balloonTest();
+
+    $readyToGo.addEventListener(`click`, e => {
+      e.preventDefault();
+      p1ready = true;
+      handlePlayer1Ready();
+    });
+
+  };
+
+  const handlePlayer1Ready = () => {
+    const $and = document.getElementById(`and`);
+    const $p1 = document.getElementById(`p1`);
+    const $recalibrate = document.getElementById(`recal-button`);
+    const $play = document.getElementById(`playbutton`);
+    const $waitingDiv = document.getElementById(`waiting`);
+
+    if(!$and.classList.contains(`invisible`)){
+      $and.classList.add(`invisible`);
+    }
+
+    $p1.classList.add(`invisible`);
+    $recalibrate.classList.add(`invisible`);
+
+    if(p2ready){
+      $waitingDiv.classList.add(`invisible`);
+      $play.classList.remove(`invisible`);
+    }
+  };
+
+  const handlePlayer2Ready = () => {
+    const $and = document.getElementById(`and`);
+    const $p2 = document.getElementById(`p2`);
+    const $qr = document.getElementById(`qr`);
+    const $play = document.getElementById(`playbutton`);
+    const $waitingDiv = document.getElementById(`waiting`);
+
+    if(!$and.classList.contains(`invisible`)){
+      $and.classList.add(`invisible`);
+    }
+    $p2.classList.add(`invisible`);
+    $qr.classList.add(`invisible`);
+
+    if(p1ready){
+      $waitingDiv.classList.add(`invisible`);
+      $play.classList.remove(`invisible`);
+    }
   };
 
   const balloonTest = () => {
@@ -457,6 +506,8 @@ import IO from 'socket.io-client';
     socket.on(`connected`, ({message, remoteId}) => {
       console.log(message);
       document.getElementById(`connected-info`).classList.add(`fade-in`);
+      p2ready = true;
+      handlePlayer2Ready();
       remoteSocketId = remoteId;
     });
   };
