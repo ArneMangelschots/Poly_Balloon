@@ -98,6 +98,9 @@ import IO from 'socket.io-client';
         balloon.hit();
         balloon.gravityY += .1;
         paperPlane.reset();
+        socket.emit(`planeback`, remoteSocketId, {
+          planeBack: true
+        });
       };
       if(checkAlive(paperPlane)){
         paperPlane.reset();

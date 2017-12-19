@@ -112,12 +112,12 @@ const controller = () => {
 
     let touchstartX = 0;
 
-    let swipeStarted = false;
+    //let swipeStarted = false;
     let shootStarted = false;
 
     window.addEventListener(`touchmove`, e => {
       e.preventDefault();
-      if (gameStarted && !swipeStarted && e.touches[0].clientX < (window.innerWidth / 2) + 30 && e.touches[0].clientX > (window.innerWidth / 2) - 30 && !shootStarted) {
+      if (gameStarted && e.touches[0].clientX < (window.innerWidth / 2) + 30 && e.touches[0].clientX > (window.innerWidth / 2) - 30 && !shootStarted) {
         const mappedClientY = mapRange(e.touches[0].clientY, windowRange.min, windowRange.max, threeRange.min, threeRange.max);
         plane.move(mappedClientY);
       }
@@ -125,15 +125,15 @@ const controller = () => {
 
     window.addEventListener(`touchstart`, e => {
       e.preventDefault();
-      if (e.changedTouches[0].screenX > (window.innerWidth / 2) + 30 && !swipeStarted && !shootStarted) {
-        swipeStarted = true;
+      if (!shootStarted) {
+        //swipeStarted = true;
         touchstartX = e.changedTouches[0].screenX;
       }
     }, false);
 
     window.addEventListener(`touchend`, e => {
       e.preventDefault();
-      if (e.changedTouches[0].screenX < touchstartX - (window.innerWidth / 2) && swipeStarted && !shootStarted) {
+      if (e.changedTouches[0].screenX < touchstartX - 100 && !shootStarted) {
         shootStarted = true;
         const shooting = plane.shoot();
         socket.emit(`shoot`, targetId, {
@@ -153,7 +153,6 @@ const controller = () => {
         const restart = plane.restart();
         restart.onComplete(() => {
           shootStarted = false;
-          swipeStarted = false;
         });
       }
     });
