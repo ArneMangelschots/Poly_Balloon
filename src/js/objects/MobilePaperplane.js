@@ -1,4 +1,5 @@
 const THREE = require('three');
+const TWEEN = require('tween.js');
 
 export default class MobilePaperPlane extends THREE.Mesh {
 
@@ -12,17 +13,37 @@ export default class MobilePaperPlane extends THREE.Mesh {
     this.flying = false;
   }
 
-  // shoot() {
-  //   this.position.x -= 7;
-  //   this.updateMatrix();
-  //   this.body.setFromObject(this);
-  // }
-  //
-  // reset() {
-  //   this.position.set(800, 150, - 600);
-  //   this.updateMatrix();
-  //   this.body.setFromObject(this);
-  //   this.flying = false;
-  // }
+  move(y) {
+    this.position.y = y;
+  }
+
+  shoot() {
+    const position = {x: this.position.x};
+    const target = {x: -500};
+    const tween = new TWEEN.Tween(position).to(target, 600);
+    tween.easing(TWEEN.Easing.Exponential.Out);
+    tween.start();
+    tween.onUpdate(() => {
+      this.position.x = position.x;
+    });
+    return tween;
+  };
+
+  restart() {
+    const position = {x: this.position.x};
+    const target = {x: 0};
+    const tween = new TWEEN.Tween(position).to(target, 600);
+    tween.easing(TWEEN.Easing.Exponential.Out);
+    tween.start();
+    tween.onUpdate(() => {
+      this.position.x = position.x;
+    });
+    return tween;
+  }
+
+  reset() {
+    this.position.x = 500;
+    this.position.y = 0;
+  }
 
 }
