@@ -58,7 +58,7 @@ let tls = false;
     io.on(`connection`, socket => {
       const sid = shortid.generate();
       const qr = qrcode(4, `L`);
-      qr.addData(`http://192.168.1.142:3000/controller.html?id=${sid}&page=controller`);
+      qr.addData(`http://192.168.0.247:3000/controller.html?id=${sid}&page=controller`);
       qr.make();
       const qrImg = qr.createImgTag();
 
@@ -87,6 +87,20 @@ let tls = false;
           return;
         }
         socket.to(users[targetId].id).emit(`start`, data);
+      });
+
+      socket.on(`shoot`, (targetId, data) => {
+        if (!users[targetId]) {
+          return;
+        }
+        socket.to(users[targetId].id).emit(`shoot`, data);
+      });
+
+      socket.on(`planeback`, (targetId, data) => {
+        if (!users[targetId]) {
+          return;
+        }
+        socket.to(users[targetId].id).emit(`planeback`, data);
       });
 
 

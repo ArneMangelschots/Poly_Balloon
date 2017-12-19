@@ -38,7 +38,8 @@ import IO from 'socket.io-client';
     analyser,
     pitch = false,
     myPitch = 20000,
-    pitchUp = false;
+    pitchUp = false,
+    lastShotPlane = false;
 
   let socket,
       socketId,
@@ -100,6 +101,9 @@ import IO from 'socket.io-client';
       };
       if(checkAlive(paperPlane)){
         paperPlane.reset();
+        socket.emit(`planeback`, remoteSocketId, {
+          planeBack: true
+        });
       };
       if(paperPlane.flying){
         paperPlane.shoot();
@@ -148,7 +152,6 @@ import IO from 'socket.io-client';
     frustum = new THREE.Frustum();
     const projScreenMatrix = new THREE.Matrix4();
     projScreenMatrix.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
-
     frustum.setFromMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
 
     sceneWidthModifier = frustum.planes[0].constant;
@@ -227,25 +230,25 @@ import IO from 'socket.io-client';
     paperPlanes.push(paperPlane);
     scene.add(paperPlane);
     //on socket update shoot paperplane
-    socket.on(`update`, data => {
-      if(data.gestureX === `left`){
-        let paperPlaneToShoot = false;
-        //check if any not flying planes
-        const getAlivePlanes = paperPlanes.filter(pp => !pp.flying);
-        //every plane flying? create new and push in array
-        if(getAlivePlanes.length === 0){
-          const paperPlane = new PaperPlane(models.paperPlane.geometry, models.paperPlane.materials, sceneWidthModifier);
-          paperPlanes.push(paperPlane);
-          scene.add(paperPlane);
-          paperPlaneToShoot = paperPlane;
-        //some planes not flying use one from pool
-        }else{
-          paperPlaneToShoot = getAlivePlanes[0];
-        }
-        const yPos = mapRange(data.y, 100, 600, 340, -80);
-        paperPlaneToShoot.position.y = yPos;
-        paperPlaneToShoot.flying = true;
-      };
+    socket.on(`shoot`, data => {
+      console.log(data);
+      let paperPlaneToShoot = false;
+      //check if any not flying planes
+      const getAlivePlanes = paperPlanes.filter(pp => !pp.flying);
+      //every plane flying? create new and push in array
+      if(getAlivePlanes.length === 0){
+        const paperPlane = new PaperPlane(models.paperPlane.geometry, models.paperPlane.materials, sceneWidthModifier);
+        paperPlanes.push(paperPlane);
+        scene.add(paperPlane);
+        paperPlaneToShoot = paperPlane;
+      //some planes not flying use one from pool
+      }else{
+        paperPlaneToShoot = getAlivePlanes[0];
+      }
+      const yPos = mapRange(data.yPos, data.min, data.max, 340, -80);
+      paperPlaneToShoot.position.y = yPos;
+      paperPlaneToShoot.flying = true;
+      lastShotPlane = paperPlaneToShoot;
     });
   };
 
@@ -281,6 +284,9 @@ import IO from 'socket.io-client';
     });
     tween.onComplete(() => {
       countDown();
+      const projScreenMatrix = new THREE.Matrix4();
+      projScreenMatrix.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
+      frustum.setFromMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
     });
     const balloonStart = balloon.flyToStart();
     balloonStart.onComplete(() => {
@@ -378,16 +384,6 @@ import IO from 'socket.io-client';
     window.requestAnimationFrame(balloonTest);
   };
 
-  const handleStream = stream => {
-    // Create an AudioNode from the stream.
-    const mediaStreamSource = audioCtx.createMediaStreamSource(stream);
-    // Connect it to the destination.
-    analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 2048;
-    mediaStreamSource.connect(analyser);
-    updatePitch();
-  };
-
   const resetCalibration = () => {
     myPitch = 20000;
 
@@ -475,6 +471,17 @@ import IO from 'socket.io-client';
       return true;
     }
   };
+
+  const handleStream = stream => {
+    // Create an AudioNode from the stream.
+    const mediaStreamSource = audioCtx.createMediaStreamSource(stream);
+    // Connect it to the destination.
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 2048;
+    mediaStreamSource.connect(analyser);
+    updatePitch();
+  };
+
 
   const checkCollision = (bodyA, bodyB) => {
     return bodyA.intersectsBox(bodyB);

@@ -1,6 +1,8 @@
 const THREE = require(`three`);
+const TWEEN = require(`tween.js`);
 import IO from 'socket.io-client';
 import getUrlParameter from './lib/getUrlParameter';
+import mapRange from './lib/mapRange';
 //three
 import modelLoader from './objects/modelLoader';
 import MobilePaperPlane from './objects/MobilePaperPlane';
@@ -13,23 +15,27 @@ const controller = () => {
 
   let scene,
     camera,
-    renderer;
+    threeHeightModifier,
+    renderer,
+    frustum;
 
   let socket,
     targetId;
 
-  let touchstartX = 0;
-  let touchendX = 0;
-  let touchendY = 0;
+  let maxHeight = 0;
+
+  const gameStarted = true;
 
 
   const init = () => {
 
+    maxHeight = window.innerHeight;
+    console.log(maxHeight);
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-      console.log(`Mobile device is true!`);
+      console.log(`goe ze`);
     } else {
-      //document.getElementById(`no-mobile`).classList.remove(`invisible`);
-      //return false;
+      // document.getElementById(`no-mobile`).classList.remove(`invisible`);
+      // return false;
     }
 
     targetId = getUrlParameter(`id`);
@@ -45,7 +51,6 @@ const controller = () => {
     });
 
     connectSocket();
-    eventListeners();
   };
 
   const setupGameController = () => {
@@ -64,6 +69,12 @@ const controller = () => {
 
     camera.updateMatrix();
     camera.updateMatrixWorld();
+
+    frustum = new THREE.Frustum();
+    const projScreenMatrix = new THREE.Matrix4();
+    projScreenMatrix.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
+    frustum.setFromMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
+    threeHeightModifier = frustum.planes[0].constant;
 
     renderer = new THREE.WebGLRenderer({alpha: true});
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -90,39 +101,84 @@ const controller = () => {
 
   const setupPaperPlane = () => {
     const paperPlane = new MobilePaperPlane(models.paperPlane.geometry, models.paperPlane.materials);
+    paperPlane.scale.set(.9, .9, .9);
     scene.add(paperPlane);
+    handlePlaneShooting(paperPlane);
+  };
+
+  const handlePlaneShooting = plane => {
+    const threeRange = {min: threeHeightModifier * 2.3, max: threeHeightModifier * - 2.3};
+    const windowRange = {min: 0, max: maxHeight};
+
+    let touchstartX = 0;
+
+    let swipeStarted = false;
+    let shootStarted = false;
+
+    window.addEventListener(`touchmove`, e => {
+      e.preventDefault();
+      if (gameStarted && !swipeStarted && e.touches[0].clientX < (window.innerWidth / 2) + 30 && e.touches[0].clientX > (window.innerWidth / 2) - 30 && !shootStarted) {
+        const mappedClientY = mapRange(e.touches[0].clientY, windowRange.min, windowRange.max, threeRange.min, threeRange.max);
+        plane.move(mappedClientY);
+      }
+    });
+
+    window.addEventListener(`touchstart`, e => {
+      e.preventDefault();
+      if (e.changedTouches[0].screenX > (window.innerWidth / 2) + 30 && !swipeStarted && !shootStarted) {
+        swipeStarted = true;
+        touchstartX = e.changedTouches[0].screenX;
+      }
+    }, false);
+
+    window.addEventListener(`touchend`, e => {
+      e.preventDefault();
+      if (e.changedTouches[0].screenX < touchstartX - (window.innerWidth / 2) && swipeStarted && !shootStarted) {
+        shootStarted = true;
+        const shooting = plane.shoot();
+        socket.emit(`shoot`, targetId, {
+          yPos: plane.position.y,
+          min: threeRange.min,
+          max: threeRange.max
+        });
+        shooting.onComplete(() => {
+          plane.reset();
+        });
+      }
+    }, false);
+
+    socket.on(`planeback`, ({planeBack}) => {
+      document.getElementById(`debugger`).innerHTML = `joepie`;
+      if (planeBack) {
+        const restart = plane.restart();
+        restart.onComplete(() => {
+          shootStarted = false;
+          swipeStarted = false;
+        });
+      }
+    });
+
   };
 
 
   const render = () => {
     renderer.render(scene, camera);
+    TWEEN.update();
     window.requestAnimationFrame(render);
   };
 
-  const eventListeners = () => {
-    window.addEventListener(`touchstart`, e => {
-      touchstartX = e.changedTouches[0].screenX;
-    }, false);
-
-    window.addEventListener(`touchend`, e => {
-      touchendX = e.changedTouches[0].screenX;
-      touchendY = e.changedTouches[0].screenY;
-      handleGesture();
-    }, false);
-  };
-
-  const handleGesture = () => {
-    if (touchendX <= touchstartX) {
-      socket.emit(`update`, targetId, {
-        gestureX: `left`,
-        y: touchendY
-      });
-    }
-
-    if (touchendX >= touchstartX) {
-      socket.emit(`update`, targetId, {gestureX: `right`});
-    }
-  };
+  // const handleGesture = () => {
+  //   if (touchendX <= touchstartX) {
+  //     socket.emit(`update`, targetId, {
+  //       gestureX: `left`,
+  //       y: touchendY
+  //     });
+  //   }
+  //
+  //   if (touchendX >= touchstartX) {
+  //     socket.emit(`update`, targetId, {gestureX: `right`});
+  //   }
+  // };
 
   const connectSocket = () => {
     socket = IO.connect(`/`);
