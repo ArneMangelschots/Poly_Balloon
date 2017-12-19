@@ -582,6 +582,22 @@ button:focus {
   border: none;
 }
 
+.ready-button {
+  background: url(/assets/svg/ready-button.svg) no-repeat;
+  width: 148px;
+  width: 14.8rem;
+  height: 32px;
+  height: 3.2rem;
+  cursor: pointer;
+  border: none;
+  margin-top: 10px;
+  margin-top: 1rem;
+}
+
+.ready-button:hover {
+  background: url(/assets/svg/ready-button-hover.svg) no-repeat;
+}
+
 .qr-code-box {
   display: -webkit-box;
   display: -ms-flexbox;

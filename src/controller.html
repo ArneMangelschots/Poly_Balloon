@@ -49,6 +49,13 @@
     	overflow: hidden;
     }
 
+    .connected {
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+      align-items: center;
+    }
+
     .debugger {
       width: 4rem;
       display: flex;
@@ -61,6 +68,9 @@
   </style>
   <body>
     <div class="plane-controller" id="plane-controller">
+      <div class="connected">
+        <img src="./assets/svg/connected-screen.svg" alt="connected button">
+      </div>
       <div class="debugger" id="debugger">
 
       </div>

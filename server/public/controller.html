@@ -49,6 +49,13 @@
     	overflow: hidden;
     }
 
+    .connected {
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+      align-items: center;
+    }
+
     .debugger {
       width: 4rem;
       display: flex;
@@ -61,6 +68,9 @@
   </style>
   <body>
     <div class="plane-controller" id="plane-controller">
+      <div class="connected">
+        <img src="/assets/svg/connected-screen.svg" alt="connected button">
+      </div>
       <div class="debugger" id="debugger">
 
       </div>
@@ -69,5 +79,5 @@
       <p class="warning">Please access the controller on a Smartphone!</p>
     </div>
     <script src="/socket.io/socket.io.js"></script>
-  <script type="text/javascript" src="/js/main.c8e6074986d0f2e1a808.js"></script></body>
+  <script type="text/javascript" src="/js/main.8dc0cdf13c52501a9936.js"></script></body>
 </html>
