@@ -301,8 +301,26 @@ import IO from 'socket.io-client';
   };
 
   const gameOver = () => {
+    document.getElementById(`game-over`).classList.remove(`invisible`);
     console.log(`gedaan mee spelen`);
     speed = 0;
+
+    const $backbutton = document.getElementById(`back-button`);
+    const $trybutton = document.getElementById(`try-button`);
+
+    $trybutton.addEventListener(`click`, e => {
+      startGame();
+      console.log('nog eens spelen');
+      document.getElementById(`game-over`).classList.add(`invisible`);
+    });
+
+    $backbutton.addEventListener(`click`, e => {
+      setupIntro();
+      console.log('terug naar menu');
+      document.getElementById(`game-over`).classList.add(`invisible`);
+
+    });
+
   };
 
   const countDown = () => {

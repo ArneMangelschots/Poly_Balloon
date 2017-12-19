@@ -14,7 +14,7 @@ body {
   width: 100%;
   height: 100%;
   margin: 0;
-  background-color: black;
+  /*background-color: black;*/
   overflow: hidden;
   background: linear-gradient(to bottom, #82addb 0%, #ebb2b1 100%);
 }
@@ -98,7 +98,7 @@ button:focus {
   transform: scale(1.1);
 }
 
-.intro-polyballoon, .startscreen {
+.intro-polyballoon, .startscreen, .game-over {
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -111,7 +111,7 @@ button:focus {
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  margin-top: 5rem;
+  margin-top: 10vh;
 
   & .invisible-box {
     width: 6.9rem;
@@ -203,20 +203,21 @@ button:focus {
   justify-content: space-between;
   align-items: center;
   height: 30vh;
+}
 
-  & .play-button {
-    background: url(../assets/svg/play-button.svg) no-repeat;
-    width: 15.7rem;
-    height: 6.9rem;
-    cursor: pointer;
-    border: none;
-  }
+.play-button {
+  background: url(../assets/svg/play-button.svg) no-repeat;
+  width: 15.7rem;
+  height: 6.9rem;
+  cursor: pointer;
+  border: none;
 }
 
 .play-button:hover {
   background: url(../assets/svg/play-push.svg) no-repeat;
   width: 15.7rem;
   height: 6.9rem;
+  cursor: pointer;
 }
 
 .text-box, .todo-text {
@@ -474,6 +475,104 @@ button:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.game-over {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & .game-over-box {
+    background: url(../assets/svg/game-over-box.svg) no-repeat;
+    width: 77.8rem;
+    height: 50.9rem;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+
+  }
+}
+
+.score-box {
+  background: url(../assets/svg/score-box.svg) no-repeat;
+  width: 63.5rem;
+  height: 32.2rem;
+}
+
+.total-score {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3vh;
+
+  & h1 {
+    font-family: edituno;
+    color: black;
+    font-size: 4rem;
+  }
+
+  & h2 {
+    font-family: edituno;
+    color: #eb4056;
+    font-size: 5rem;
+  }
+}
+
+.score {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+
+  & strong {
+    color: #f3c155;
+    font-size: 6rem;
+    font-family: edituno;
+    padding: 0 3rem;
+  }
+}
+
+.score-description {
+  text-align: center;
+  color: #91afac;
+  font-size: 3.5rem;
+  font-family: edituno;
+  margin-top: 2rem;
+}
+
+.buttons-box {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 64rem;
+  margin-top: 5vh;
+
+  & .back-button {
+    background: url(../assets/svg/back-button.svg) no-repeat;
+    width: 28rem;
+    height: 6rem;
+    border: none;
+    cursor: pointer;
+  }
+
+  & .back-button:hover {
+    background: url(../assets/svg/back-button-hover.svg) no-repeat;
+  }
+
+  & .try-button {
+    background: url(../assets/svg/try-button.svg) no-repeat;
+    width: 28rem;
+    height: 6rem;
+    border: none;
+    cursor: pointer;
+  }
+
+  & .try-button:hover {
+    background: url(../assets/svg/try-button-hover.svg) no-repeat;
+  }
 }
 
 .invisible {
