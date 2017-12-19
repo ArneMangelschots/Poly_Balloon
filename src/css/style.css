@@ -30,27 +30,71 @@ h1 {
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, -50%);
-  color: #fff;
+  color: white;
   font-size: 20rem;
   opacity: .6;
   animation: flash linear 1s infinit;
+  font-family: edituno;
 }
 
 @keyframes flash {
-	0% { opacity: 1; }
-	50% { opacity: .1; }
-	100% { opacity: 1; }
-}
 
-h1 {
-  font-size: 3rem;
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .1;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 button:focus {
   outline: none;
 }
 
-.intro-polyballoon {
+.title-box {
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+
+  /*animation-name: players;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;*/
+}
+
+.big-title {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.poly-box {
+  background: url(../assets/img/balloon-title.png) no-repeat right;
+  height: 30rem;
+  width: 60rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & .poly-word {
+    margin-top: 17rem;
+  }
+}
+
+.press-key {
+  margin-top: 10rem;
+  transform: scale(1.1);
+}
+
+.intro-polyballoon, .startscreen {
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -63,6 +107,7 @@ button:focus {
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
+  margin-top: 5rem;
 
   & .invisible-box {
     width: 6.9rem;
@@ -77,6 +122,9 @@ button:focus {
   width: 7.8rem;
   border: none;
   cursor: pointer;
+  position: relative;
+  bottom: 5rem;
+  right: 3rem;
 }
 
 .question-button:hover {
@@ -322,22 +370,35 @@ button:focus {
   }
 }
 
-.invisible {
-  display: none;
-}
-
-.game-frame {
-  background: url(../assets/svg/frame.svg) no-repeat;
-  height: 100vh;
-  width: 100vw;
-}
-
 .interface {
   position: absolute;
   width: 100vw;
   height: 100vh;
   max-width: 100%;
   max-height: 100%;
+  box-shadow: inset 25px 25px 0 #5a2618, inset -25px -25px 0 #5a2618;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+}
+
+.frame-pieces {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+
+  & .frame-left {
+    background: url(../assets/svg/frame-left.svg) no-repeat;
+    width: 7rem;
+    height: 7rem;
+  }
+
+  & .frame-right {
+    background: url(../assets/svg/frame-right.svg) no-repeat;
+    width: 7rem;
+    height: 7rem;
+  }
 }
 
 .interface-box {
@@ -345,16 +406,12 @@ button:focus {
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: flex-start;
-  position: relative;
-  right: 10rem;
-  width: 111vw;
-  transform: scale(.9);
 }
 
 .damage-box {
   background: url(../assets/svg/dmg-box.svg) no-repeat;
-  width: 45.7rem;
-  height: 10.7rem;
+  width: 39.7rem;
+  height: 10rem;
   display: flex;
   position: relative;
   bottom: 1.5rem;
@@ -366,26 +423,27 @@ button:focus {
     font-family: edituno;
     text-transform: uppercase;
     color: white;
-    font-size: 4rem;
+    font-size: 3.5rem;
+    padding-left: 3rem;
   }
 }
 
 .damage-meter {
   background: url(../assets/svg/dmg-meter.svg) no-repeat;
-  width: 28.3rem;
-  height: 1.8rem;
+  width: 24rem;
+  height: 1.3rem;
 
   & .damage-loader {
     background: url(../assets/svg/dmg-loader.svg) no-repeat;
-    height: 1.8rem;
-    width: 6.7rem;
+    height: 1.3rem;
+    width: 4.8rem;
   }
 }
 
 .distance-box {
   background: url(../assets/svg/distance.svg) no-repeat;
-  height: 10.7rem;
-  width: 34.5rem;
+  height: 8.7rem;
+  width: 31rem;
   display: flex;
   justify-content: center;
   align-items: baseline;
@@ -407,9 +465,13 @@ button:focus {
 
 .pause-box {
   background: url(../assets/svg/pause-box.svg) no-repeat;
-  width: 11rem;
-  height: 9.8rem;
+  width: 9rem;
+  height: 8.9rem;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.invisible {
+  display: none;
 }

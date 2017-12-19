@@ -313,7 +313,18 @@ import IO from 'socket.io-client';
       }, 1000);
   };
 
+
   const setupStartScreen = () => {
+    document.addEventListener(`keydown`, e => {
+      document.getElementById(`intro-polyballoon`).classList.remove(`invisible`);
+      setupIntro();
+
+
+    });
+  };
+
+  const setupIntro = () => {
+    document.getElementById(`startscreen`).classList.add(`invisible`);
     const $calibrationButton = document.getElementById(`calib`);
     const $playbutton = document.getElementById(`playbutton`);
 

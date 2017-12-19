@@ -25,7 +25,22 @@
 </script>
 </head>
 <body>
-  <div id="intro-polyballoon" class="intro-polyballoon">
+  <div id="startscreen" class="startscreen">
+    <div class="title-box">
+      <header class="big-title">
+        <div class="poly-box">
+          <img class="poly-word" src="./assets/svg/poly.svg" alt="poly text">
+        </div>
+        <img src="./assets/svg/balloontext-title.svg" alt="balloon text">
+      </header>
+      <div class="press-key">
+          <img src="./assets/svg/press.svg" alt="press any key to start the game">
+      </div>
+    </div>
+
+  </div>
+
+  <div id="intro-polyballoon" class="intro-polyballoon invisible">
     <div class="how-title-box">
       <div class="invisible-box"></div>
       <header>
@@ -117,10 +132,12 @@
         <div class="pause-box">
           <img src="./assets/svg/pause-button.svg" alt="pause button">
         </div>
-
       </div>
     </div>
-
+    <div class="frame-pieces">
+      <div class="frame-left"></div>
+      <div class="frame-right"></div>
+    </div>
   </div>
   <div id="game">
   </div>
