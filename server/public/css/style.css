@@ -280,6 +280,23 @@ button:focus {
   animation-iteration-count: infinite; */
 }
 
+.waiting {
+  text-align: center;
+  font-family: edituno, sans-serif;
+  color: #21252b;
+  font-size: 20px;
+  font-size: 2rem;
+  line-height: 28px;
+  line-height: 2.8rem;
+  margin-top: 20px;
+  margin-top: 2rem
+}
+
+.waiting img {
+  width: 210px;
+  width: 21rem;
+}
+
 .player-one, .player-two {
   /* background: url(../assets/svg/bg-players.svg) no-repeat; */
   background-color: #deefee;
@@ -602,7 +619,10 @@ button:focus {
   width: 120px;
   width: 12rem;
   height: 120px;
-  height: 12rem; /* filter: contrast(80); */
+  height: 12rem;
+  filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="80" intercept="-39.5" /><feFuncG type="linear" slope="80" intercept="-39.5" /><feFuncB type="linear" slope="80" intercept="-39.5" /></feComponentTransfer></filter></svg>#filter');
+  -webkit-filter: contrast(80);
+          filter: contrast(80);
 }
 
 .interface {
