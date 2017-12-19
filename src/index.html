@@ -95,9 +95,9 @@
       </div>
       <div class="play">
         <img src="./assets/svg/vs.svg" alt="versus">
-        <button class="play-button invisible" id="playbutton" type="button" name="play-button"></button>
-        <div class="waiting" id="waiting">
-          <p>Waiting for <br /><img src="./assets/svg/player-one.svg" class="p1" id="p1" alt="player-one"></span> <span id="and">and</span> <span class="p2"><img src="./assets/svg/player-two.svg" id="p2"  class="p2" alt="player-two"></span> <br />to get ready!</p>
+        <button class="play-button" id="playbutton" type="button" name="play-button"></button>
+        <div class="waiting invisible" id="waiting">
+          <p>Waiting for <br /><img src="./assets/svg/player-one.svg" class="p1" id="p1" alt="player-one"> <br /><span id="and">and</span> <br /> <span class="p2"><img src="./assets/svg/player-two.svg" id="p2"  class="p2" alt="player-two"></span> <br />to get ready!</p>
         </div>
       </div>
       <div class="player-two">
@@ -118,19 +118,18 @@
       </div>
     </div>
   </div>
-  <div id="interface" class="interface invisible">
+  <div id="interface" class="interface">
     <div class="game-frame">
       <div class="interface-box">
 
         <div class="damage-box">
           <h1>dmg</h1>
-          <div class="damage-meter">
-            <div class="damage-loader"></div>
-          </div>
+          <img src="./assets/svg/dmg-meter.svg" class="dmg-meter" alt="">
+          <img src="./assets/svg/dmg-loader.svg" class="dmg-box" alt="">
         </div>
 
         <div class="distance-box">
-          <h1>100</h1><h1>km</h1>
+          <h1 id="score">100</h1><h1>km</h1>
         </div>
 
         <div class="pause-box">
@@ -145,12 +144,12 @@
   </div>
 
   <div id="game-over" class="game-over invisible">
-    <div class="game-over-box">
-      <div class="score-box">
+    <div class="game-over-box lightGrayPixelBg">
+      <div class="score-box darkGrayPixelBg">
         <div class="total-score">
           <h1>total score</h1>
           <div class="score">
-            <strong>*</strong><h2>124 km</h2><strong>*</strong>
+            <strong>*</strong><h2 id="endscore"></h2><strong>*</strong>
           </div>
 
         </div>

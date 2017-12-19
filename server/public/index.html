@@ -95,9 +95,9 @@
       </div>
       <div class="play">
         <img src="/assets/svg/vs.svg" alt="versus">
-        <button class="play-button invisible" id="playbutton" type="button" name="play-button"></button>
-        <div class="waiting" id="waiting">
-          <p>Waiting for <br /><img src="/assets/svg/player-one.svg" class="p1" id="p1" alt="player-one"></span> <span id="and">and</span> <span class="p2"><img src="/assets/svg/player-two.svg" id="p2"  class="p2" alt="player-two"></span> <br />to get ready!</p>
+        <button class="play-button" id="playbutton" type="button" name="play-button"></button>
+        <div class="waiting invisible" id="waiting">
+          <p>Waiting for <br /><img src="/assets/svg/player-one.svg" class="p1" id="p1" alt="player-one"> <br /><span id="and">and</span> <br /> <span class="p2"><img src="/assets/svg/player-two.svg" id="p2"  class="p2" alt="player-two"></span> <br />to get ready!</p>
         </div>
       </div>
       <div class="player-two">
@@ -118,19 +118,18 @@
       </div>
     </div>
   </div>
-  <div id="interface" class="interface invisible">
+  <div id="interface" class="interface">
     <div class="game-frame">
       <div class="interface-box">
 
         <div class="damage-box">
           <h1>dmg</h1>
-          <div class="damage-meter">
-            <div class="damage-loader"></div>
-          </div>
+          <img src="data:image/svg+xml;base64,PCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluICAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiCgkgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6YT0iaHR0cDovL25zLmFkb2JlLmNvbS9BZG9iZVNWR1ZpZXdlckV4dGVuc2lvbnMvMy4wLyIKCSB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjMyMy41cHgiIGhlaWdodD0iNDkuM3B4IiB2aWV3Qm94PSIwIDAgMzIzLjUgNDkuMyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzIzLjUgNDkuMzsiCgkgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzM4MTQwQzt9Cjwvc3R5bGU+CjxkZWZzPgo8L2RlZnM+CjxyZWN0IGNsYXNzPSJzdDAiIHdpZHRoPSIzMjMuNSIgaGVpZ2h0PSI0OS4zIi8+Cjwvc3ZnPgo=" class="dmg-meter" alt="">
+          <img src="data:image/svg+xml;base64,PCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluICAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiCgkgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6YT0iaHR0cDovL25zLmFkb2JlLmNvbS9BZG9iZVNWR1ZpZXdlckV4dGVuc2lvbnMvMy4wLyIKCSB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjM0MC40cHgiIGhlaWdodD0iNTguN3B4IiB2aWV3Qm94PSIwIDAgMzQwLjQgNTguNyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzQwLjQgNTguNzsiCgkgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzVCMjYxNjt9Cjwvc3R5bGU+CjxkZWZzPgo8L2RlZnM+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0wLDB2NTguN2gzNDAuNFYwSDB6IE0zMTYsMzMuOWgtNy4zVjQwdjAuMWgtOS4yaC00OS40SDMxLjZWMzRoLTcuM3YtOS4yaDcuM3YtNi4xdi0wLjFoMjE4LjVoNDkuNGg5LjJ2MC4xCgl2Ni4xaDcuM1YzMy45eiIvPgo8L3N2Zz4K" class="dmg-box" alt="">
         </div>
 
         <div class="distance-box">
-          <h1>100</h1><h1>km</h1>
+          <h1 id="score">100</h1><h1>km</h1>
         </div>
 
         <div class="pause-box">
@@ -145,12 +144,12 @@
   </div>
 
   <div id="game-over" class="game-over invisible">
-    <div class="game-over-box">
-      <div class="score-box">
+    <div class="game-over-box lightGrayPixelBg">
+      <div class="score-box darkGrayPixelBg">
         <div class="total-score">
           <h1>total score</h1>
           <div class="score">
-            <strong>*</strong><h2>124 km</h2><strong>*</strong>
+            <strong>*</strong><h2 id="endscore"></h2><strong>*</strong>
           </div>
 
         </div>
@@ -170,5 +169,5 @@
   </div>
   <div id="count-down" class="count-down">
   </div>
-<script type="text/javascript" src="/js/main.c8e6074986d0f2e1a808.js"></script></body>
+<script type="text/javascript" src="/js/main.539dd458a9864199441a.js"></script></body>
 </html>
