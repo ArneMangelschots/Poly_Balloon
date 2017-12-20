@@ -36,7 +36,12 @@
         </p>
       <br>
         <p>
-          In our webapp we used <cite>webgl</cite> (three.js), <cite>websockets</cite> and <cite>web audio</cite> (we used pitch detection from cwilso).
+          <p>The techniques we use :</p>
+            <ul>
+              <li><cite>WebGl - Three JS</cite></li>
+              <li><cite>Web Audio API</cite></li>
+              <li><cite>CWilso Pitch Detect</cite></li>
+            </ul>
         </p>
           <br>
         <p> We used three.js to make our <cite>landscape environment</cite> and other models, websockets to <cite>connect your phone</cite> to shoot paper airplane
@@ -67,7 +72,7 @@
     <div class="how-title-box">
       <div class="invisible-box"></div>
       <header>
-        <img src="/assets/svg/how-title.svg" alt="how to play title">
+        <img src="/assets/svg/how-title.svg" alt="how to play title" width="400px"/>
       </header>
       <button id="question" class="question-button" type="button" name="info-button"></button>
     </div>
@@ -106,7 +111,7 @@
           </div>
           <div class="test-balloon-box">
             <div class="test-balloon">
-              <img src="/assets/svg/balloon.svg" class="mini-balloon" id="mini-balloon" alt="test balloon" align="bottom">
+              <img src="data:image/svg+xml;base64,PCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluICAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiCgkgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6YT0iaHR0cDovL25zLmFkb2JlLmNvbS9BZG9iZVNWR1ZpZXdlckV4dGVuc2lvbnMvMy4wLyIKCSB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjMzLjZweCIgaGVpZ2h0PSI2MS41cHgiIHZpZXdCb3g9IjAgMCAzMy42IDYxLjUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMzLjYgNjEuNTsiCgkgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0VFM0Q1Mzt9Cgkuc3Qxe2ZpbGw6bm9uZTtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MjtzdHJva2UtbWl0ZXJsaW1pdDoxMDt9Cgkuc3Qye2ZpbGw6I0ExNzU1OTt9Cjwvc3R5bGU+CjxkZWZzPgo8L2RlZnM+CjxnPgoJPHBvbHlnb24gY2xhc3M9InN0MCIgcG9pbnRzPSIyNi4xLDcuNSAyNi4xLDAgNy41LDAgNy41LDcuNSAwLDcuNSAwLDE0LjkgMCwyNi4xIDcuNSwyNi4xIDcuNSwzMy42IDE4LjcsMzMuNiAyNi4xLDMzLjYgMjYuMSwyNi4xCgkJMzMuNiwyNi4xIDMzLjYsMTQuOSAzMy42LDcuNSAJIi8+Cgk8bGluZSBjbGFzcz0ic3QxIiB4MT0iOC4xIiB5MT0iMzMuNiIgeDI9IjguMSIgeTI9IjQzLjUiLz4KCTxsaW5lIGNsYXNzPSJzdDEiIHgxPSIyNS41IiB5MT0iMzMuNiIgeDI9IjI1LjUiIHkyPSI0My41Ii8+Cgk8cG9seWdvbiBjbGFzcz0ic3QyIiBwb2ludHM9IjI0LjUsNDEuNyAyMi40LDQxLjcgOSw0MS43IDksNDMuOCA2LjgsNDMuOCA2LjgsNTkuNCA5LDU5LjQgOSw2MS41IDIyLjQsNjEuNSAyNC41LDYxLjUgMjQuNSw1OS40CgkJMjYuNyw1OS40IDI2LjcsNDMuOCAyNC41LDQzLjggCSIvPgo8L2c+Cjwvc3ZnPgo=" class="mini-balloon" id="mini-balloon" alt="test balloon" align="bottom">
             </div>
             <h1 class="grey-info">not working properly?</h1>
             <button class="recalibration-button" id="recal-button" type="button" name="recalibration-button"></button>
@@ -120,8 +125,8 @@
         <img src="/assets/svg/vs.svg" alt="versus">
         <button class="play-button invisible" id="playbutton" type="button" name="play-button"></button>
         <div class="waiting" id="waiting">
-          <p>Waiting for <br /><img src="/assets/svg/player-one.svg" class="p1" id="p1" alt="player-one">
-            <span id="and">and</span>
+          <p>Waiting for <br /><img src="/assets/svg/player-one.svg" class="p1" id="p1" alt="player-one"><br />
+            <span id="and">and</span><br />
             <span class="p2">
               <img src="/assets/svg/player-two.svg" id="p2"  class="p2" alt="player-two">
             </span>
@@ -166,7 +171,7 @@
         </div>
 
         <div class="pause-box" id="pause">
-          <img src="/assets/svg/pause-button.svg" alt="pause button">
+          <img src="/assets/svg/pause-button.svg" alt="pause button" width="40px">
         </div>
       </div>
     </div>
@@ -202,9 +207,5 @@
   </div>
   <div id="count-down" class="count-down">
   </div>
-<<<<<<< HEAD
-<script type="text/javascript" src="/js/main.ac2b2d90c9faac4fd1c0.js"></script></body>
-=======
-<script type="text/javascript" src="/js/main.7ff8e1b9ab46eaab543a.js"></script></body>
->>>>>>> 26040c27a0674a7f7bad96638e6d524a944ebfb7
+<script type="text/javascript" src="/js/main.8283a2c93e51356a1a73.js"></script></body>
 </html>

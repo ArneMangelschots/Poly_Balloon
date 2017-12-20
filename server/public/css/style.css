@@ -224,7 +224,7 @@ button:focus {
 }
 
 .close-button {
-  background: url(/assets/svg/close-button.svg) no-repeat;
+  background: url(data:image/svg+xml;base64,PCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluICAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiCgkgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6YT0iaHR0cDovL25zLmFkb2JlLmNvbS9BZG9iZVNWR1ZpZXdlckV4dGVuc2lvbnMvMy4wLyIKCSB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjY5cHgiIGhlaWdodD0iNzUuM3B4IiB2aWV3Qm94PSIwIDAgNjkgNzUuMyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjkgNzUuMzsiCgkgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzJBNkZCQTt9Cgkuc3Qxe2ZpbGw6IzRBQkFFRjt9Cgkuc3Qye2ZpbGw6I0ZGRkZGRjt9Cjwvc3R5bGU+CjxkZWZzPgo8L2RlZnM+Cjxwb2x5Z29uIGNsYXNzPSJzdDAiIHBvaW50cz0iNjEuNCw2LjMgNTMuOCw2LjMgNy42LDYuMyA3LjYsMTMuOSAwLDEzLjkgMCw2Ny43IDcuNiw2Ny43IDcuNiw3NS4zIDUzLjgsNzUuMyA2MS40LDc1LjMgNjEuNCw2Ny43Cgk2OSw2Ny43IDY5LDEzLjkgNjEuNCwxMy45ICIvPgo8cG9seWdvbiBjbGFzcz0ic3QxIiBwb2ludHM9IjYxLjQsMCA1My44LDAgNy42LDAgNy42LDcuNiAwLDcuNiAwLDYxLjQgNy42LDYxLjQgNy42LDY5IDUzLjgsNjkgNjEuNCw2OSA2MS40LDYxLjQgNjksNjEuNCA2OSw3LjYKCTYxLjQsNy42ICIvPgo8Zz4KCTxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik0yMy45LDIzLjRIMzF2Ny4xSDM4di03LjFoNy4xVjM0aC0zLjV2Ny4xaDMuNXYxMC42SDM4di03LjFIMzF2Ny4xaC03LjFWNDEuMWgzLjVWMzRoLTMuNVYyMy40eiIvPgo8L2c+Cjwvc3ZnPgo=) no-repeat;
   width: 89px;
   width: 8.9rem;
   height: 98px;
@@ -233,16 +233,16 @@ button:focus {
 }
 
 .close-button:hover {
-  background: url(/assets/svg/close-button-hover.svg) no-repeat;
+  background: url(data:image/svg+xml;base64,PCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluICAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiCgkgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6YT0iaHR0cDovL25zLmFkb2JlLmNvbS9BZG9iZVNWR1ZpZXdlckV4dGVuc2lvbnMvMy4wLyIKCSB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjY5cHgiIGhlaWdodD0iNjlweCIgdmlld0JveD0iMCAwIDY5IDY5IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA2OSA2OTsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLnN0MHtmaWxsOiMyQTZGQkE7fQoJLnN0MXtmaWxsOiNGRkZGRkY7fQo8L3N0eWxlPgo8ZGVmcz4KPC9kZWZzPgo8cG9seWdvbiBjbGFzcz0ic3QwIiBwb2ludHM9IjYxLjQsMCA1My44LDAgNy42LDAgNy42LDcuNiAwLDcuNiAwLDYxLjQgNy42LDYxLjQgNy42LDY5IDUzLjgsNjkgNjEuNCw2OSA2MS40LDYxLjQgNjksNjEuNCA2OSw3LjYKCTYxLjQsNy42ICIvPgo8cG9seWdvbiBjbGFzcz0ic3QwIiBwb2ludHM9IjYxLjQsMCA1My44LDAgNy42LDAgNy42LDcuNiAwLDcuNiAwLDYxLjQgNy42LDYxLjQgNy42LDY5IDUzLjgsNjkgNjEuNCw2OSA2MS40LDYxLjQgNjksNjEuNCA2OSw3LjYKCTYxLjQsNy42ICIvPgo8Zz4KCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0yMy45LDIwLjNIMzF2Ny4xSDM4di03LjFoNy4xdjEwLjZoLTMuNVYzOGgzLjV2MTAuOEgzOHYtNy4ySDMxdjcuMmgtNy4xVjM4aDMuNVYzMWgtMy41VjIwLjN6Ii8+CjwvZz4KPC9zdmc+Cg==) no-repeat;
 }
 
 .about-description {
   font-family: edituno;
   color: white;
-  font-size: 40px;
-  font-size: 4rem;
-  line-height: 50px;
-  line-height: 5rem;
+  font-size: 25px;
+  font-size: 2.5rem;
+  line-height: 26px;
+  line-height: 2.6rem;
   margin-top: 5vh
 }
 
@@ -260,7 +260,12 @@ button:focus {
           flex-flow: row nowrap;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
-          justify-content: flex-end;
+          justify-content: flex-end
+}
+
+.devine-logo img {
+  width: 50px;
+  width: 5rem;
 }
 
 .intro-polyballoon, .startscreen, .game-over {
@@ -297,7 +302,7 @@ button:focus {
 }
 
 .question-button {
-  background: url(/assets/svg/question-button.svg) no-repeat;
+  background: url(data:image/svg+xml;base64,PCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluICAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiCgkgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6YT0iaHR0cDovL25zLmFkb2JlLmNvbS9BZG9iZVNWR1ZpZXdlckV4dGVuc2lvbnMvMy4wLyIKCSB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjY5cHgiIGhlaWdodD0iNzUuM3B4IiB2aWV3Qm94PSIwIDAgNjkgNzUuMyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjkgNzUuMzsiCgkgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzJBNkZCQTt9Cgkuc3Qxe2ZpbGw6IzRBQkFFRjt9Cgkuc3Qye2ZpbGw6I0ZGRkZGRjt9Cjwvc3R5bGU+CjxkZWZzPgo8L2RlZnM+Cjxwb2x5Z29uIGNsYXNzPSJzdDAiIHBvaW50cz0iNjEuNCw2LjMgNTMuOCw2LjMgNy42LDYuMyA3LjYsMTMuOSAwLDEzLjkgMCw2Ny43IDcuNiw2Ny43IDcuNiw3NS4zIDUzLjgsNzUuMyA2MS40LDc1LjMgNjEuNCw2Ny43Cgk2OSw2Ny43IDY5LDEzLjkgNjEuNCwxMy45ICIvPgo8cG9seWdvbiBjbGFzcz0ic3QxIiBwb2ludHM9IjYxLjQsMCA1My44LDAgNy42LDAgNy42LDcuNiAwLDcuNiAwLDYxLjQgNy42LDYxLjQgNy42LDY5IDUzLjgsNjkgNjEuNCw2OSA2MS40LDYxLjQgNjksNjEuNCA2OSw3LjYKCTYxLjQsNy42ICIvPgo8Zz4KCTxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik0yMy4yLDIxLjZoMTh2My42aDMuNnYxMC44aC0zLjZ2My42SDMwLjR2LTcuMmg3LjJ2LTMuNkgyMy4yVjIxLjZ6IE0zMC40LDQzLjNoNy4ydjcuMmgtNy4yVjQzLjN6Ii8+CjwvZz4KPC9zdmc+Cg==) no-repeat;
   height: 80px;
   height: 8rem;
   width: 78px;
@@ -312,7 +317,7 @@ button:focus {
 }
 
 .question-button:hover {
-  background: url(/assets/svg/question-push.svg) no-repeat;
+  background: url(data:image/svg+xml;base64,PCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluICAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiCgkgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6YT0iaHR0cDovL25zLmFkb2JlLmNvbS9BZG9iZVNWR1ZpZXdlckV4dGVuc2lvbnMvMy4wLyIKCSB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjY5cHgiIGhlaWdodD0iNjlweCIgdmlld0JveD0iMCAwIDY5IDY5IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA2OSA2OTsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLnN0MHtmaWxsOiMyQTZGQkE7fQoJLnN0MXtmaWxsOiNGRkZGRkY7fQo8L3N0eWxlPgo8ZGVmcz4KPC9kZWZzPgo8cG9seWdvbiBjbGFzcz0ic3QwIiBwb2ludHM9IjYxLjQsMCA1My44LDAgNy42LDAgNy42LDcuNiAwLDcuNiAwLDYxLjQgNy42LDYxLjQgNy42LDY5IDUzLjgsNjkgNjEuNCw2OSA2MS40LDYxLjQgNjksNjEuNCA2OSw3LjYKCTYxLjQsNy42ICIvPgo8cG9seWdvbiBjbGFzcz0ic3QwIiBwb2ludHM9IjYxLjQsMCA1My44LDAgNy42LDAgNy42LDcuNiAwLDcuNiAwLDYxLjQgNy42LDYxLjQgNy42LDY5IDUzLjgsNjkgNjEuNCw2OSA2MS40LDYxLjQgNjksNjEuNCA2OSw3LjYKCTYxLjQsNy42ICIvPgo8Zz4KCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0yMy4yLDIxLjZoMTh2My42aDMuNnYxMC44aC0zLjZ2My42SDMwLjR2LTcuMmg3LjJ2LTMuNkgyMy4yQzIzLjIsMjguOSwyMy4yLDIxLjYsMjMuMiwyMS42eiBNMzAuNCw0My4zaDcuMgoJCXY3LjJoLTcuMlY0My4zeiIvPgo8L2c+Cjwvc3ZnPgo=) no-repeat;
   height: 80px;
   height: 8rem;
   width: 78px;
@@ -450,6 +455,7 @@ button:focus {
 
 .play-button {
   background: url(/assets/svg/play-button.svg) no-repeat;
+  background-size: contain;
   width: 157px;
   width: 15.7rem;
   height: 69px;
@@ -460,6 +466,7 @@ button:focus {
 
 .play-button:hover {
   background: url(/assets/svg/play-push.svg) no-repeat;
+  background-size: contain;
   width: 157px;
   width: 15.7rem;
   height: 69px;
@@ -624,6 +631,7 @@ button:focus {
 
 .recalibration-button {
   background: url(/assets/svg/recalibrate.svg) no-repeat;
+  background-size: contain;
   width: 148px;
   width: 14.8rem;
   height: 32px;
@@ -634,6 +642,7 @@ button:focus {
 
 .recalibration-button:hover {
   background: url(/assets/svg/recalibrate-push.svg) no-repeat;
+  background-size: contain;
   width: 148px;
   width: 14.8rem;
   height: 32px;
@@ -644,6 +653,7 @@ button:focus {
 
 .ready-button {
   background: url(/assets/svg/ready-button.svg) no-repeat;
+  background-size: contain;
   width: 148px;
   width: 14.8rem;
   height: 32px;
@@ -656,6 +666,7 @@ button:focus {
 
 .ready-button:hover {
   background: url(/assets/svg/ready-button-hover.svg) no-repeat;
+  background-size: contain;
 }
 
 .qr-code-box {
@@ -737,7 +748,7 @@ button:focus {
 }
 
 .frame-pieces .frame-left {
-  background: url(/assets/svg/frame-left.svg) no-repeat;
+  background: url(data:image/svg+xml;base64,PCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluICAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiCgkgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6YT0iaHR0cDovL25zLmFkb2JlLmNvbS9BZG9iZVNWR1ZpZXdlckV4dGVuc2lvbnMvMy4wLyIKCSB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjY5LjhweCIgaGVpZ2h0PSI2OS44cHgiIHZpZXdCb3g9IjAgMCA2OS44IDY5LjgiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDY5LjggNjkuODsiCgkgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzVCMjYxNjt9Cjwvc3R5bGU+CjxkZWZzPgo8L2RlZnM+CjxnPgoJPHBvbHlnb24gY2xhc3M9InN0MCIgcG9pbnRzPSI2OS44LDQ3LjMgNjQuNSw0Ny4zIDUxLjYsNDcuMyA1MS42LDM2IDM4LjcsMzYgMzguNywyNC43IDI1LjgsMjQuNyAyNS44LDEzLjQgMjUuOCwwIDAsMCAwLDIuMQoJCTAsMTMuNCAwLDQ3LjMgMCw1OC42IDAsNjkuOCAyNS44LDY5LjggNjkuOCw2OS44IAkiLz4KPC9nPgo8L3N2Zz4K) no-repeat;
   width: 70px;
   width: 7rem;
   height: 70px;
@@ -745,7 +756,7 @@ button:focus {
 }
 
 .frame-pieces .frame-right {
-  background: url(/assets/svg/frame-right.svg) no-repeat;
+  background: url(data:image/svg+xml;base64,PCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluICAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiCgkgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6YT0iaHR0cDovL25zLmFkb2JlLmNvbS9BZG9iZVNWR1ZpZXdlckV4dGVuc2lvbnMvMy4wLyIKCSB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjY5LjhweCIgaGVpZ2h0PSI2OS45cHgiIHZpZXdCb3g9IjAgMCA2OS44IDY5LjkiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDY5LjggNjkuOTsiCgkgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzVCMjYxNjt9Cjwvc3R5bGU+CjxkZWZzPgo8L2RlZnM+CjxnPgoJPHBvbHlnb24gY2xhc3M9InN0MCIgcG9pbnRzPSI0Ny4yLDAgNDcuMiw1LjQgNDcuMiwxOC4zIDM1LjksMTguMyAzNS45LDMxLjIgMjQuNiwzMS4yIDI0LjYsNDQuMSAxMy4zLDQ0LjEgMCw0NC4xIDAsNjkuOSAyLDY5LjkKCQkxMy4zLDY5LjkgNDcuMiw2OS45IDU4LjUsNjkuOSA2OS44LDY5LjkgNjkuOCw0NC4xIDY5LjgsMCAJIi8+CjwvZz4KPC9zdmc+Cg==) no-repeat;
   width: 70px;
   width: 7rem;
   height: 70px;
@@ -812,6 +823,7 @@ button:focus {
 
 .distance-box {
   background: url(/assets/svg/distance.svg) no-repeat;
+  background-size: cover;
   height: 87px;
   height: 8.7rem;
   width: 310px;
@@ -849,7 +861,8 @@ button:focus {
 }
 
 .pause-box {
-  background: url(/assets/svg/pause-box.svg) no-repeat;
+  background: url(data:image/svg+xml;base64,PCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluICAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiCgkgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6YT0iaHR0cDovL25zLmFkb2JlLmNvbS9BZG9iZVNWR1ZpZXdlckV4dGVuc2lvbnMvMy4wLyIKCSB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjYyLjVweCIgaGVpZ2h0PSI1MHB4IiB2aWV3Qm94PSIwIDAgNjIuNSA1MCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjIuNSA1MDsiCgkgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzVCMjYxNjt9Cjwvc3R5bGU+CjxkZWZzPgo8L2RlZnM+Cjxwb2x5Z29uIGNsYXNzPSJzdDAiIHBvaW50cz0iNTYuOCw1LjcgNTYuOCwwIDUuNywwIDUuNyw1LjggMCw1LjggMCwzOC42IDUuNiwzOC42IDUuNiw0NC4zIDUuNyw0NC4zIDUuNyw0NC4zIDExLjQsNDQuMyAxMS40LDUwCgk2Mi41LDUwIDYyLjUsNS43ICIvPgo8L3N2Zz4K) no-repeat;
+  background-size: cover;
   width: 90px;
   width: 9rem;
   height: 89px;

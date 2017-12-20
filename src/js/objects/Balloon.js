@@ -13,7 +13,7 @@ export default class Balloon extends THREE.Mesh {
     this.castShadow = true;
     this.reveiveShadow = true;
     this.body = new THREE.Box3().setFromObject(this);
-    this.gravityY = .4;
+    this.gravityY = .3;
     this.alive = true;
   }
 
@@ -35,6 +35,7 @@ export default class Balloon extends THREE.Mesh {
   }
 
   flyUp = () => {
+      console.log(`up`, this.position.y);
       const position = {x: this.position.x, y: this.position.y};
       const target = {x: this.position.x, y: this.position.y + 80};
       const tween = new TWEEN.Tween(position).to(target, 500);
@@ -45,6 +46,9 @@ export default class Balloon extends THREE.Mesh {
         this.position.y = position.y;
         this.updateMatrix();
         this.body.setFromObject(this);
+        if(this.position.y > 400) {
+          this.position.y = 380;
+        }
       });
     return tween;
   }
@@ -78,7 +82,7 @@ export default class Balloon extends THREE.Mesh {
     }else{
       this.dmgCounter = 4;
     }
-    this.gravityY += .2;
+    this.gravityY += .15;
     this.geometry = this.geometrys[this.dmgCounter];
     const start = {z: this.rotation.z};
     const target = {z: 30 * (Math.PI / 180)};

@@ -24,7 +24,7 @@ const controller = () => {
 
   let maxHeight = 0;
 
-  const gameStarted = true;
+  let gameRunning = false;
 
 
   const init = () => {
@@ -117,7 +117,7 @@ const controller = () => {
 
     window.addEventListener(`touchmove`, e => {
       e.preventDefault();
-      if (gameStarted && e.touches[0].clientX < (window.innerWidth / 2) + 30 && e.touches[0].clientX > (window.innerWidth / 2) - 30 && !shootStarted) {
+      if (gameRunning && e.touches[0].clientX < (window.innerWidth / 2) + 30 && e.touches[0].clientX > (window.innerWidth / 2) - 30 && !shootStarted) {
         const mappedClientY = mapRange(e.touches[0].clientY, windowRange.min, windowRange.max, threeRange.min, threeRange.max);
         plane.move(mappedClientY);
       }
@@ -125,7 +125,7 @@ const controller = () => {
 
     window.addEventListener(`touchstart`, e => {
       e.preventDefault();
-      if (!shootStarted) {
+      if (gameRunning && !shootStarted) {
         //swipeStarted = true;
         touchstartX = e.changedTouches[0].screenX;
       }
@@ -133,7 +133,7 @@ const controller = () => {
 
     window.addEventListener(`touchend`, e => {
       e.preventDefault();
-      if (e.changedTouches[0].screenX < touchstartX - 100 && !shootStarted) {
+      if (gameRunning && e.changedTouches[0].screenX < touchstartX - 100 && !shootStarted) {
         shootStarted = true;
         const shooting = plane.shoot();
         socket.emit(`shoot`, targetId, {
@@ -148,7 +148,6 @@ const controller = () => {
     }, false);
 
     socket.on(`planeback`, ({planeBack}) => {
-      document.getElementById(`debugger`).innerHTML = `joepie`;
       if (planeBack) {
         const restart = plane.restart();
         restart.onComplete(() => {
@@ -179,6 +178,34 @@ const controller = () => {
   //   }
   // };
 
+  const gameStarted = () => {
+    if (!document.getElementById(`connect-box`).classList.contains(`invisible`)) {
+      document.getElementById(`connect-box`).classList.add(`invisible`);
+    }
+    countDown();
+    setTimeout(() => {
+      gameRunning = true;
+    }, 3000);
+    gameRunning = true;
+  };
+
+  const countDown = () => {
+    const $countDown = document.getElementById(`count-down`);
+    if ($countDown.classList.contains(`invisible`)) {
+      $countDown.classList.remove(`invisible`);
+    }
+    let teller = 3;
+    $countDown.innerHTML = teller;
+    const interval = setInterval(() => {
+      teller -= 1;
+      $countDown.innerHTML = teller;
+      if (teller === 0) {
+        clearInterval(interval);
+        $countDown.classList.add(`invisible`);
+      }
+    }, 1000);
+  };
+
   const connectSocket = () => {
     socket = IO.connect(`/`);
 
@@ -189,8 +216,27 @@ const controller = () => {
       });
     });
 
-    socket.on(`start`, ({message}) => {
-      console.log(message);
+    socket.on(`start`, () => {
+      gameStarted();
+    });
+
+    socket.on(`pause`, () => {
+      gameRunning = false;
+      document.getElementById(`paused-controller`).classList.remove(`invisible`);
+    });
+
+    socket.on(`restart`, () => {
+      gameRunning = true;
+      document.getElementById(`paused-controller`).classList.add(`invisible`);
+    });
+
+    socket.on(`gameover`, () => {
+      gameRunning = false;
+      document.getElementById(`gameover-controller`).classList.remove(`invisible`);
+    });
+
+    socket.on(`softrestart`, () => {
+      document.getElementById(`gameover-controller`).classList.add(`invisible`);
     });
   };
 

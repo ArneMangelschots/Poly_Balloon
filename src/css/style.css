@@ -125,8 +125,8 @@ button:focus {
 .about-description {
   font-family: edituno;
   color: white;
-  font-size: 4rem;
-  line-height: 5rem;
+  font-size: 2.5rem;
+  line-height: 2.6rem;
   margin-top: 5vh;
 
   & cite {
@@ -138,6 +138,10 @@ button:focus {
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-end;
+
+  & img {
+    width: 5rem;
+  }
 }
 
 .intro-polyballoon, .startscreen, .game-over {
@@ -262,6 +266,7 @@ button:focus {
 
 .play-button {
   background: url(../assets/svg/play-button.svg) no-repeat;
+  background-size: contain;
   width: 15.7rem;
   height: 6.9rem;
   cursor: pointer;
@@ -270,6 +275,7 @@ button:focus {
 
 .play-button:hover {
   background: url(../assets/svg/play-push.svg) no-repeat;
+  background-size: contain;
   width: 15.7rem;
   height: 6.9rem;
   cursor: pointer;
@@ -388,6 +394,7 @@ button:focus {
 
 .recalibration-button {
   background: url(../assets/svg/recalibrate.svg) no-repeat;
+  background-size: contain;
   width: 14.8rem;
   height: 3.2rem;
   cursor: pointer;
@@ -396,6 +403,7 @@ button:focus {
 
 .recalibration-button:hover {
   background: url(../assets/svg/recalibrate-push.svg) no-repeat;
+  background-size: contain;
   width: 14.8rem;
   height: 3.2rem;
   cursor: pointer;
@@ -404,6 +412,7 @@ button:focus {
 
 .ready-button {
   background: url(../assets/svg/ready-button.svg) no-repeat;
+  background-size: contain;
   width: 14.8rem;
   height: 3.2rem;
   cursor: pointer;
@@ -413,6 +422,7 @@ button:focus {
 
 .ready-button:hover {
   background: url(../assets/svg/ready-button-hover.svg) no-repeat;
+  background-size: contain;
 }
 
 .qr-code-box {
@@ -513,6 +523,7 @@ button:focus {
 
 .distance-box {
   background: url(../assets/svg/distance.svg) no-repeat;
+  background-size: cover;
   height: 8.7rem;
   width: 31rem;
   display: flex;
@@ -536,6 +547,7 @@ button:focus {
 
 .pause-box {
   background: url(../assets/svg/pause-box.svg) no-repeat;
+  background-size: cover;
   width: 9rem;
   height: 8.9rem;
   display: flex;

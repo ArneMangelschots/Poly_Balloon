@@ -382,7 +382,6 @@ import IO from 'socket.io-client';
   //START GAMELOGIC
 
   const render = () => {
-    console.log(speed);
     TWEEN.update();
     renderer.render(scene, camera);
     if(speed > 0){
@@ -495,6 +494,9 @@ import IO from 'socket.io-client';
   };
 
   const softStartGame = () => {
+    socket.emit(`start`, remoteSocketId, {
+      message: `Game started!`
+    });
     countDown();
     const balloonStart = balloon.flyToStart();
     balloonStart.onComplete(() => {
@@ -502,14 +504,14 @@ import IO from 'socket.io-client';
       speed = 3;
       document.getElementById(`pause`).addEventListener(`click`, pauseGame);
       toggleScoreCounting();
-      socket.emit(`start`, remoteSocketId, {
-        message: `Game started!`
-      });
     });
   };
 
   const countDown = () => {
     const $countDown = document.getElementById(`count-down`);
+    if ($countDown.classList.contains(`invisible`)) {
+      $countDown.classList.remove(`invisible`);
+    }
     let teller = 3;
     $countDown.innerHTML = teller;
       const interval = setInterval(() => {
@@ -523,6 +525,9 @@ import IO from 'socket.io-client';
   };
 
   const softRestart = e => {
+    socket.emit(`softrestart`, remoteSocketId, {
+      message: `softRestart`
+    });
     e.preventDefault();
     e.currentTarget.removeEventListener(`click`, softRestart, false);
     softReset();
@@ -532,6 +537,7 @@ import IO from 'socket.io-client';
   const softReset = () => {
     console.log(`yeah`);
     document.getElementById(`game-over`).classList.add(`invisible`);
+    document.getElementById(`damage-filler`).setAttribute(`width`, `0px`)
     score = 0;
     damage = 0;
     counter = 0;
@@ -555,6 +561,10 @@ import IO from 'socket.io-client';
     speed = 0;
     toggleScoreCounting();
 
+    socket.emit(`gameover`, remoteSocketId, {
+      message: `gameover`
+    });
+
     const $backbutton = document.getElementById(`back-button`);
     const $trybutton = document.getElementById(`try-button`);
 
@@ -566,6 +576,9 @@ import IO from 'socket.io-client';
     e.currentTarget.removeEventListener(`click`, pauseGame, false);
     e.currentTarget.addEventListener(`click`, playGame);
     speed = 0;
+    socket.emit(`pause`, remoteSocketId, {
+      message: `gamePaused`
+    });
     toggleScoreCounting();
   };
 
@@ -573,6 +586,9 @@ import IO from 'socket.io-client';
     e.currentTarget.removeEventListener(`click`, playGame, false);
     e.currentTarget.addEventListener(`click`, pauseGame);
     speed = 3;
+    socket.emit(`restart`, remoteSocketId, {
+      message: `game played`
+    });
     toggleScoreCounting();
   };
 
