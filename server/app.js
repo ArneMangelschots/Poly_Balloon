@@ -57,7 +57,7 @@ let tls = false;
 
     io.on(`connection`, socket => {
       const sid = shortid.generate();
-      const qr = qrcode(4, `L`);
+      const qr = qrcode(0, `L`);
       qr.addData(`https://polyballoons.herokuapp.com/controller.html?id=${sid}&page=controller`);
       qr.make();
       const qrImg = qr.createImgTag();
