@@ -430,12 +430,8 @@ button:focus {
   background: url(../assets/svg/dmg-box.svg) no-repeat;
   width: 39.7rem;
   height: 10rem;
-  display: flex;
   position: relative;
   bottom: 1.5rem;
-  flex-flow: row nowrap;
-  justify-content: space-around;
-  align-items: center;
 
   & h1 {
     font-family: edituno;
@@ -443,12 +439,21 @@ button:focus {
     color: white;
     font-size: 3.5rem;
     padding-left: 3rem;
+    margin-left: 1rem;
+    margin-top: 3.1rem;
   }
 }
 
-.dmg-meter, .dmg-loader {
+.dmg-meter, .dmg-loader, .dmg-fill {
   position: absolute;
-  width: 20rem;
+  width: 26rem;
+  left: 10rem;
+  top: 2.7rem;
+}
+
+.dmg-fill {
+  top: 4rem;
+  left: 10.5rem;
 }
 
 .distance-box {

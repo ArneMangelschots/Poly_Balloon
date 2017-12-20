@@ -24,7 +24,7 @@
   })();
 </script>
 </head>
-<body>
+<body id="body">
   <div id="startscreen" class="startscreen">
     <div class="title-box">
       <header class="big-title">
@@ -118,21 +118,26 @@
       </div>
     </div>
   </div>
-  <div id="interface" class="interface">
+  <div id="interface" class="interface invisible">
     <div class="game-frame">
       <div class="interface-box">
 
         <div class="damage-box">
-          <h1>dmg</h1>
           <img src="./assets/svg/dmg-meter.svg" class="dmg-meter" alt="">
-          <img src="./assets/svg/dmg-loader.svg" class="dmg-box" alt="">
+          <div class="dmg-fill">
+            <svg width="300" height="20" viewbox="0 0 300 20" xmlns="http://www.w3.org/2000/svg">
+              <rect id="damage-filler" width="0px" height="20" style="fill: #EC4056;"/>
+            </svg>
+          </div>
+          <img src="./assets/svg/dmg-loader.svg" class="dmg-loader" alt="">
+          <h1>dmg</h1>
         </div>
 
         <div class="distance-box">
           <h1 id="score">100</h1><h1>km</h1>
         </div>
 
-        <div class="pause-box">
+        <div class="pause-box" id="pause">
           <img src="./assets/svg/pause-button.svg" alt="pause button">
         </div>
       </div>

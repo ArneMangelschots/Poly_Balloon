@@ -6,7 +6,7 @@ export default class Balloon extends THREE.Mesh {
   constructor(geometry, materials, sceneWidthModifier) {
     super(geometry, materials);
     this.position.set(sceneWidthModifier * -1.4, -175, - 600);
-    this.scale.set(.29, .29, .29);
+    this.scale.set(.4, .4, .4);
     this.rotation.order = `ZYX`;
     this.castShadow = true;
     this.reveiveShadow = true;
@@ -100,5 +100,10 @@ export default class Balloon extends THREE.Mesh {
   balloonDeath = () => {
     this.gravityY = 0;
     this.alive = false;
+  }
+
+  reset = () => {
+    this.alive = true;
+    this.gravityY = .4;
   }
 }
