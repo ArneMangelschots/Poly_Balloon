@@ -774,21 +774,9 @@ button:focus {
   width: 39.7rem;
   height: 100px;
   height: 10rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   position: relative;
   bottom: 15px;
-  bottom: 1.5rem;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center
+  bottom: 1.5rem
 }
 
 .damage-box h1 {
@@ -799,12 +787,27 @@ button:focus {
   font-size: 3.5rem;
   padding-left: 30px;
   padding-left: 3rem;
+  margin-left: 10px;
+  margin-left: 1rem;
+  margin-top: 31px;
+  margin-top: 3.1rem;
 }
 
-.dmg-meter, .dmg-loader {
+.dmg-meter, .dmg-loader, .dmg-fill {
   position: absolute;
-  width: 200px;
-  width: 20rem;
+  width: 260px;
+  width: 26rem;
+  left: 100px;
+  left: 10rem;
+  top: 27px;
+  top: 2.7rem;
+}
+
+.dmg-fill {
+  top: 40px;
+  top: 4rem;
+  left: 105px;
+  left: 10.5rem;
 }
 
 .distance-box {

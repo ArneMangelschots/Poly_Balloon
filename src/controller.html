@@ -72,6 +72,13 @@
       margin: 3vh 0;
     }
 
+    .aim {
+      background: url(../assets/svg/aimshoot.svg) no-repeat;
+      width: 68rem;
+      height: 12rem;
+
+    }
+
     .debugger {
       width: 4rem;
       display: flex;
@@ -83,14 +90,16 @@
     }
   </style>
   <body>
+
     <div class="plane-controller" id="plane-controller">
-      <div class="connected lightGrayPixelBg">
+      <div id="connect-box" class="connected lightGrayPixelBg">
         <img class="connected-button" src="./assets/svg/connected-screen.svg" alt="connected button">
         <img class="waiting-text" src="./assets/svg/waiting-text.svg" alt="waiting text">
         <img class="instruction-text" src="./assets/svg/instructions.svg" alt="instructions text">
         <img class="drag" src="./assets/svg/drag-instruction.svg" alt="drag instruction">
         <img class="slide" src="./assets/svg/slide-instruction.svg" alt="slide instruction">
       </div>
+      <!-- <div class="aim"></div> -->
       <div class="debugger" id="debugger">
 
       </div>

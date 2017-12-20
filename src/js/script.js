@@ -2,6 +2,7 @@ import mapRange from './lib/mapRange';
 import autoCorrelate from './lib/autoCorrelate';
 import random from './lib/random';
 import getUrlParameter from './lib/getUrlParameter';
+import resetDom from './lib/resetDom';
 
 import modelLoader from './objects/modelLoader';
 import Balloon from './objects/Balloon';
@@ -20,6 +21,8 @@ import IO from 'socket.io-client';
   const SHADOW_MAP_HEIGHT = 1024;
 
   const toLoad = [`landscape1`,`landscape2`, `landscape3`, `balloon`, `cloud`, `cloud1`, `cloud2`, `treeline`, `paperPlane`];
+
+  let renderAnimationFrame;
 
   let scene = false,
     camera = false,
@@ -44,7 +47,8 @@ import IO from 'socket.io-client';
     pitchUp = false,
     lastShotPlane = false,
     score = 0,
-    counter = 0;
+    counter = 0,
+    damage = 0;
 
   let socket,
       socketId,
@@ -52,6 +56,8 @@ import IO from 'socket.io-client';
 
   const buflen = 1024,
     buf = new Float32Array(buflen);
+
+  //SETUP EVERYTHING
 
   const init = () => {
     if (getUrlParameter(`page`) === `controller`) {
@@ -70,83 +76,12 @@ import IO from 'socket.io-client';
     //get audiostream
   };
 
+  //SETUPGAME
+
   const game = () => {
     setupThree();
     setupLights();
     setupWorld();
-  };
-
-  const render = () => {
-    TWEEN.update();
-    //init WebGLRenderer
-    renderer.render(scene, camera);
-
-    checkBalloonDeath();
-    moveWorld();
-    checkPaperPlanes();
-    displayScore();
-    window.requestAnimationFrame(render);
-  };
-
-  const checkBalloonDeath = () => {
-    if(!balloon.alive){
-      gameOver();
-      return;
-    }else{
-      balloon.fall(speed);
-    }
-  };
-
-  const checkPaperPlanes = () => {
-    paperPlanes.forEach(paperPlane => {
-      if(checkCollision(paperPlane.body, balloon.body)){
-        balloon.hit();
-        balloon.gravityY += .1;
-        paperPlane.reset();
-        socket.emit(`planeback`, remoteSocketId, {
-          planeBack: true
-        });
-      };
-      if(checkAlive(paperPlane)){
-        paperPlane.reset();
-        socket.emit(`planeback`, remoteSocketId, {
-          planeBack: true
-        });
-      };
-      if(paperPlane.flying){
-        paperPlane.shoot();
-      }
-    });
-  };
-
-  const displayScore = () => {
-    document.getElementById(`score`).innerHTML = score;
-  };
-
-  const moveWorld = () => {
-    landscapes.forEach(landscape => {
-      landscape.move(speed, landscape.mover);
-      if(checkAlive(landscape)){
-        switch (landscapes.indexOf(landscape)) {
-          case 0:
-            landscape.reset(landscapes[2].body.max.x);
-            break;
-          case 1:
-            landscape.reset(landscapes[0].body.max.x);
-            break;
-          case 2:
-            landscape.reset(landscapes[1].body.max.x);
-            break;
-          default:
-        }
-      };
-    })
-    clouds.forEach(cloud => {
-      cloud.move(speed);
-      if(checkAlive(cloud)){
-        cloud.reset();
-      };
-    });
   };
 
   const setupThree = () => {
@@ -176,6 +111,25 @@ import IO from 'socket.io-client';
     }else{
       return;
     }
+  };
+
+  const setupLights = () => {
+    const hemiLight = new THREE.HemisphereLight(0xA1D0BC, 0x269DAE, 1);
+    hemiLight.color.setHSL(0.2, .5, 0);
+    hemiLight.groundColor.setHSL(0.095, 1, 0.75);
+    hemiLight.position.set(0, 200, 0);
+    scene.add(hemiLight);
+    const directionalLight = new THREE.DirectionalLight( 0xFDAC2A, .7 );
+    scene.add( directionalLight );
+    const light = new THREE.SpotLight( 0xffffff, 1, 0, Math.PI / 2 );
+    light.position.set( 600, 1300, -300);
+    light.target.position.set( 0, 0, 0 );
+    light.castShadow = true;
+    light.shadow = new THREE.LightShadow(new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 3000));
+    light.shadow.bias = 0.0001;
+    light.shadow.mapSize.width = window.innerWidth;
+    light.shadow.mapSize.height = window.innerHeight;
+    scene.add( light );
   };
 
   const setupWorld = () => {
@@ -264,104 +218,9 @@ import IO from 'socket.io-client';
     });
   };
 
-  const setupLights = () => {
-    const hemiLight = new THREE.HemisphereLight(0xA1D0BC, 0x269DAE, 1);
-    hemiLight.color.setHSL(0.2, .5, 0);
-    hemiLight.groundColor.setHSL(0.095, 1, 0.75);
-    hemiLight.position.set(0, 200, 0);
-    scene.add(hemiLight);
-    const directionalLight = new THREE.DirectionalLight( 0xFDAC2A, .7 );
-    scene.add( directionalLight );
-    const light = new THREE.SpotLight( 0xffffff, 1, 0, Math.PI / 2 );
-    light.position.set( 600, 1300, -300);
-    light.target.position.set( 0, 0, 0 );
-    light.castShadow = true;
-    light.shadow = new THREE.LightShadow(new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 3000));
-    light.shadow.bias = 0.0001;
-    light.shadow.mapSize.width = window.innerWidth;
-    light.shadow.mapSize.height = window.innerHeight;
-    scene.add( light );
-  };
+  //END WORLD SETUP
 
-  const startGame = () => {
-    document.getElementById(`intro-polyballoon`).classList.add(`invisible`);
-    document.getElementById(`interface`).classList.remove(`invisible`);
-    const start = {y: camera.position.y};
-    const target = {y: 90};
-    const tween = new TWEEN.Tween(start).to(target, 1000);
-    tween.easing(TWEEN.Easing.Sinusoidal.InOut);
-    tween.start();
-    tween.onUpdate(() => {
-      camera.position.y = start.y;
-    });
-    tween.onComplete(() => {
-      countDown();
-      const projScreenMatrix = new THREE.Matrix4();
-      projScreenMatrix.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
-      frustum.setFromMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
-    });
-    const balloonStart = balloon.flyToStart();
-    balloonStart.onComplete(() => {
-      console.log(`balloonstart`);
-      balloon.wiggle();
-      speed = 3;
-      console.log(remoteSocketId);
-      socket.emit(`start`, remoteSocketId, {
-        message: `Game started!`
-      });
-      toggleScoreCounting();
-    });
-  };
-
-  const toggleScoreCounting = () => {
-    if(speed > 0){
-    counter = setInterval(() => {
-        score += 1;
-      }, 1000);
-    }else if(speed === 0 && counter){
-      clearInterval(counter);
-    }
-  };
-
-  const gameOver = () => {
-    document.getElementById(`game-over`).classList.remove(`invisible`);
-    console.log(`gedaan mee spelen`);
-    speed = 0;
-    toggleScoreCounting();
-
-    document.getElementById(`endscore`).innerHTML = `${score} KM`;
-
-    const $backbutton = document.getElementById(`back-button`);
-    const $trybutton = document.getElementById(`try-button`);
-
-    $trybutton.addEventListener(`click`, e => {
-      startGame();
-      console.log('nog eens spelen');
-      document.getElementById(`game-over`).classList.add(`invisible`);
-    });
-
-    $backbutton.addEventListener(`click`, e => {
-      setupIntro();
-      console.log('terug naar menu');
-      document.getElementById(`game-over`).classList.add(`invisible`);
-    });
-
-  };
-
-  const countDown = () => {
-    const $countDown = document.getElementById(`count-down`);
-    let teller = 3;
-    $countDown.innerHTML = teller;
-      const interval = setInterval(() => {
-        teller -= 1;
-        $countDown.innerHTML = teller;
-        if(teller === 0){
-          clearInterval(interval);
-          $countDown.classList.add(`invisible`);
-        }
-      }, 1000);
-  };
-
+  //START SETUP AND HANDLE DOM
 
   const setupStartScreen = () => {
     window.addEventListener(`keydown`, setupIntro);
@@ -371,8 +230,12 @@ import IO from 'socket.io-client';
     window.removeEventListener(`keydown`, setupIntro, false);
     document.getElementById(`intro-polyballoon`).classList.remove(`invisible`);
     document.getElementById(`startscreen`).classList.add(`invisible`);
+
+    const $about = document.getElementById(`question`);
     const $calibrationButton = document.getElementById(`calib`);
     const $playbutton = document.getElementById(`playbutton`);
+
+    $about.addEventListener(`click`,aboutUs);
 
     $calibrationButton.addEventListener(`click`,e => {
       e.preventDefault();
@@ -380,10 +243,13 @@ import IO from 'socket.io-client';
       calibrate();
     })
 
-    $playbutton.addEventListener(`click`, e => {
-      startGame();
-    });
+    $playbutton.addEventListener(`click`, superStartGame);
   };
+
+  const aboutUs = () => {
+    document.getElementById(`about`).classList.remove(`invisible`);
+
+  }
 
   const calibrationTestScreen = () => {
     const $calibrationTest = document.getElementById(`calibration-test`);
@@ -510,6 +376,220 @@ import IO from 'socket.io-client';
     }, 50);
   };
 
+  //END SETUP AND HANDLE DOM
+
+  //START GAMELOGIC
+
+  const render = () => {
+    console.log(speed);
+    TWEEN.update();
+    renderer.render(scene, camera);
+    if(speed > 0){
+      checkBalloonDeath();
+    }
+    moveWorld();
+    checkPaperPlanes();
+    displayScore();
+    renderAnimationFrame = window.requestAnimationFrame(render);
+  };
+
+  const checkBalloonDeath = () => {
+    if(!balloon.alive){
+      gameOver();
+      return;
+    }else{
+      balloon.fall(speed);
+    }
+  };
+
+  const checkPaperPlanes = () => {
+    paperPlanes.forEach(paperPlane => {
+      if(checkCollision(paperPlane.body, balloon.body)){
+        balloon.hit();
+        balloon.gravityY += .1;
+        paperPlane.reset();
+        socket.emit(`planeback`, remoteSocketId, {
+          planeBack: true
+        });
+        handleDamage();
+      };
+      if(checkAlive(paperPlane)){
+        paperPlane.reset();
+        socket.emit(`planeback`, remoteSocketId, {
+          planeBack: true
+        });
+      };
+      if(paperPlane.flying){
+        paperPlane.shoot();
+      }
+    });
+  };
+
+  const displayScore = () => {
+    document.getElementById(`score`).innerHTML = score;
+  };
+
+  const handleDamage = () => {
+    const $dmgFiller = document.getElementById(`damage-filler`);
+    damage += 50;
+    $dmgFiller.setAttribute(`width`, `${damage}px`)
+  };
+
+  const moveWorld = () => {
+    landscapes.forEach(landscape => {
+      landscape.move(speed, landscape.mover);
+      if(checkAlive(landscape)){
+        switch (landscapes.indexOf(landscape)) {
+          case 0:
+            landscape.reset(landscapes[2].body.max.x);
+            break;
+          case 1:
+            landscape.reset(landscapes[0].body.max.x);
+            break;
+          case 2:
+            landscape.reset(landscapes[1].body.max.x);
+            break;
+          default:
+        }
+      };
+    })
+    clouds.forEach(cloud => {
+      cloud.move(speed);
+      if(checkAlive(cloud)){
+        cloud.reset();
+      };
+    });
+  };
+
+  const toggleScoreCounting = () => {
+    console.log(`piemel`);
+    if(speed > 0){
+    counter = setInterval(() => {
+        score += 1;
+      }, 1000);
+    }else if(speed === 0 && counter){
+      clearInterval(counter);
+    }
+  };
+
+  const superStartGame = e => {
+    console.log(`superStartGame`);
+    e.preventDefault();
+    e.currentTarget.removeEventListener(`click`, superStartGame, false);
+    document.getElementById(`intro-polyballoon`).classList.add(`invisible`);
+    document.getElementById(`interface`).classList.remove(`invisible`);
+    const start = {y: camera.position.y};
+    const target = {y: 90};
+    const tween = new TWEEN.Tween(start).to(target, 1000);
+    tween.easing(TWEEN.Easing.Sinusoidal.InOut);
+    tween.start();
+    tween.onUpdate(() => {
+      camera.position.y = start.y;
+    });
+    tween.onComplete(() => {
+      const projScreenMatrix = new THREE.Matrix4();
+      projScreenMatrix.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
+      frustum.setFromMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
+      softStartGame();
+    });
+  };
+
+  const softStartGame = () => {
+    countDown();
+    const balloonStart = balloon.flyToStart();
+    balloonStart.onComplete(() => {
+      balloon.wiggle();
+      speed = 3;
+      document.getElementById(`pause`).addEventListener(`click`, pauseGame);
+      toggleScoreCounting();
+      socket.emit(`start`, remoteSocketId, {
+        message: `Game started!`
+      });
+    });
+  };
+
+  const countDown = () => {
+    const $countDown = document.getElementById(`count-down`);
+    let teller = 3;
+    $countDown.innerHTML = teller;
+      const interval = setInterval(() => {
+        teller -= 1;
+        $countDown.innerHTML = teller;
+        if(teller === 0){
+          clearInterval(interval);
+          $countDown.classList.add(`invisible`);
+        }
+      }, 1000);
+  };
+
+  const softRestart = e => {
+    e.preventDefault();
+    e.currentTarget.removeEventListener(`click`, softRestart, false);
+    softReset();
+    softStartGame();
+  };
+
+  const softReset = () => {
+    console.log(`yeah`);
+    document.getElementById(`game-over`).classList.add(`invisible`);
+    score = 0;
+    damage = 0;
+    counter = 0;
+    balloon.reset();
+  };
+
+  const hardRestart = e => {
+    e.preventDefault();
+    e.currentTarget.removeEventListener(`click`, hardRestart, false);
+    window.cancelAnimationFrame(renderAnimationFrame);
+    resetDom();
+    resetVars();
+    connectSocket();
+    game();
+  };
+
+  const gameOver = () => {
+    document.getElementById(`game-over`).classList.remove(`invisible`);
+    document.getElementById(`endscore`).innerHTML = `${score} KM`;
+
+    speed = 0;
+    toggleScoreCounting();
+
+    const $backbutton = document.getElementById(`back-button`);
+    const $trybutton = document.getElementById(`try-button`);
+
+    $trybutton.addEventListener(`click`, softRestart);
+    $backbutton.addEventListener(`click`, hardRestart);
+  };
+
+  const pauseGame = e => {
+    e.currentTarget.removeEventListener(`click`, pauseGame, false);
+    e.currentTarget.addEventListener(`click`, playGame);
+    speed = 0;
+    toggleScoreCounting();
+  };
+
+  const playGame = e => {
+    e.currentTarget.removeEventListener(`click`, playGame, false);
+    e.currentTarget.addEventListener(`click`, pauseGame);
+    speed = 3;
+    toggleScoreCounting();
+  };
+
+  const checkAlive = object => {
+    if (object.position.x < 0 && !frustum.intersectsObject(object)) {
+      return true;
+    }
+  };
+
+  const checkCollision = (bodyA, bodyB) => {
+    return bodyA.intersectsBox(bodyB);
+  };
+
+
+  //END GAME GAMELOGIC
+
+  //PITCH AND SOCKET
   const updatePitch = () => {
     const cycles = new Array;
     analyser.getFloatTimeDomainData(buf);
@@ -554,12 +634,6 @@ import IO from 'socket.io-client';
     });
   };
 
-  const checkAlive = object => {
-    if (object.position.x < 0 && !frustum.intersectsObject(object)) {
-      return true;
-    }
-  };
-
   const handleStream = stream => {
     // Create an AudioNode from the stream.
     const mediaStreamSource = audioCtx.createMediaStreamSource(stream);
@@ -570,9 +644,38 @@ import IO from 'socket.io-client';
     updatePitch();
   };
 
+  //resetVars
 
-  const checkCollision = (bodyA, bodyB) => {
-    return bodyA.intersectsBox(bodyB);
+  const resetVars = () => {
+    console.log(`joe`);
+      scene = false;
+      camera = false;
+      renderer = false;
+      frustum = false;
+      sceneWidthModifier = false;
+
+      landscapes = [];
+      clouds = [];
+      balloon = false;
+      paperPlanes = [];
+
+      p1ready = false;
+      p2ready = false;
+
+      myPitch = 20000;
+
+      speed = 0;
+
+      pitchUp = false;
+      pitch = 0;
+      lastShotPlane = false;
+      score = 0;
+      counter = 0;
+      damage = 0;
+
+      socket = false;
+      socketId = 0;
+      remoteSocketId = 0;
   };
 
   init();

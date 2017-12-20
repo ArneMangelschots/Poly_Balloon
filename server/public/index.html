@@ -25,10 +25,10 @@
 </script>
 <link href="/css/style.css" rel="stylesheet"></head>
 <body>
-  <div class="about">
+  <div id="about" class="about invisible">
     <div class="about-box">
       <img src="/assets/svg/about-us-title.svg" alt="about us">
-      <div class="close-button"></div>
+      <div id="close-button" class="close-button"></div>
     </div>
     <div class="about-description">
         <p>
@@ -69,7 +69,7 @@
       <header>
         <img src="/assets/svg/how-title.svg" alt="how to play title">
       </header>
-      <button class="question-button" type="button" name="info-button"></button>
+      <button id="question" class="question-button" type="button" name="info-button"></button>
     </div>
 
     <div class="players-section">
@@ -87,7 +87,7 @@
               and try to whistle a steady tone for 5 seconds!</p>
           </div>
           <div class="calibration-box">
-            <h1 class="green-info" id="succes">calibration succesfully</h1>
+            <h1 class="green-info" id="succes">calibration successful</h1>
             <button class="calibration-button" id="calib" type="button" name="calibration-button"></button>
             <div class="loading-bar"></div>
             <div class="loading-fill">
@@ -139,28 +139,33 @@
             <p>Scan this barcode to connect with your smarthpone and get some paper plane throwing-action going!</p>
           </div>
           <div class="qr-code-box">
-            <h1 class="purple-info" id="connected-info">calibration succesfully</h1>
+            <h1 class="purple-info" id="connected-info">connection successful</h1>
             <div id="qr" class="qr"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div id="interface" class="interface">
+  <div id="interface" class="interface invisible">
     <div class="game-frame">
       <div class="interface-box">
 
         <div class="damage-box">
-          <h1>dmg</h1>
           <img src="data:image/svg+xml;base64,PCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluICAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiCgkgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6YT0iaHR0cDovL25zLmFkb2JlLmNvbS9BZG9iZVNWR1ZpZXdlckV4dGVuc2lvbnMvMy4wLyIKCSB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjMyMy41cHgiIGhlaWdodD0iNDkuM3B4IiB2aWV3Qm94PSIwIDAgMzIzLjUgNDkuMyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzIzLjUgNDkuMzsiCgkgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzM4MTQwQzt9Cjwvc3R5bGU+CjxkZWZzPgo8L2RlZnM+CjxyZWN0IGNsYXNzPSJzdDAiIHdpZHRoPSIzMjMuNSIgaGVpZ2h0PSI0OS4zIi8+Cjwvc3ZnPgo=" class="dmg-meter" alt="">
-          <img src="data:image/svg+xml;base64,PCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluICAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiCgkgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6YT0iaHR0cDovL25zLmFkb2JlLmNvbS9BZG9iZVNWR1ZpZXdlckV4dGVuc2lvbnMvMy4wLyIKCSB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjM0MC40cHgiIGhlaWdodD0iNTguN3B4IiB2aWV3Qm94PSIwIDAgMzQwLjQgNTguNyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzQwLjQgNTguNzsiCgkgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzVCMjYxNjt9Cjwvc3R5bGU+CjxkZWZzPgo8L2RlZnM+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0wLDB2NTguN2gzNDAuNFYwSDB6IE0zMTYsMzMuOWgtNy4zVjQwdjAuMWgtOS4yaC00OS40SDMxLjZWMzRoLTcuM3YtOS4yaDcuM3YtNi4xdi0wLjFoMjE4LjVoNDkuNGg5LjJ2MC4xCgl2Ni4xaDcuM1YzMy45eiIvPgo8L3N2Zz4K" class="dmg-box" alt="">
+          <div class="dmg-fill">
+            <svg width="300" height="20" viewbox="0 0 300 20" xmlns="http://www.w3.org/2000/svg">
+              <rect id="damage-filler" width="0px" height="20" style="fill: #EC4056;"/>
+            </svg>
+          </div>
+          <img src="data:image/svg+xml;base64,PCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluICAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiCgkgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6YT0iaHR0cDovL25zLmFkb2JlLmNvbS9BZG9iZVNWR1ZpZXdlckV4dGVuc2lvbnMvMy4wLyIKCSB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjM0MC40cHgiIGhlaWdodD0iNTguN3B4IiB2aWV3Qm94PSIwIDAgMzQwLjQgNTguNyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzQwLjQgNTguNzsiCgkgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6IzVCMjYxNjt9Cjwvc3R5bGU+CjxkZWZzPgo8L2RlZnM+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0wLDB2NTguN2gzNDAuNFYwSDB6IE0zMTYsMzMuOWgtNy4zVjQwdjAuMWgtOS4yaC00OS40SDMxLjZWMzRoLTcuM3YtOS4yaDcuM3YtNi4xdi0wLjFoMjE4LjVoNDkuNGg5LjJ2MC4xCgl2Ni4xaDcuM1YzMy45eiIvPgo8L3N2Zz4K" class="dmg-loader" alt="">
+          <h1>dmg</h1>
         </div>
 
         <div class="distance-box">
           <h1 id="score">100</h1><h1>km</h1>
         </div>
 
-        <div class="pause-box">
+        <div class="pause-box" id="pause">
           <img src="/assets/svg/pause-button.svg" alt="pause button">
         </div>
       </div>
@@ -197,5 +202,5 @@
   </div>
   <div id="count-down" class="count-down">
   </div>
-<script type="text/javascript" src="/js/main.eb446abbd4ff081ee72b.js"></script></body>
+<script type="text/javascript" src="/js/main.7ff8e1b9ab46eaab543a.js"></script></body>
 </html>
