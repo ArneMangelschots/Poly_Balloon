@@ -20,7 +20,7 @@ import IO from 'socket.io-client';
   const SHADOW_MAP_WIDTH = 2048
   const SHADOW_MAP_HEIGHT = 1024;
 
-  const toLoad = [`landscape1`,`landscape2`, `landscape3`, `balloon`, `cloud`, `cloud1`, `cloud2`, `treeline`, `paperPlane`];
+  const toLoad = [`landscape1`,`landscape2`, `landscape3`, `balloon`, `balloon1`, `balloon2`, `balloon3`, `balloon4`, `cloud`, `cloud1`, `cloud2`, `treeline`, `paperPlane`];
 
   let renderAnimationFrame;
 
@@ -142,7 +142,8 @@ import IO from 'socket.io-client';
   };
 
   const setupBalloon = () => {
-    balloon = new Balloon(models.balloon.geometry, models.balloon.materials, sceneWidthModifier);
+    const balloonGeometrys = [models.balloon.geometry, models.balloon1.geometry, models.balloon2.geometry, models.balloon3.geometry, models.balloon4.geometry];
+    balloon = new Balloon(balloonGeometrys, models.balloon.materials, sceneWidthModifier);
     scene.add(balloon);
   };
 
@@ -397,7 +398,6 @@ import IO from 'socket.io-client';
     paperPlanes.forEach(paperPlane => {
       if(checkCollision(paperPlane.body, balloon.body)){
         balloon.hit();
-        balloon.gravityY += .1;
         paperPlane.reset();
         socket.emit(`planeback`, remoteSocketId, {
           planeBack: true

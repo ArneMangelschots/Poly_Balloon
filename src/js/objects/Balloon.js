@@ -3,10 +3,12 @@ const TWEEN = require('tween.js');
 
 export default class Balloon extends THREE.Mesh {
 
-  constructor(geometry, materials, sceneWidthModifier) {
-    super(geometry, materials);
-    this.position.set(sceneWidthModifier * -1.4, -175, - 600);
-    this.scale.set(.4, .4, .4);
+  constructor(geometrys, materials, sceneWidthModifier) {
+    super(geometrys[0], materials);
+    this.geometrys = geometrys;
+    this.dmgCounter = 0;
+    this.position.set(sceneWidthModifier * -1.4, -200, - 600);
+    this.scale.set(.48, .48, .48);
     this.rotation.order = `ZYX`;
     this.castShadow = true;
     this.reveiveShadow = true;
@@ -65,12 +67,19 @@ export default class Balloon extends THREE.Mesh {
     this.position.y -= speed * this.gravityY;
     this.updateMatrix();
     this.body.setFromObject(this);
-    if(this.position.y <= -185){
+    if(this.position.y <= -210){
       this.balloonDeath();
     }
   }
 
   hit = () => {
+    if(this.dmgCounter < 4){
+      this.dmgCounter += 1;
+    }else{
+      this.dmgCounter = 4;
+    }
+    this.gravityY += .2;
+    this.geometry = this.geometrys[this.dmgCounter];
     const start = {z: this.rotation.z};
     const target = {z: 30 * (Math.PI / 180)};
     const tween = new TWEEN.Tween(start).to(target, 250);
@@ -105,5 +114,7 @@ export default class Balloon extends THREE.Mesh {
   reset = () => {
     this.alive = true;
     this.gravityY = .4;
+    this.dmgCounter = 0;
+    this.geometry = this.geometrys[0];
   }
 }
