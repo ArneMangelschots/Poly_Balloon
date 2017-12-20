@@ -555,6 +555,17 @@ button:focus {
   align-items: center;
 }
 
+.pause-button {
+  background: url(../assets/svg/pause-button.svg) no-repeat;
+  width: 3.8rem;
+  height: 4.6rem;
+  cursor: pointer;
+}
+
+.pause-button:hover {
+  background: url(../assets/svg/pause-button-hover.svg) no-repeat;
+}
+
 .game-over {
   display: flex;
   align-items: center;
@@ -623,12 +634,13 @@ button:focus {
   justify-content: space-between;
   align-items: center;
   margin-top: 5vh;
+  width: 50rem;
 
   & .back-button {
     background: url(../assets/svg/back-button.svg) no-repeat;
     background-size: cover;
-    width: 14rem;
-    height: 5rem;
+    width: 24rem;
+    height: 5.3rem;
     border: none;
     cursor: pointer;
   }
@@ -641,8 +653,8 @@ button:focus {
   & .try-button {
     background: url(../assets/svg/try-button.svg) no-repeat;
     background-size: cover;
-    width: 18rem;
-    height: 5rem;
+    width: 24rem;
+    height: 5.3rem;
     border: none;
     cursor: pointer;
   }
