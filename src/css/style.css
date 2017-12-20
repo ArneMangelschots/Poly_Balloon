@@ -229,8 +229,6 @@ button:focus {
   flex-flow: column nowrap;
   justify-content: baseline;
   align-items: center;
-  padding-top: .5rem;
-  margin-top: 2rem;
 
   & img {
     transform: scale(.9);
@@ -238,7 +236,7 @@ button:focus {
 }
 
 .player-title {
-  width: 70%;
+  width: 60%;
 }
 
 @keyframes players {
@@ -291,7 +289,7 @@ button:focus {
 }
 
 .player-image {
-  width: 60%;
+  width: 50%;
   margin-top: 1rem;
 }
 
@@ -557,6 +555,7 @@ button:focus {
 
 .pause-button {
   background: url(../assets/svg/pause-button.svg) no-repeat;
+  background-size: contain;
   width: 3.8rem;
   height: 4.6rem;
   cursor: pointer;
@@ -564,6 +563,7 @@ button:focus {
 
 .pause-button:hover {
   background: url(../assets/svg/pause-button-hover.svg) no-repeat;
+  background-size: contain;
 }
 
 .game-over {
@@ -638,7 +638,7 @@ button:focus {
 
   & .back-button {
     background: url(../assets/svg/back-button.svg) no-repeat;
-    background-size: cover;
+    background-size: contain;
     width: 24rem;
     height: 5.3rem;
     border: none;
@@ -647,12 +647,12 @@ button:focus {
 
   & .back-button:hover {
     background: url(../assets/svg/back-button-hover.svg) no-repeat;
-    background-size: cover;
+    background-size: contain;
   }
 
   & .try-button {
     background: url(../assets/svg/try-button.svg) no-repeat;
-    background-size: cover;
+    background-size: contain;
     width: 24rem;
     height: 5.3rem;
     border: none;
@@ -661,7 +661,7 @@ button:focus {
 
   & .try-button:hover {
     background: url(../assets/svg/try-button-hover.svg) no-repeat;
-    background-size: cover;
+    background-size: contain;
   }
 }
 

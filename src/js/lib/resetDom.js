@@ -1,6 +1,35 @@
 const resetDom = () => {
+  console.log(document.getElementById(`body`));
   document.getElementById(`body`).innerHTML = ``;
-  document.getElementById(`body`).innerHTML = `  <div id="startscreen" class="startscreen">
+  document.getElementById(`body`).innerHTML = `  <div id="about" class="about invisible">
+      <div class="about-box">
+        <img src="./assets/svg/about-us-title.svg" alt="about us">
+        <div id="close-button" class="close-button"></div>
+      </div>
+      <div class="about-description">
+          <p>
+            we are devine students ( <cite>arne</cite> mangelschots and <cite>nicolas</cite> vanlerberghe) who were assigned to make an experimental web application.
+          </p>
+        <br>
+          <p>
+            <p>The techniques we use :</p>
+              <ul>
+                <li><cite>WebGl - Three JS</cite></li>
+                <li><cite>Web Audio API</cite></li>
+                <li><cite>CWilso Pitch Detect</cite></li>
+              </ul>
+          </p>
+            <br>
+          <p> We used three.js to make our <cite>landscape environment</cite> and other models, websockets to <cite>connect your phone</cite> to shoot paper airplane
+            and web audio to <cite>calibrate your whistle</cite> and move the balloon!
+          </p>
+
+        <div class="devine-logo">
+          <img src="./assets/svg/devine-logo.svg" alt="devine logo">
+        </div>
+      </div>
+    </div>
+    <div id="startscreen" class="startscreen">
       <div class="title-box">
         <header class="big-title">
           <div class="poly-box">
@@ -19,9 +48,9 @@ const resetDom = () => {
       <div class="how-title-box">
         <div class="invisible-box"></div>
         <header>
-          <img src="./assets/svg/how-title.svg" alt="how to play title">
+          <img src="./assets/svg/how-title.svg" alt="how to play title" width="400px"/>
         </header>
-        <button class="question-button" type="button" name="info-button"></button>
+        <button id="question" class="question-button" type="button" name="info-button"></button>
       </div>
 
       <div class="players-section">
@@ -39,7 +68,7 @@ const resetDom = () => {
                 and try to whistle a steady tone for 5 seconds!</p>
             </div>
             <div class="calibration-box">
-              <h1 class="green-info" id="succes">calibration succesfully</h1>
+              <h1 class="green-info" id="succes">calibration successful</h1>
               <button class="calibration-button" id="calib" type="button" name="calibration-button"></button>
               <div class="loading-bar"></div>
               <div class="loading-fill">
@@ -62,7 +91,7 @@ const resetDom = () => {
               </div>
               <h1 class="grey-info">not working properly?</h1>
               <button class="recalibration-button" id="recal-button" type="button" name="recalibration-button"></button>
-              <button type="button" name="button" id="ready-p1">ready to go!</button>
+              <button class="ready-button" type="button" name="button" id="ready-p1"></button>
             </div>
 
           </div>
@@ -70,9 +99,14 @@ const resetDom = () => {
         </div>
         <div class="play">
           <img src="./assets/svg/vs.svg" alt="versus">
-          <button class="play-button" id="playbutton" type="button" name="play-button"></button>
-          <div class="waiting invisible" id="waiting">
-            <p>Waiting for <br /><img src="./assets/svg/player-one.svg" class="p1" id="p1" alt="player-one"> <br /><span id="and">and</span> <br /> <span class="p2"><img src="./assets/svg/player-two.svg" id="p2"  class="p2" alt="player-two"></span> <br />to get ready!</p>
+          <button class="play-button invisible" id="playbutton" type="button" name="play-button"></button>
+          <div class="waiting" id="waiting">
+            <p>Waiting for <br /><img src="./assets/svg/player-one.svg" class="p1" id="p1" alt="player-one"><br />
+              <span id="and">and</span><br />
+              <span class="p2">
+                <img src="./assets/svg/player-two.svg" id="p2"  class="p2" alt="player-two">
+              </span>
+              <br />to get ready!</p>
           </div>
         </div>
         <div class="player-two">
@@ -86,7 +120,7 @@ const resetDom = () => {
               <p>Scan this barcode to connect with your smarthpone and get some paper plane throwing-action going!</p>
             </div>
             <div class="qr-code-box">
-              <h1 class="purple-info" id="connected-info">calibration succesfully</h1>
+              <h1 class="purple-info" id="connected-info">connection successful</h1>
               <div id="qr" class="qr"></div>
             </div>
           </div>
@@ -112,8 +146,9 @@ const resetDom = () => {
             <h1 id="score">100</h1><h1>km</h1>
           </div>
 
-          <div class="pause-box">
-            <img src="./assets/svg/pause-button.svg" alt="pause button">
+          <div class="pause-box" id="pause">
+            <!-- <img src="./assets/svg/pause-button.svg" alt="pause button" width="40px"> -->
+            <div class="pause-button"></div>
           </div>
         </div>
       </div>

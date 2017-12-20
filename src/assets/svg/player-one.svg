@@ -1,15 +1,8 @@
-<<<<<<< HEAD
 <!-- Generator: Adobe Illustrator 19.2.1, SVG Export Plug-In  -->
 <svg version="1.1"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-	 x="0px" y="0px" width="256.4px" height="55.7px" viewBox="0 0 256.4 55.7" style="enable-background:new 0 0 256.4 55.7;"
+	 x="0px" y="0px" width="313.3px" height="68px" viewBox="0 0 313.3 68" style="enable-background:new 0 0 313.3 68;"
 	 xml:space="preserve">
-=======
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 22.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="385.1px" height="68.2px" viewBox="0 0 385.1 68.2" style="enable-background:new 0 0 385.1 68.2;" xml:space="preserve">
->>>>>>> f13be8e509e3caa3af075d88f4c1585a41100f2c
 <style type="text/css">
 	.st0{fill:#1B8E6F;}
 	.st1{fill:#3CEA8A;}
@@ -18,47 +11,24 @@
 <defs>
 </defs>
 <g>
-<<<<<<< HEAD
-	<polygon class="st0" points="250,6.3 243.7,6.3 6.4,6.3 6.4,12.7 0,12.7 0,49.4 6.4,49.4 6.4,55.7 243.7,55.7 250,55.7 250,49.4
-		256.4,49.4 256.4,12.7 250,12.7 	"/>
-	<polygon class="st1" points="250,0 243.7,0 6.4,0 6.4,6.4 0,6.4 0,43 6.4,43 6.4,49.4 243.7,49.4 250,49.4 250,43 256.4,43
-		256.4,6.4 250,6.4 	"/>
+	<polygon class="st0" points="305.5,7.7 297.7,7.7 7.8,7.7 7.8,15.5 0,15.5 0,60.2 7.8,60.2 7.8,68 297.7,68 305.5,68 305.5,60.2
+		313.3,60.2 313.3,15.5 305.5,15.5 	"/>
+	<polygon class="st1" points="305.5,0 297.7,0 7.8,0 7.8,7.8 0,7.8 0,52.5 7.8,52.5 7.8,60.3 297.7,60.3 305.5,60.3 305.5,52.5
+		313.3,52.5 313.3,7.8 305.5,7.8 	"/>
 	<g>
-		<path class="st2" d="M76,32.2h-4.4V14.7h11V17h2.2v6.6h-2.2v2.2H76C76,25.8,76,32.2,76,32.2z M76,21.3h4.4v-2.2H76V21.3z"/>
-		<path class="st2" d="M89.1,30.1h-2.2V14.7h4.4v13.1h8.7v4.4h-11L89.1,30.1L89.1,30.1z"/>
-		<path class="st2" d="M106.6,32.2h-4.4V16.9h2.2v-2.2h8.7v2.2h2.2v15.3H111v-6.6h-4.4L106.6,32.2L106.6,32.2z M111,21.3v-2.2h-4.4
-			v2.2H111z"/>
-		<path class="st2" d="M117.6,14.7h4.4v6.6h4.4v-6.6h4.4v8.7h-2.2v2.2h-2.2v6.6h-4.4v-6.6h-2.2v-2.2h-2.2v-8.7H117.6z"/>
-		<path class="st2" d="M135.1,30.1h-2.2V17h2.2v-2.2h11v4.4h-8.7v2.2h4.4v4.4h-4.4v2.2h8.7v4.4h-11
-			C135.1,32.3,135.1,30.1,135.1,30.1z"/>
-		<path class="st2" d="M154.8,25.6h-2.2v6.6h-4.4V14.7h11V17h2.2v6.6h-2.2v2.2h2.2v6.6H157V28h-2.2V25.6z M152.6,21.3h4.4v-2.2h-4.4
-			V21.3z"/>
-		<path class="st2" d="M178.8,14.7h4.4v17.5h-4.4V14.7z"/>
-	</g>
-</g>
-<g>
-	<rect x="12.3" y="3.2" class="st2" width="28.5" height="3.6"/>
-	<rect x="44.8" y="3.2" class="st2" width="3.6" height="3.6"/>
-=======
-	<polygon class="st0" points="341.4,7.7 333.6,7.7 43.7,7.7 43.7,15.5 35.9,15.5 35.9,60.2 43.7,60.2 43.7,68 333.6,68 341.4,68 
-		341.4,60.2 349.2,60.2 349.2,15.5 341.4,15.5 	"/>
-	<polygon class="st1" points="341.4,0 333.6,0 43.7,0 43.7,7.8 35.9,7.8 35.9,52.5 43.7,52.5 43.7,60.3 333.6,60.3 341.4,60.3 
-		341.4,52.5 349.2,52.5 349.2,7.8 341.4,7.8 	"/>
-	<g>
-		<path class="st2" d="M128.8,39.4h-5.3V17.9h13.4v2.7h2.7v8h-2.7v2.7h-8V39.4z M128.8,26h5.3v-2.7h-5.3V26z"/>
-		<path class="st2" d="M144.8,36.7h-2.7V17.9h5.3V34h10.7v5.3h-13.4L144.8,36.7L144.8,36.7z"/>
-		<path class="st2" d="M166.1,39.4h-5.3V20.6h2.7v-2.7h10.7v2.7h2.7v18.7h-5.3v-8h-5.3L166.1,39.4L166.1,39.4z M171.6,26v-2.7h-5.3
-			V26H171.6z"/>
-		<path class="st2" d="M179.5,17.9h5.3v8h5.3v-8h5.3v10.7h-2.6v2.7h-2.7v8h-5.3v-8h-2.7v-2.7h-2.7L179.5,17.9L179.5,17.9z"/>
-		<path class="st2" d="M200.9,36.7h-2.7v-16h2.7v-2.7h13.4v5.3h-10.7V26h5.3v5.3h-5.3V34h10.7v5.3h-13.4V36.7z"/>
-		<path class="st2" d="M225,31.3h-2.7v8h-5.3V17.9h13.4v2.7h2.7v8h-2.7v2.7h2.7v8h-5.3V34H225L225,31.3L225,31.3z M222.3,26h5.3
+		<path class="st2" d="M92.9,39.4h-5.3V17.9H101v2.7h2.7v8H101v2.7h-8L92.9,39.4L92.9,39.4z M92.9,26h5.3v-2.7h-5.3V26z"/>
+		<path class="st2" d="M108.9,36.7h-2.7V17.9h5.3V34h10.7v5.3h-13.4L108.9,36.7L108.9,36.7z"/>
+		<path class="st2" d="M130.2,39.4h-5.3V20.6h2.7v-2.7h10.7v2.7h2.7v18.7h-5.3v-8h-5.3L130.2,39.4L130.2,39.4z M135.7,26v-2.7h-5.3
+			V26H135.7z"/>
+		<path class="st2" d="M143.6,17.9h5.3v8h5.3v-8h5.3v10.7h-2.6v2.7h-2.7v8h-5.3v-8h-2.7v-2.7h-2.7L143.6,17.9L143.6,17.9z"/>
+		<path class="st2" d="M165,36.7h-2.7v-16h2.7V18h13.4v5.3h-10.7V26h5.3v5.3h-5.3V34h10.7v5.3H165V36.7z"/>
+		<path class="st2" d="M189.1,31.3h-2.7v8h-5.3V17.9h13.4v2.7h2.7v8h-2.7v2.7h2.7v8h-5.3V34h-2.8V31.3L189.1,31.3z M186.4,26h5.3
 			v-2.7h-5.3V26z"/>
-		<path class="st2" d="M254.4,17.9h5.3v21.3h-5.3V17.9z"/>
+		<path class="st2" d="M218.5,17.9h5.3v21.3h-5.3L218.5,17.9L218.5,17.9z"/>
 	</g>
 </g>
 <g>
-	<rect x="51" y="3.9" class="st2" width="34.9" height="4.4"/>
-	<rect x="90.7" y="3.9" class="st2" width="4.4" height="4.4"/>
->>>>>>> f13be8e509e3caa3af075d88f4c1585a41100f2c
+	<rect x="15.1" y="3.9" class="st2" width="34.9" height="4.4"/>
+	<rect x="54.8" y="3.9" class="st2" width="4.4" height="4.4"/>
 </g>
 </svg>

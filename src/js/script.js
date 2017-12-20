@@ -166,7 +166,6 @@ import IO from 'socket.io-client';
     let treelineX = - 1200;
     for (let i = 0;i < 3;i ++) {
       const treeline = new Treeline(models.treeline.geometry, models.treeline.materials, treelineX, 50, - 600);
-      console.log(treeline);
       treelines.push(treeline);
       scene.add(treeline);
       treelineX += 1300;
@@ -198,7 +197,6 @@ import IO from 'socket.io-client';
     scene.add(paperPlane);
     //on socket update shoot paperplane
     socket.on(`shoot`, data => {
-      console.log(data);
       let paperPlaneToShoot = false;
       //check if any not flying planes
       const getAlivePlanes = paperPlanes.filter(pp => !pp.flying);
@@ -236,7 +234,7 @@ import IO from 'socket.io-client';
     const $calibrationButton = document.getElementById(`calib`);
     const $playbutton = document.getElementById(`playbutton`);
 
-    $about.addEventListener(`click`,aboutUs);
+    $about.addEventListener(`click`, aboutUs);
 
     $calibrationButton.addEventListener(`click`,e => {
       e.preventDefault();
@@ -249,7 +247,10 @@ import IO from 'socket.io-client';
 
   const aboutUs = () => {
     document.getElementById(`about`).classList.remove(`invisible`);
-
+    document.getElementById(`close-button`).addEventListener(`click`, e => {
+      e.preventDefault();
+      document.getElementById(`about`).classList.add(`invisible`);
+    });
   }
 
   const calibrationTestScreen = () => {
@@ -461,7 +462,6 @@ import IO from 'socket.io-client';
   };
 
   const toggleScoreCounting = () => {
-    console.log(`piemel`);
     if(speed > 0){
     counter = setInterval(() => {
         score += 1;
@@ -472,7 +472,6 @@ import IO from 'socket.io-client';
   };
 
   const superStartGame = e => {
-    console.log(`superStartGame`);
     e.preventDefault();
     e.currentTarget.removeEventListener(`click`, superStartGame, false);
     document.getElementById(`intro-polyballoon`).classList.add(`invisible`);
@@ -535,7 +534,6 @@ import IO from 'socket.io-client';
   };
 
   const softReset = () => {
-    console.log(`yeah`);
     document.getElementById(`game-over`).classList.add(`invisible`);
     document.getElementById(`damage-filler`).setAttribute(`width`, `0px`)
     score = 0;
@@ -633,8 +631,7 @@ import IO from 'socket.io-client';
       }
     });
 
-    socket.on(`connected`, ({message, remoteId}) => {
-      console.log(message);
+    socket.on(`connected`, ({remoteId}) => {
       document.getElementById(`connected-info`).classList.add(`fade-in`);
       p2ready = true;
       handlePlayer2Ready();
@@ -663,7 +660,6 @@ import IO from 'socket.io-client';
   //resetVars
 
   const resetVars = () => {
-    console.log(`joe`);
       scene = false;
       camera = false;
       renderer = false;
