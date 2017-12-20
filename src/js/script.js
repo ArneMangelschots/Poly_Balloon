@@ -431,6 +431,9 @@ import IO from 'socket.io-client';
 
   const handleDamage = () => {
     const $dmgFiller = document.getElementById(`damage-filler`);
+    if(damage === 250){
+      return;
+    }
     damage += 50;
     $dmgFiller.setAttribute(`width`, `${damage}px`)
   };
