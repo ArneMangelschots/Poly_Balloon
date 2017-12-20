@@ -203,6 +203,66 @@ button:focus {
           transform: scale(1.1);
 }
 
+.about {
+  background-color: #8fcafd;
+  height: 100%;
+  width: 100%;
+  padding: 8vh 8vw 0;
+}
+
+.about-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.close-button {
+  background: url(/assets/svg/close-button.svg) no-repeat;
+  width: 89px;
+  width: 8.9rem;
+  height: 98px;
+  height: 9.8rem;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background: url(/assets/svg/close-button-hover.svg) no-repeat;
+}
+
+.about-description {
+  font-family: edituno;
+  color: white;
+  font-size: 40px;
+  font-size: 4rem;
+  line-height: 50px;
+  line-height: 5rem;
+  margin-top: 5vh
+}
+
+.about-description cite {
+  color: #5e9ecc;
+}
+
+.devine-logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
 .intro-polyballoon, .startscreen, .game-over {
   position: absolute;
   width: 100vw;
@@ -580,6 +640,22 @@ button:focus {
   height: 3.2rem;
   cursor: pointer;
   border: none;
+}
+
+.ready-button {
+  background: url(/assets/svg/ready-button.svg) no-repeat;
+  width: 148px;
+  width: 14.8rem;
+  height: 32px;
+  height: 3.2rem;
+  cursor: pointer;
+  border: none;
+  margin-top: 10px;
+  margin-top: 1rem;
+}
+
+.ready-button:hover {
+  background: url(/assets/svg/ready-button-hover.svg) no-repeat;
 }
 
 .qr-code-box {

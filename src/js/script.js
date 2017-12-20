@@ -231,8 +231,12 @@ import IO from 'socket.io-client';
     window.removeEventListener(`keydown`, setupIntro, false);
     document.getElementById(`intro-polyballoon`).classList.remove(`invisible`);
     document.getElementById(`startscreen`).classList.add(`invisible`);
+
+    const $about = document.getElementById(`question`);
     const $calibrationButton = document.getElementById(`calib`);
     const $playbutton = document.getElementById(`playbutton`);
+
+    $about.addEventListener(`click`,aboutUs);
 
     $calibrationButton.addEventListener(`click`,e => {
       e.preventDefault();
@@ -242,6 +246,11 @@ import IO from 'socket.io-client';
 
     $playbutton.addEventListener(`click`, superStartGame);
   };
+
+  const aboutUs = () => {
+    document.getElementById(`about`).classList.remove(`invisible`);
+
+  }
 
   const calibrationTestScreen = () => {
     const $calibrationTest = document.getElementById(`calibration-test`);
