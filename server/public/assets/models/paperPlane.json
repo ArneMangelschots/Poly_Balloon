@@ -1,0 +1,35 @@
+{
+    "metadata":{
+        "generator":"io_three",
+        "vertices":7,
+        "uvs":0,
+        "faces":4,
+        "materials":1,
+        "colors":0,
+        "normals":4,
+        "version":3,
+        "type":"Geometry"
+    },
+    "normals":[0.984558,0.155094,-0.0811895,-0.965123,0.258616,0.040691,-0.136771,0.98389,0.115125,0.161341,0.982472,0.0933733],
+    "vertices":[45.551,13.0985,-94.734,-71.9302,15.5147,-90.5322,-2.22799,0.393449,121.506,45.9851,12.8624,-94.7097,-15.6154,-18.3804,-76.7023,-22.37,21.4641,-82.4996,-5.53714,20.1939,-82.8257],
+    "uvs":[],
+    "faces":[34,2,4,5,0,0,0,0,34,4,2,6,0,1,1,1,34,5,1,2,0,2,2,2,35,3,0,6,2,0,3,3,3,3],
+    "colors":[],
+    "materials":[{
+        "colorEmissive":[0,0,0],
+        "transparent":false,
+        "blending":1,
+        "shading":"lambert",
+        "doubleSided":false,
+        "visible":true,
+        "wireframe":false,
+        "colorDiffuse":[0.8,0.8,0.8],
+        "depthTest":true,
+        "depthWrite":true,
+        "DbgName":"Material.001",
+        "DbgIndex":0,
+        "DbgColor":15658734,
+        "opacity":1,
+        "vertexColors":false
+    }]
+}

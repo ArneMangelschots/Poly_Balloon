@@ -1,0 +1,10 @@
+
+@font-face {
+  font-family: edituno;
+  src:
+    url(editundo-webfont.woff2) format('woff2'),
+    url(editundo-webfont.woff) format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
